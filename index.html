@@ -247,38 +247,51 @@
 
     .problem { background: var(--bg); }
 
-    /* Spectrum tone system: sections gradually shift through the same
-       teal -> yellow -> orange -> red spectrum used in .gradient-text,
-       aqua near the top of the page fading down into brand red. */
+    /* Spectrum tone system: a single continuous gradient runs down the
+       <body> through the teal -> yellow -> orange -> red spectrum used in
+       .gradient-text, so the wash flows through every section rather than
+       resetting per-section. Each section stays transparent and only adds
+       a soft corner highlight of its own hue for local texture/variation. */
+    body {
+        background: linear-gradient(180deg,
+            rgba(198,21,32,0.12) 8.79%, rgba(198,21,32,0.2) 12.5%,
+            rgba(224,68,27,0.108) 13.65%, rgba(224,68,27,0.18) 17.19%,
+            rgba(251,146,60,0.096) 22.87%, rgba(251,146,60,0.16) 26.54%,
+            rgba(250,204,21,0.09) 28.1%, rgba(250,204,21,0.15) 34.36%,
+            rgba(45,212,191,0.084) 36.25%, rgba(45,212,191,0.14) 41.97%,
+            rgba(45,212,191,0.084) 43.48%, rgba(45,212,191,0.14) 47.33%,
+            rgba(45,212,191,0.084) 48.51%, rgba(45,212,191,0.14) 52.05%,
+            rgba(45,212,191,0.084) 53.19%, rgba(45,212,191,0.14) 56.86%,
+            rgba(250,204,21,0.09) 57.95%, rgba(250,204,21,0.15) 61.16%,
+            rgba(251,146,60,0.096) 62.35%, rgba(251,146,60,0.16) 66.66%,
+            rgba(224,68,27,0.108) 75.16%, rgba(224,68,27,0.18) 79.36%,
+            rgba(198,21,32,0.12) 85.68%, rgba(198,21,32,0.2) 89.55%),
+            #0d0d0d;
+    }
     section.tone-teal {
         background:
-            radial-gradient(ellipse 900px 550px at 12% 0%, rgba(45,212,191,0.11), transparent 60%),
-            radial-gradient(ellipse 800px 480px at 88% 100%, rgba(45,212,191,0.07), transparent 60%),
-            #0d0d0d;
+            radial-gradient(ellipse 900px 550px at 12% 0%, rgba(45,212,191,0.13), transparent 60%),
+            radial-gradient(ellipse 800px 480px at 88% 100%, rgba(45,212,191,0.09), transparent 60%);
     }
     section.tone-yellow {
         background:
-            radial-gradient(ellipse 900px 550px at 88% 0%, rgba(250,204,21,0.12), transparent 60%),
-            radial-gradient(ellipse 800px 480px at 8% 100%, rgba(45,212,191,0.05), transparent 60%),
-            #0d0d0d;
+            radial-gradient(ellipse 900px 550px at 88% 0%, rgba(250,204,21,0.14), transparent 60%),
+            radial-gradient(ellipse 800px 480px at 8% 100%, rgba(250,204,21,0.08), transparent 60%);
     }
     section.tone-orange {
         background:
-            radial-gradient(ellipse 900px 550px at 12% 0%, rgba(251,146,60,0.12), transparent 60%),
-            radial-gradient(ellipse 800px 480px at 88% 100%, rgba(250,204,21,0.07), transparent 60%),
-            #0d0d0d;
+            radial-gradient(ellipse 900px 550px at 12% 0%, rgba(251,146,60,0.14), transparent 60%),
+            radial-gradient(ellipse 800px 480px at 88% 100%, rgba(251,146,60,0.08), transparent 60%);
     }
     section.tone-red-orange {
         background:
-            radial-gradient(ellipse 900px 550px at 88% 0%, rgba(249,115,22,0.14), transparent 60%),
-            radial-gradient(ellipse 800px 480px at 8% 100%, rgba(198,21,32,0.09), transparent 60%),
-            #0d0d0d;
+            radial-gradient(ellipse 900px 550px at 88% 0%, rgba(249,115,22,0.16), transparent 60%),
+            radial-gradient(ellipse 800px 480px at 8% 100%, rgba(198,21,32,0.1), transparent 60%);
     }
     section.tone-red {
         background:
-            radial-gradient(ellipse 900px 550px at 15% 0%, rgba(198,21,32,0.14), transparent 60%),
-            radial-gradient(ellipse 800px 480px at 85% 100%, rgba(198,21,32,0.10), transparent 60%),
-            #0d0d0d;
+            radial-gradient(ellipse 900px 550px at 15% 0%, rgba(198,21,32,0.16), transparent 60%),
+            radial-gradient(ellipse 800px 480px at 85% 100%, rgba(198,21,32,0.12), transparent 60%);
     }
 
     .problem.gradient-thermal {
@@ -347,13 +360,13 @@
         -webkit-text-fill-color: transparent;
         color: transparent;
         text-shadow: none;
-        -webkit-text-stroke: 0.7px rgba(255,255,255,0.45);
+        -webkit-text-stroke: 1px rgba(255,255,255,0.9);
     }
     .section-highlight::before {
         content: '';
         position: absolute;
         inset: -20px -28px;
-        background: radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, rgba(198,21,32,0.22) 45%, transparent 75%);
+        background: radial-gradient(ellipse at center, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.1) 45%, transparent 75%);
         filter: blur(10px);
         z-index: -1;
         pointer-events: none;
@@ -427,22 +440,41 @@
     }
 
     .stats {
+        position: relative;
+        overflow: hidden;
+        color: #ffffff;
+        text-align: center;
+    }
+    .stats video {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        object-fit: cover;
+        z-index: 0;
+        opacity: 0.8;
+    }
+    .stats::before {
+        content: '';
+        position: absolute;
+        inset: 0;
         background:
             radial-gradient(ellipse 750px 550px at 0% 0%, rgba(0,0,0,0.55), transparent 55%),
             radial-gradient(ellipse 750px 550px at 100% 100%, rgba(0,0,0,0.5), transparent 55%),
             radial-gradient(ellipse 950px 700px at 50% 42%, var(--red-light) 0%, var(--red) 60%, #7a0d13 100%);
-        color: #ffffff;
-        text-align: center;
+        opacity: 0.62;
+        z-index: 1;
     }
-    .stats h2 { color: #ffffff; }
+    .stats > * { position: relative; z-index: 2; }
+    .stats h2 { color: #ffffff; text-shadow: 0 2px 12px rgba(0,0,0,0.7); }
     .stats .big-stat {
         font-family: 'Bebas Neue', sans-serif;
         font-size: 76px;
         color: #ffffff;
         margin-bottom: 12px;
         letter-spacing: 1px;
+        text-shadow: 0 3px 16px rgba(0,0,0,0.75);
     }
-    .stats p { font-family: 'Montserrat', sans-serif; color: rgba(255,255,255,0.97); font-size: 17px; font-weight: 500; line-height: 1.8; }
+    .stats p { font-family: 'Montserrat', sans-serif; color: rgba(255,255,255,0.97); font-size: 17px; font-weight: 500; line-height: 1.8; text-shadow: 0 1px 6px rgba(0,0,0,0.7); }
 
     .results {
         background:
@@ -564,12 +596,15 @@
     }
     .logo-badge {
         background: #ffffff;
-        border-radius: 18px;
-        padding: 20px 28px;
+        border-radius: 14px;
+        padding: 10px;
         margin-bottom: 24px;
         box-shadow: 0 12px 34px rgba(0,0,0,0.35);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
-    .contact-left img { height: 300px; width: auto; max-width: 100%; object-fit: contain; display: block; }
+    .contact-left img { height: 340px; width: auto; max-width: 100%; object-fit: contain; display: block; }
     .contact-left h3 {
         font-size: 28px;
         color: #fff;
@@ -678,7 +713,7 @@
 <body>
 
 <nav>
-    <a href="#top" aria-label="Back to top" style="display:block; line-height:0;">
+    <a href="#top" aria-label="Back to top" style="display:block; line-height:0;" onclick="event.preventDefault(); window.scrollTo({top:0, behavior:'smooth'});">
         <img class="logo-img" src="./assets/logo-horizontal-white.png" alt="Legacy Technology Lab">
     </a>
     <div class="links">
@@ -725,8 +760,8 @@
 
 <!-- Vision & Mission -->
 <section class="problem tone-red-orange fade-in">
-    <h2><span class="section-highlight">Our Vision &amp; Mission</span></h2>
-    <p class="section-subtitle one-line">Building the next generation of commercial roofing professionals</p>
+    <h2><span class="section-highlight">Vision &amp; Mission</span></h2>
+    <p class="section-subtitle one-line">Revolutionizing how commercial roofs are assessed, maintained, and preserved</p>
     <div class="grid-2">
         <div class="info-card">
             <h4>The Challenge</h4>
@@ -741,6 +776,9 @@
 
 <!-- 80% stat -->
 <section class="stats fade-in">
+    <video autoplay muted loop playsinline>
+        <source src="./assets/problem-area.mp4" type="video/mp4">
+    </video>
     <h2>The Central Problem</h2>
     <div class="big-stat">80%</div>
     <p style="font-size: 21px; margin-bottom: 28px; max-width: 800px; margin-left: auto; margin-right: auto; font-family: 'Montserrat', sans-serif; font-weight: 500;">of commercial roofs that are replaced do not need to be</p>
@@ -1039,7 +1077,7 @@
     <p class="section-subtitle one-line">Better data. Better decisions. Better outcomes.</p>
     <div class="contact-wrap">
         <div class="contact-left">
-            <div class="logo-badge"><img src="./assets/color-logo.png" alt="Legacy Technology Lab"></div>
+            <div class="logo-badge"><img src="./assets/color-logo-cropped.png" alt="Legacy Technology Lab"></div>
             <h3>Let's talk about your portfolio.</h3>
             <p>Legacy becomes your centralized solution to detect hidden roof issues before they become costly failures — enabling smarter repairs, longer roof life, lower capital costs, and data-driven decisions.</p>
             <div class="contact-detail"><span class="icon"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></span><span>405-442-2120</span></div>
