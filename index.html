@@ -280,79 +280,75 @@
         text-wrap: balance;
     }
 
-    /* Per-section tone system: each section gets its own named hue, but the
-       corner facing a neighboring tone-section MATCHES that neighbor's
-       facing corner (same color + same side) so the wash carries smoothly
-       across the seam instead of cutting hard at the section boundary.
-       Full-width bands bridge into/out of the opaque "special" sections
-       (stats, truscore, results) so those hard-color sections don't create
-       a visible line either. Positions vary section to section for texture. */
+    /* Per-section tone system: every section gets the SAME kind of accent —
+       a tight, small corner glow, not a big center wash — and the corner
+       facing a neighboring tone-section matches that neighbor's facing
+       corner exactly (same color + same side + same tight size) so the
+       seam blends with no visible line. No two accents are "different
+       kinds"; only their color/corner varies. */
     body { background: #0a0a0a; }
 
     section.tone-red-a {
         background:
-            radial-gradient(ellipse 900px 700px at 50% 45%, rgba(198,21,32,0.16), transparent 62%),
-            radial-gradient(ellipse 800px 520px at 80% 100%, rgba(236,72,153,0.13), transparent 60%);
+            radial-gradient(ellipse 700px 420px at 50% 40%, rgba(198,21,32,0.12), transparent 60%),
+            radial-gradient(ellipse 560px 240px at 80% 100%, rgba(236,72,153,0.22), transparent 55%);
     }
     section.tone-pink-a {
         background:
-            linear-gradient(0deg, rgba(198,21,32,0.4) 0%, transparent 8%),
-            radial-gradient(ellipse 950px 550px at 80% 0%, rgba(236,72,153,0.17), transparent 60%),
-            radial-gradient(ellipse 750px 480px at 20% 100%, rgba(198,21,32,0.14), transparent 55%);
+            radial-gradient(ellipse 560px 240px at 80% 0%, rgba(236,72,153,0.22), transparent 55%),
+            radial-gradient(ellipse 560px 240px at 20% 100%, rgba(198,21,32,0.18), transparent 55%);
     }
     section.tone-orange-a {
         background:
-            linear-gradient(180deg, rgba(198,21,32,0.4) 0%, transparent 8%),
-            radial-gradient(ellipse 900px 600px at 50% 10%, rgba(251,146,60,0.16), transparent 62%),
-            radial-gradient(ellipse 750px 480px at 85% 100%, rgba(168,85,247,0.12), transparent 55%);
+            radial-gradient(ellipse 560px 240px at 50% 0%, rgba(198,21,32,0.18), transparent 55%),
+            radial-gradient(ellipse 560px 240px at 85% 100%, rgba(168,85,247,0.18), transparent 55%);
     }
     section.tone-purple-a {
         background:
-            radial-gradient(ellipse 900px 600px at 85% 0%, rgba(168,85,247,0.18), transparent 60%),
-            radial-gradient(ellipse 750px 480px at 15% 100%, rgba(34,197,94,0.13), transparent 55%);
+            radial-gradient(ellipse 560px 240px at 85% 0%, rgba(168,85,247,0.2), transparent 55%),
+            radial-gradient(ellipse 560px 240px at 15% 100%, rgba(34,197,94,0.18), transparent 55%);
     }
     section.tone-green-a {
         background:
-            radial-gradient(ellipse 900px 550px at 15% 0%, rgba(34,197,94,0.16), transparent 62%),
-            radial-gradient(ellipse 750px 480px at 90% 100%, rgba(59,130,246,0.13), transparent 55%);
+            radial-gradient(ellipse 560px 240px at 15% 0%, rgba(34,197,94,0.2), transparent 55%),
+            radial-gradient(ellipse 560px 240px at 90% 100%, rgba(59,130,246,0.18), transparent 55%);
     }
     section.tone-blue-a {
         background:
-            radial-gradient(ellipse 950px 600px at 90% 0%, rgba(59,130,246,0.18), transparent 62%),
-            radial-gradient(ellipse 750px 480px at 50% 100%, rgba(34,197,94,0.13), transparent 55%);
+            radial-gradient(ellipse 560px 240px at 90% 0%, rgba(59,130,246,0.2), transparent 55%),
+            radial-gradient(ellipse 560px 240px at 50% 100%, rgba(34,197,94,0.18), transparent 55%);
     }
     section.tone-green-b {
         background:
-            radial-gradient(ellipse 900px 600px at 50% 0%, rgba(34,197,94,0.16), transparent 62%),
-            radial-gradient(ellipse 750px 480px at 88% 100%, rgba(168,85,247,0.13), transparent 55%);
+            radial-gradient(ellipse 560px 240px at 50% 0%, rgba(34,197,94,0.2), transparent 55%),
+            radial-gradient(ellipse 560px 240px at 88% 100%, rgba(168,85,247,0.18), transparent 55%);
     }
     section.tone-purple-b {
         background:
-            radial-gradient(ellipse 950px 550px at 88% 0%, rgba(168,85,247,0.17), transparent 60%),
-            radial-gradient(ellipse 750px 480px at 12% 100%, rgba(236,72,153,0.13), transparent 55%);
+            radial-gradient(ellipse 560px 240px at 88% 0%, rgba(168,85,247,0.2), transparent 55%),
+            radial-gradient(ellipse 560px 240px at 12% 100%, rgba(236,72,153,0.18), transparent 55%);
     }
     section.tone-pink-b {
         background:
-            radial-gradient(ellipse 900px 550px at 12% 0%, rgba(236,72,153,0.17), transparent 60%),
-            radial-gradient(ellipse 750px 480px at 50% 100%, rgba(198,21,32,0.13), transparent 55%);
+            radial-gradient(ellipse 560px 240px at 12% 0%, rgba(236,72,153,0.2), transparent 55%),
+            radial-gradient(ellipse 560px 240px at 50% 100%, rgba(198,21,32,0.18), transparent 55%);
     }
     section.tone-red-b {
         background:
-            radial-gradient(ellipse 950px 600px at 50% 0%, rgba(198,21,32,0.18), transparent 62%),
-            radial-gradient(ellipse 650px 420px at 12% 100%, rgba(139,92,246,0.15), transparent 55%),
-            radial-gradient(ellipse 650px 420px at 82% 100%, rgba(250,204,21,0.13), transparent 55%);
+            radial-gradient(ellipse 560px 240px at 50% 0%, rgba(198,21,32,0.2), transparent 55%),
+            radial-gradient(ellipse 500px 220px at 12% 100%, rgba(139,92,246,0.18), transparent 55%),
+            radial-gradient(ellipse 500px 220px at 82% 100%, rgba(250,204,21,0.16), transparent 55%);
     }
     section.tone-grey-a {
         background:
-            radial-gradient(ellipse 650px 420px at 15% 0%, rgba(139,92,246,0.13), transparent 55%),
-            radial-gradient(ellipse 650px 420px at 85% 0%, rgba(239,68,68,0.13), transparent 55%),
-            radial-gradient(ellipse 900px 550px at 50% 100%, rgba(170,170,170,0.08), transparent 60%);
+            radial-gradient(ellipse 500px 220px at 15% 0%, rgba(139,92,246,0.16), transparent 55%),
+            radial-gradient(ellipse 500px 220px at 85% 0%, rgba(239,68,68,0.16), transparent 55%),
+            radial-gradient(ellipse 700px 320px at 50% 100%, rgba(170,170,170,0.22), transparent 58%);
     }
     section.tone-red-c {
         background:
-            linear-gradient(180deg, rgba(198,21,32,0.35) 0%, transparent 8%),
-            radial-gradient(ellipse 800px 500px at 50% 10%, rgba(198,21,32,0.1), transparent 60%),
-            radial-gradient(ellipse 800px 520px at 85% 100%, rgba(198,21,32,0.16), transparent 60%);
+            radial-gradient(ellipse 560px 240px at 50% 0%, rgba(198,21,32,0.16), transparent 55%),
+            radial-gradient(ellipse 700px 460px at 85% 100%, rgba(198,21,32,0.24), transparent 58%);
     }
 
     .problem.gradient-thermal {
@@ -656,8 +652,8 @@
     /* Contact */
     .contact {
         background:
+            radial-gradient(ellipse 700px 460px at 85% 0%, rgba(198,21,32,0.22), transparent 58%),
             radial-gradient(ellipse 950px 550px at 12% 100%, rgba(198,21,32,0.11), transparent 55%),
-            radial-gradient(ellipse 800px 500px at 92% 0%, rgba(198,21,32,0.06), transparent 55%),
             var(--bg);
     }
     .contact-wrap {
@@ -819,7 +815,7 @@
 <section id="top" class="hero">
     <video id="heroVideo" muted playsinline autoplay loop style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.28;z-index:1;"></video>
     <div class="hero-content">
-        <div class="hero-logo-anim hero-logo-metal" role="img" aria-label="Legacy Technology Lab" style="height:395px;width:555px;max-width:90vw;margin:0 auto 8px;"></div>
+        <div class="hero-logo-anim hero-logo-metal" role="img" aria-label="Legacy Technology Lab" style="height:340px;width:480px;max-width:90vw;margin:70px auto 8px;"></div>
         <h1 id="heroHeadline" style="margin-top:12px;">The Future of Commercial Roof <span class="gradient-text">Intelligence</span></h1>
         <p id="heroSubtext">Non-destructive penetrative imaging that sees what others can't. Legacy detects hidden roof issues before they become costly failures — then manages them for continuous roof health.</p>
         <button class="cta-button hero-cta-anim">Request a Demo</button>
