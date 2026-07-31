@@ -188,7 +188,8 @@
     }
 
     .problem { background: var(--bg); }
-    .problem:nth-of-type(even) {
+    .problem:nth-of-type(even),
+    .problem.gradient-accent {
         background:
             radial-gradient(ellipse 900px 500px at 15% 0%, rgba(198,21,32,0.08), transparent 60%),
             radial-gradient(ellipse 900px 500px at 85% 100%, rgba(198,21,32,0.06), transparent 60%),
@@ -510,7 +511,7 @@
 </section>
 
 <!-- Vision & Mission -->
-<section class="problem fade-in">
+<section class="problem gradient-accent fade-in">
     <h2>Our Vision &amp; Mission</h2>
     <p class="section-subtitle">Building the next generation of commercial roofing professionals</p>
     <div class="grid-2">
