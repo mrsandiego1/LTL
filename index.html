@@ -246,71 +246,73 @@
 
     .problem { background: var(--bg); }
 
-    /* Per-section tone system: each section gets its own named hue (not a
-       repeating spectrum), and the highlight blob position is varied
-       section to section (left/right/center, top/bottom) so no two
-       sections read as a simple mirrored repeat. Kept subtle/dark. */
+    /* Per-section tone system: each section gets its own named hue, but the
+       corner facing a neighboring tone-section MATCHES that neighbor's
+       facing corner (same color + same side) so the wash carries smoothly
+       across the seam instead of cutting hard at the section boundary.
+       The far corner (into the section's own body) carries the section's
+       distinct hue. Positions vary section to section for texture. */
     body { background: #0a0a0a; }
 
     section.tone-red-a {
         background:
-            radial-gradient(ellipse 900px 550px at 20% 0%, rgba(198,21,32,0.08), transparent 60%),
-            radial-gradient(ellipse 750px 480px at 80% 100%, rgba(198,21,32,0.05), transparent 60%);
+            radial-gradient(ellipse 850px 650px at 50% 45%, rgba(198,21,32,0.08), transparent 62%),
+            radial-gradient(ellipse 750px 480px at 80% 100%, rgba(236,72,153,0.05), transparent 60%);
     }
     section.tone-pink-a {
         background:
-            radial-gradient(ellipse 950px 550px at 85% 10%, rgba(236,72,153,0.08), transparent 60%),
-            radial-gradient(ellipse 700px 450px at 15% 95%, rgba(236,72,153,0.04), transparent 55%);
+            radial-gradient(ellipse 950px 550px at 80% 0%, rgba(236,72,153,0.08), transparent 60%),
+            radial-gradient(ellipse 700px 450px at 20% 100%, rgba(198,21,32,0.04), transparent 55%);
     }
     section.tone-orange-a {
         background:
             radial-gradient(ellipse 900px 600px at 50% 0%, rgba(251,146,60,0.08), transparent 62%),
-            radial-gradient(ellipse 700px 450px at 10% 100%, rgba(251,146,60,0.04), transparent 55%);
+            radial-gradient(ellipse 700px 450px at 85% 100%, rgba(168,85,247,0.045), transparent 55%);
     }
     section.tone-purple-a {
         background:
-            radial-gradient(ellipse 900px 600px at 15% 100%, rgba(168,85,247,0.09), transparent 60%),
-            radial-gradient(ellipse 700px 450px at 90% 5%, rgba(168,85,247,0.04), transparent 55%);
+            radial-gradient(ellipse 900px 600px at 85% 0%, rgba(168,85,247,0.09), transparent 60%),
+            radial-gradient(ellipse 700px 450px at 15% 100%, rgba(34,197,94,0.045), transparent 55%);
     }
     section.tone-green-a {
         background:
-            radial-gradient(ellipse 900px 550px at 10% 50%, rgba(34,197,94,0.08), transparent 62%),
-            radial-gradient(ellipse 700px 450px at 90% 90%, rgba(34,197,94,0.04), transparent 55%);
+            radial-gradient(ellipse 900px 550px at 15% 0%, rgba(34,197,94,0.08), transparent 62%),
+            radial-gradient(ellipse 700px 450px at 90% 100%, rgba(59,130,246,0.045), transparent 55%);
     }
     section.tone-blue-a {
         background:
-            radial-gradient(ellipse 950px 600px at 90% 50%, rgba(59,130,246,0.09), transparent 62%),
-            radial-gradient(ellipse 700px 450px at 10% 10%, rgba(59,130,246,0.04), transparent 55%);
+            radial-gradient(ellipse 950px 600px at 90% 0%, rgba(59,130,246,0.09), transparent 62%),
+            radial-gradient(ellipse 700px 450px at 50% 100%, rgba(34,197,94,0.045), transparent 55%);
     }
     section.tone-green-b {
         background:
-            radial-gradient(ellipse 900px 600px at 50% 100%, rgba(34,197,94,0.08), transparent 62%),
-            radial-gradient(ellipse 700px 450px at 85% 0%, rgba(34,197,94,0.04), transparent 55%);
+            radial-gradient(ellipse 900px 600px at 50% 0%, rgba(34,197,94,0.08), transparent 62%),
+            radial-gradient(ellipse 700px 450px at 88% 100%, rgba(168,85,247,0.045), transparent 55%);
     }
     section.tone-purple-b {
         background:
-            radial-gradient(ellipse 950px 550px at 88% 8%, rgba(168,85,247,0.08), transparent 60%),
-            radial-gradient(ellipse 700px 450px at 5% 92%, rgba(168,85,247,0.04), transparent 55%);
+            radial-gradient(ellipse 950px 550px at 88% 0%, rgba(168,85,247,0.08), transparent 60%),
+            radial-gradient(ellipse 700px 450px at 12% 100%, rgba(236,72,153,0.045), transparent 55%);
     }
     section.tone-pink-b {
         background:
-            radial-gradient(ellipse 900px 550px at 12% 95%, rgba(236,72,153,0.08), transparent 60%),
-            radial-gradient(ellipse 700px 450px at 92% 8%, rgba(236,72,153,0.04), transparent 55%);
+            radial-gradient(ellipse 900px 550px at 12% 0%, rgba(236,72,153,0.08), transparent 60%),
+            radial-gradient(ellipse 700px 450px at 50% 100%, rgba(198,21,32,0.045), transparent 55%);
     }
     section.tone-red-b {
         background:
-            radial-gradient(ellipse 950px 600px at 50% 15%, rgba(198,21,32,0.09), transparent 62%),
-            radial-gradient(ellipse 700px 450px at 15% 95%, rgba(198,21,32,0.04), transparent 55%);
+            radial-gradient(ellipse 950px 600px at 50% 0%, rgba(198,21,32,0.09), transparent 62%),
+            radial-gradient(ellipse 700px 450px at 15% 100%, rgba(198,21,32,0.04), transparent 55%);
     }
     section.tone-grey-a {
         background:
-            radial-gradient(ellipse 950px 600px at 85% 90%, rgba(170,170,170,0.055), transparent 60%),
-            radial-gradient(ellipse 700px 450px at 15% 5%, rgba(170,170,170,0.03), transparent 55%);
+            radial-gradient(ellipse 950px 600px at 85% 0%, rgba(170,170,170,0.05), transparent 60%),
+            radial-gradient(ellipse 700px 450px at 15% 100%, rgba(170,170,170,0.035), transparent 55%);
     }
     section.tone-red-c {
         background:
-            radial-gradient(ellipse 900px 550px at 25% 90%, rgba(198,21,32,0.08), transparent 60%),
-            radial-gradient(ellipse 750px 480px at 85% 10%, rgba(198,21,32,0.05), transparent 60%);
+            radial-gradient(ellipse 900px 550px at 50% 0%, rgba(170,170,170,0.035), transparent 60%),
+            radial-gradient(ellipse 750px 480px at 85% 100%, rgba(198,21,32,0.06), transparent 60%);
     }
 
     .problem.gradient-thermal {
@@ -417,10 +419,11 @@
         font-size: 17px;
         text-transform: uppercase;
         letter-spacing: 1.2px;
-        margin-bottom: 12px;
         font-weight: 800;
-        padding-left: 12px;
-        border-left: 3px solid var(--red);
+        margin: -24px -24px 16px -24px;
+        padding: 14px 24px;
+        background: rgba(255,255,255,0.04);
+        border-bottom: 2px solid var(--red);
     }
 
     .info-card p { font-size: 17.5px; font-weight: 500; line-height: 1.65; color: #e2e2e2; }
@@ -529,6 +532,8 @@
     .dark-banner strong { color: #ff8888; }
 
     .comp-card {
+        position: relative;
+        overflow: hidden;
         padding: 28px;
         background: var(--card-bg);
         border-radius: 12px;
@@ -550,9 +555,12 @@
     }
     .comp-card h3 {
         font-family: 'Montserrat', sans-serif;
-        color: #ffffff; font-size: 17px; margin-bottom: 14px;
+        color: #ffffff; font-size: 17px;
         text-transform: uppercase; letter-spacing: 1.2px; font-weight: 800;
-        padding-left: 12px; border-left: 3px solid var(--red);
+        margin: -28px -28px 16px -28px;
+        padding: 14px 28px;
+        background: rgba(255,255,255,0.04);
+        border-bottom: 2px solid var(--red);
     }
     .comp-card h4 { color: #e8e8e8; margin-bottom: 14px; font-size: 17px; font-weight: 700; }
     .comp-card ul { color: #e2e2e2; font-size: 17px; font-weight: 500; line-height: 1.85; padding-left: 20px; }
@@ -573,6 +581,8 @@
     .metric-row .v { color: #4db8ff; font-size: 19px; font-weight: 800; }
 
     .case-card {
+        position: relative;
+        overflow: hidden;
         padding: 28px;
         background: var(--card-bg);
         border-radius: 12px;
@@ -580,9 +590,12 @@
     }
     .case-card h3 {
         font-family: 'Montserrat', sans-serif;
-        color: #ffffff; font-size: 17px; margin-bottom: 6px;
+        color: #ffffff; font-size: 17px;
         text-transform: uppercase; font-weight: 800; letter-spacing: 1.2px;
-        padding-left: 12px; border-left: 3px solid var(--red);
+        margin: -28px -28px 14px -28px;
+        padding: 14px 28px;
+        background: rgba(255,255,255,0.04);
+        border-bottom: 2px solid var(--red);
     }
     .case-card .meta { color: #d0d0d0; font-size: 16px; font-weight: 500; margin-bottom: 18px; }
     .case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
@@ -679,9 +692,10 @@
         text-transform: uppercase;
         letter-spacing: 1.2px;
         font-weight: 800;
-        margin-bottom: 20px;
-        padding-left: 12px;
-        border-left: 3px solid var(--red);
+        margin: -40px -32px 24px -32px;
+        padding: 16px 32px;
+        background: rgba(255,255,255,0.04);
+        border-bottom: 2px solid var(--red);
     }
     form { display: grid; gap: 14px; }
     input, textarea {
@@ -770,9 +784,9 @@
         <button class="cta-button hero-cta-anim">Request a Demo</button>
     </div>
     <div style="position:absolute;bottom:20px;left:20px;z-index:20;display:flex;gap:8px;">
-        <button class="video-toggle active" data-src="./hero.mp4" onclick="switchHeroVideo(this)">Vid 1</button>
+        <button class="video-toggle active" data-src="./assets/hero-3.mp4" onclick="switchHeroVideo(this)">Vid 1</button>
         <button class="video-toggle" data-src="./assets/hero-2.mp4" onclick="switchHeroVideo(this)">Vid 2</button>
-        <button class="video-toggle" data-src="./assets/hero-3.mp4" onclick="switchHeroVideo(this)">Vid 3</button>
+        <button class="video-toggle" data-src="./hero.mp4" onclick="switchHeroVideo(this)">Vid 3</button>
     </div>
 </section>
 
@@ -1196,7 +1210,7 @@
     })();
 
     const videoElement = document.getElementById('heroVideo');
-    videoElement.src = './hero.mp4';
+    videoElement.src = './assets/hero-3.mp4';
     videoElement.play().catch(() => {});
 
     function switchHeroVideo(btn) {
