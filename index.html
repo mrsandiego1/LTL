@@ -96,7 +96,7 @@
 
     @keyframes heroVideoFadeIn {
         from { opacity: 0; }
-        to { opacity: 0.32; }
+        to { opacity: 0.5; }
     }
     .hero video {
         position: absolute;
@@ -111,7 +111,7 @@
         content: '';
         position: absolute;
         top: 0; left: 0; right: 0; bottom: 0;
-        background: radial-gradient(ellipse at center, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.78) 100%);
+        background: radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%);
         z-index: 2;
     }
 
@@ -233,16 +233,17 @@
 
     .problem.gradient-accent {
         background:
-            radial-gradient(ellipse 900px 550px at 88% 0%, rgba(198,21,32,0.16), transparent 60%),
-            radial-gradient(ellipse 800px 480px at 8% 100%, rgba(77,184,255,0.10), transparent 60%),
+            radial-gradient(ellipse 900px 550px at 88% 0%, rgba(198,21,32,0.18), transparent 60%),
+            radial-gradient(ellipse 800px 480px at 8% 100%, rgba(255,140,0,0.12), transparent 60%),
             #0d0d0d;
     }
 
     .problem.gradient-thermal {
         background:
-            radial-gradient(ellipse 750px 480px at 12% 0%, rgba(76,201,240,0.16), transparent 60%),
-            radial-gradient(ellipse 700px 500px at 50% 55%, rgba(168,85,247,0.10), transparent 62%),
-            radial-gradient(ellipse 800px 520px at 92% 100%, rgba(255,140,0,0.16), transparent 60%),
+            radial-gradient(ellipse 950px 650px at 0% 0%, rgba(139,92,246,0.26), transparent 58%),
+            radial-gradient(ellipse 900px 650px at 30% 100%, rgba(59,130,246,0.22), transparent 55%),
+            radial-gradient(ellipse 900px 650px at 68% 0%, rgba(250,204,21,0.20), transparent 55%),
+            radial-gradient(ellipse 950px 650px at 100% 100%, rgba(239,68,68,0.26), transparent 58%),
             #0d0d0d;
     }
 
@@ -266,10 +267,20 @@
     }
 
     .gradient-text {
-        background: linear-gradient(90deg, #2dd4bf 0%, #fbbf24 45%, #f97316 72%, #ef4444 100%);
+        background: linear-gradient(90deg, #5eead4 0%, #fbbf24 42%, #fb923c 70%, #ef4444 100%);
         -webkit-background-clip: text;
         background-clip: text;
+        -webkit-text-fill-color: transparent;
         color: transparent;
+        filter: drop-shadow(0 2px 10px rgba(0,0,0,0.7));
+    }
+
+    @keyframes gradientWordFadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    .hero-letter.gradient-text {
+        animation: gradientWordFadeIn 0.6s ease-out forwards;
     }
 
     .info-card.card-centered {
@@ -610,7 +621,7 @@
 
 <!-- Meet Legacy -->
 <section id="about" class="problem fade-in">
-    <h2>Meet Legacy Technology Lab</h2>
+    <h2>Meet Legacy <span class="gradient-text">Technology Lab</span></h2>
     <p class="section-subtitle">The future of commercial roofing is no longer finding leaks. It's preventing them.</p>
     <div class="grid-2">
         <div class="info-card">
@@ -626,7 +637,7 @@
 
 <!-- Vision & Mission -->
 <section class="problem gradient-accent fade-in">
-    <h2>Our Vision &amp; Mission</h2>
+    <h2>Our <span class="gradient-text">Vision &amp; Mission</span></h2>
     <p class="section-subtitle">Building the next generation of commercial roofing professionals</p>
     <div class="grid-2">
         <div class="info-card">
@@ -650,7 +661,7 @@
 
 <!-- Industry Challenge (real deck content) -->
 <section id="industry" class="problem gradient-accent fade-in">
-    <h2>The Industry Challenge</h2>
+    <h2>The Industry <span class="gradient-text">Challenge</span></h2>
     <p class="section-subtitle">Commercial roofing is facing unprecedented change</p>
     <div class="grid-4">
         <div class="info-card card-centered"><p>Skilled labor shortages continue to grow.</p></div>
@@ -701,7 +712,7 @@
 
 <!-- Top 3 culprits -->
 <section class="process fade-in">
-    <h2>The Top 3 Culprits of Water Intrusion</h2>
+    <h2>The Top 3 <span class="gradient-text">Culprits</span> of Water Intrusion</h2>
     <p class="section-subtitle">The majority of water intrusion on single-ply roof systems originates from just three locations</p>
     <div class="grid-3">
         <div class="process-card">
@@ -727,7 +738,7 @@
 
 <!-- 3-Stage Service Model -->
 <section id="process" class="process fade-in">
-    <h2>The Legacy Platform: One Source of Truth</h2>
+    <h2>The Legacy Platform: One Source of <span class="gradient-text">Truth</span></h2>
     <p class="section-subtitle">Legacy's proprietary technology powers every stage of the roof lifecycle</p>
     <div class="grid-3">
         <div class="process-card">
@@ -776,7 +787,7 @@
 
 <!-- Roof Intelligence & Construction Governance -->
 <section id="advantage" class="problem fade-in">
-    <h2>Roof Intelligence &amp; Construction Governance</h2>
+    <h2>Roof <span class="gradient-text">Intelligence</span> &amp; Construction Governance</h2>
     <p class="section-subtitle">A technology-enabled fulfillment platform that improves roof replacement visibility, documentation, and quality assurance from mobilization through closeout</p>
     <div class="grid-2">
         <div class="info-card">
@@ -804,7 +815,7 @@
 
 <!-- The Legacy Advantage -->
 <section class="problem gradient-accent fade-in">
-    <h2>The Legacy Advantage</h2>
+    <h2>The Legacy <span class="gradient-text">Advantage</span></h2>
     <p class="section-subtitle">Repair Precisely. Extend Roof Life. Preserve Capital.</p>
     <div class="grid-3">
         <div class="info-card"><h4>Advanced Drone Inspection</h4><p>Comprehensive thermal and visual imaging captures the entire roof surface safely and efficiently.</p></div>
@@ -818,7 +829,7 @@
 
 <!-- TRU Score -->
 <section id="truscore" class="problem gradient-thermal fade-in">
-    <h2>Legacy TruScore: Risk-Based Underwriting</h2>
+    <h2>Legacy <span class="gradient-text">TruScore</span>: Risk-Based Underwriting</h2>
     <p class="section-subtitle">A controlled, evidence-linked 0–850 standardized reference that insurers and owners can trust</p>
     <p style="max-width: 800px; margin: 0 auto 40px; text-align:center; font-family:'Montserrat',sans-serif; font-size:17px; font-weight:500; line-height:1.8; color:#d6d6d6;">TruScore turns verified roof condition, management practices, and risk-control evidence into one standardized score — so building owners and insurers can see, track, and act on roof risk before it becomes a claim.</p>
 
@@ -888,7 +899,7 @@
 
 <!-- Results & ROI -->
 <section id="results" class="results fade-in">
-    <h2>Proven Results</h2>
+    <h2>Proven <span class="gradient-text">Results</span></h2>
     <p class="section-subtitle">41-property portfolio analysis shows measurable financial impact</p>
     <div class="grid-2">
         <div class="metric-card">
@@ -936,7 +947,7 @@
 
 <!-- Contact -->
 <section id="contact" class="contact fade-in">
-    <h2>Ready to See the Difference?</h2>
+    <h2>Ready to See the <span class="gradient-text">Difference</span>?</h2>
     <p class="section-subtitle">Better data. Better decisions. Better outcomes.</p>
     <div class="contact-wrap">
         <div class="contact-left">
@@ -1006,13 +1017,10 @@
             if (node.nodeType === Node.TEXT_NODE) {
                 h1.appendChild(buildTextFragment(node.textContent));
             } else {
-                const wrapper = document.createElement('span');
-                wrapper.className = 'hero-letter';
-                wrapper.style.display = 'inline-block';
-                wrapper.style.animationDelay = nextDelay();
-                wrapper.appendChild(node);
+                node.classList.add('hero-letter');
+                node.style.animationDelay = nextDelay();
                 idx += 4;
-                h1.appendChild(wrapper);
+                h1.appendChild(node);
             }
         });
 
