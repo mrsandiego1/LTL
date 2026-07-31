@@ -253,44 +253,44 @@
        a soft corner highlight of its own hue for local texture/variation. */
     body {
         background: linear-gradient(180deg,
-            rgba(198,21,32,0.12) 8.79%, rgba(198,21,32,0.2) 12.5%,
-            rgba(224,68,27,0.108) 13.65%, rgba(224,68,27,0.18) 17.19%,
-            rgba(251,146,60,0.096) 22.87%, rgba(251,146,60,0.16) 26.54%,
-            rgba(250,204,21,0.09) 28.1%, rgba(250,204,21,0.15) 34.36%,
-            rgba(45,212,191,0.084) 36.25%, rgba(45,212,191,0.14) 41.97%,
-            rgba(45,212,191,0.084) 43.48%, rgba(45,212,191,0.14) 47.33%,
-            rgba(45,212,191,0.084) 48.51%, rgba(45,212,191,0.14) 52.05%,
-            rgba(45,212,191,0.084) 53.19%, rgba(45,212,191,0.14) 56.86%,
-            rgba(250,204,21,0.09) 57.95%, rgba(250,204,21,0.15) 61.16%,
-            rgba(251,146,60,0.096) 62.35%, rgba(251,146,60,0.16) 66.66%,
-            rgba(224,68,27,0.108) 75.16%, rgba(224,68,27,0.18) 79.36%,
-            rgba(198,21,32,0.12) 85.68%, rgba(198,21,32,0.2) 89.55%),
-            #0d0d0d;
+            rgba(198,21,32,0.06) 8.79%, rgba(198,21,32,0.1) 12.5%,
+            rgba(224,68,27,0.054) 13.65%, rgba(224,68,27,0.09) 17.19%,
+            rgba(251,146,60,0.048) 22.87%, rgba(251,146,60,0.08) 26.54%,
+            rgba(250,204,21,0.045) 28.1%, rgba(250,204,21,0.075) 34.36%,
+            rgba(45,212,191,0.042) 36.25%, rgba(45,212,191,0.07) 41.97%,
+            rgba(45,212,191,0.042) 43.48%, rgba(45,212,191,0.07) 47.33%,
+            rgba(45,212,191,0.042) 48.51%, rgba(45,212,191,0.07) 52.05%,
+            rgba(45,212,191,0.042) 53.19%, rgba(45,212,191,0.07) 56.86%,
+            rgba(250,204,21,0.045) 57.95%, rgba(250,204,21,0.075) 61.16%,
+            rgba(251,146,60,0.048) 62.35%, rgba(251,146,60,0.08) 66.66%,
+            rgba(224,68,27,0.054) 75.16%, rgba(224,68,27,0.09) 79.36%,
+            rgba(198,21,32,0.06) 85.68%, rgba(198,21,32,0.1) 89.55%),
+            #0a0a0a;
     }
     section.tone-teal {
         background:
-            radial-gradient(ellipse 900px 550px at 12% 0%, rgba(45,212,191,0.13), transparent 60%),
-            radial-gradient(ellipse 800px 480px at 88% 100%, rgba(45,212,191,0.09), transparent 60%);
+            radial-gradient(ellipse 900px 550px at 12% 0%, rgba(45,212,191,0.07), transparent 60%),
+            radial-gradient(ellipse 800px 480px at 88% 100%, rgba(45,212,191,0.05), transparent 60%);
     }
     section.tone-yellow {
         background:
-            radial-gradient(ellipse 900px 550px at 88% 0%, rgba(250,204,21,0.14), transparent 60%),
-            radial-gradient(ellipse 800px 480px at 8% 100%, rgba(250,204,21,0.08), transparent 60%);
+            radial-gradient(ellipse 900px 550px at 88% 0%, rgba(250,204,21,0.075), transparent 60%),
+            radial-gradient(ellipse 800px 480px at 8% 100%, rgba(250,204,21,0.045), transparent 60%);
     }
     section.tone-orange {
         background:
-            radial-gradient(ellipse 900px 550px at 12% 0%, rgba(251,146,60,0.14), transparent 60%),
-            radial-gradient(ellipse 800px 480px at 88% 100%, rgba(251,146,60,0.08), transparent 60%);
+            radial-gradient(ellipse 900px 550px at 12% 0%, rgba(251,146,60,0.06), transparent 60%),
+            radial-gradient(ellipse 800px 480px at 88% 100%, rgba(251,146,60,0.04), transparent 60%);
     }
     section.tone-red-orange {
         background:
-            radial-gradient(ellipse 900px 550px at 88% 0%, rgba(249,115,22,0.16), transparent 60%),
-            radial-gradient(ellipse 800px 480px at 8% 100%, rgba(198,21,32,0.1), transparent 60%);
+            radial-gradient(ellipse 900px 550px at 88% 0%, rgba(249,115,22,0.075), transparent 60%),
+            radial-gradient(ellipse 800px 480px at 8% 100%, rgba(198,21,32,0.05), transparent 60%);
     }
     section.tone-red {
         background:
-            radial-gradient(ellipse 900px 550px at 15% 0%, rgba(198,21,32,0.16), transparent 60%),
-            radial-gradient(ellipse 800px 480px at 85% 100%, rgba(198,21,32,0.12), transparent 60%);
+            radial-gradient(ellipse 900px 550px at 15% 0%, rgba(198,21,32,0.075), transparent 60%),
+            radial-gradient(ellipse 800px 480px at 85% 100%, rgba(198,21,32,0.055), transparent 60%);
     }
 
     .problem.gradient-thermal {
@@ -359,15 +359,13 @@
         -webkit-text-fill-color: transparent;
         color: transparent;
         text-shadow: none;
-        -webkit-text-stroke: 0.4px rgba(255,255,255,0.85);
-        paint-order: stroke fill;
     }
     .section-highlight::before {
         content: '';
         position: absolute;
-        inset: -22px -30px;
-        background: radial-gradient(ellipse at center, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.12) 45%, transparent 75%);
-        filter: blur(14px);
+        inset: -30px -50px;
+        background: radial-gradient(ellipse at center, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.05) 50%, transparent 80%);
+        filter: blur(22px);
         z-index: -1;
         pointer-events: none;
     }
@@ -604,7 +602,7 @@
         align-items: center;
         justify-content: center;
     }
-    .contact-left img { height: 340px; width: auto; max-width: 100%; object-fit: contain; display: block; }
+    .contact-left img { height: 170px; width: auto; max-width: 100%; object-fit: contain; display: block; }
     .contact-left h3 {
         font-size: 28px;
         color: #fff;
