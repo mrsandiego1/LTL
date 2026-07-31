@@ -87,8 +87,7 @@
         align-items: center;
         justify-content: flex-start;
         padding: 190px 20px 40px;
-        position: sticky;
-        top: 0;
+        position: relative;
         overflow: hidden;
         background: var(--bg);
         z-index: 0;
@@ -227,7 +226,7 @@
     }
 
     section h2 {
-        font-size: 34px;
+        font-size: 40px;
         margin-bottom: 12px;
         text-align: center;
         color: #ffffff;
@@ -360,14 +359,15 @@
         -webkit-text-fill-color: transparent;
         color: transparent;
         text-shadow: none;
-        -webkit-text-stroke: 1px rgba(255,255,255,0.9);
+        -webkit-text-stroke: 0.4px rgba(255,255,255,0.85);
+        paint-order: stroke fill;
     }
     .section-highlight::before {
         content: '';
         position: absolute;
-        inset: -20px -28px;
-        background: radial-gradient(ellipse at center, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.1) 45%, transparent 75%);
-        filter: blur(10px);
+        inset: -22px -30px;
+        background: radial-gradient(ellipse at center, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.12) 45%, transparent 75%);
+        filter: blur(14px);
         z-index: -1;
         pointer-events: none;
     }
@@ -451,7 +451,7 @@
         width: 100%; height: 100%;
         object-fit: cover;
         z-index: 0;
-        opacity: 0.8;
+        opacity: 0.22;
     }
     .stats::before {
         content: '';
@@ -461,7 +461,7 @@
             radial-gradient(ellipse 750px 550px at 0% 0%, rgba(0,0,0,0.55), transparent 55%),
             radial-gradient(ellipse 750px 550px at 100% 100%, rgba(0,0,0,0.5), transparent 55%),
             radial-gradient(ellipse 950px 700px at 50% 42%, var(--red-light) 0%, var(--red) 60%, #7a0d13 100%);
-        opacity: 0.62;
+        opacity: 0.88;
         z-index: 1;
     }
     .stats > * { position: relative; z-index: 2; }
@@ -699,7 +699,7 @@
         nav .links { display: flex; }
         section[id] { scroll-margin-top: 60px; }
         section { padding: 100px 40px; }
-        section h2 { font-size: 46px; }
+        section h2 { font-size: 54px; }
         .hero h1 { font-size: 60px; }
         .hero p { font-size: 19px; max-width: 700px; }
         .grid-2 { grid-template-columns: 1fr 1fr; }
@@ -739,6 +739,7 @@
     <div style="position:absolute;bottom:20px;left:20px;z-index:20;display:flex;gap:8px;">
         <button class="video-toggle active" data-src="./hero.mp4" onclick="switchHeroVideo(this)">Vid 1</button>
         <button class="video-toggle" data-src="./assets/hero-2.mp4" onclick="switchHeroVideo(this)">Vid 2</button>
+        <button class="video-toggle" data-src="./assets/hero-3.mp4" onclick="switchHeroVideo(this)">Vid 3</button>
     </div>
 </section>
 
