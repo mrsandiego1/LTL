@@ -246,51 +246,71 @@
 
     .problem { background: var(--bg); }
 
-    /* Spectrum tone system: a single continuous gradient runs down the
-       <body> through the teal -> yellow -> orange -> red spectrum used in
-       .gradient-text, so the wash flows through every section rather than
-       resetting per-section. Each section stays transparent and only adds
-       a soft corner highlight of its own hue for local texture/variation. */
-    body {
-        background: linear-gradient(180deg,
-            rgba(198,21,32,0.06) 8.79%, rgba(198,21,32,0.1) 12.5%,
-            rgba(224,68,27,0.054) 13.65%, rgba(224,68,27,0.09) 17.19%,
-            rgba(251,146,60,0.048) 22.87%, rgba(251,146,60,0.08) 26.54%,
-            rgba(250,204,21,0.045) 28.1%, rgba(250,204,21,0.075) 34.36%,
-            rgba(45,212,191,0.042) 36.25%, rgba(45,212,191,0.07) 41.97%,
-            rgba(45,212,191,0.042) 43.48%, rgba(45,212,191,0.07) 47.33%,
-            rgba(45,212,191,0.042) 48.51%, rgba(45,212,191,0.07) 52.05%,
-            rgba(45,212,191,0.042) 53.19%, rgba(45,212,191,0.07) 56.86%,
-            rgba(250,204,21,0.045) 57.95%, rgba(250,204,21,0.075) 61.16%,
-            rgba(251,146,60,0.048) 62.35%, rgba(251,146,60,0.08) 66.66%,
-            rgba(224,68,27,0.054) 75.16%, rgba(224,68,27,0.09) 79.36%,
-            rgba(198,21,32,0.06) 85.68%, rgba(198,21,32,0.1) 89.55%),
-            #0a0a0a;
-    }
-    section.tone-teal {
+    /* Per-section tone system: each section gets its own named hue (not a
+       repeating spectrum), and the highlight blob position is varied
+       section to section (left/right/center, top/bottom) so no two
+       sections read as a simple mirrored repeat. Kept subtle/dark. */
+    body { background: #0a0a0a; }
+
+    section.tone-red-a {
         background:
-            radial-gradient(ellipse 900px 550px at 12% 0%, rgba(45,212,191,0.07), transparent 60%),
-            radial-gradient(ellipse 800px 480px at 88% 100%, rgba(45,212,191,0.05), transparent 60%);
+            radial-gradient(ellipse 900px 550px at 20% 0%, rgba(198,21,32,0.08), transparent 60%),
+            radial-gradient(ellipse 750px 480px at 80% 100%, rgba(198,21,32,0.05), transparent 60%);
     }
-    section.tone-yellow {
+    section.tone-pink-a {
         background:
-            radial-gradient(ellipse 900px 550px at 88% 0%, rgba(250,204,21,0.075), transparent 60%),
-            radial-gradient(ellipse 800px 480px at 8% 100%, rgba(250,204,21,0.045), transparent 60%);
+            radial-gradient(ellipse 950px 550px at 85% 10%, rgba(236,72,153,0.08), transparent 60%),
+            radial-gradient(ellipse 700px 450px at 15% 95%, rgba(236,72,153,0.04), transparent 55%);
     }
-    section.tone-orange {
+    section.tone-orange-a {
         background:
-            radial-gradient(ellipse 900px 550px at 12% 0%, rgba(251,146,60,0.06), transparent 60%),
-            radial-gradient(ellipse 800px 480px at 88% 100%, rgba(251,146,60,0.04), transparent 60%);
+            radial-gradient(ellipse 900px 600px at 50% 0%, rgba(251,146,60,0.08), transparent 62%),
+            radial-gradient(ellipse 700px 450px at 10% 100%, rgba(251,146,60,0.04), transparent 55%);
     }
-    section.tone-red-orange {
+    section.tone-purple-a {
         background:
-            radial-gradient(ellipse 900px 550px at 88% 0%, rgba(249,115,22,0.075), transparent 60%),
-            radial-gradient(ellipse 800px 480px at 8% 100%, rgba(198,21,32,0.05), transparent 60%);
+            radial-gradient(ellipse 900px 600px at 15% 100%, rgba(168,85,247,0.09), transparent 60%),
+            radial-gradient(ellipse 700px 450px at 90% 5%, rgba(168,85,247,0.04), transparent 55%);
     }
-    section.tone-red {
+    section.tone-green-a {
         background:
-            radial-gradient(ellipse 900px 550px at 15% 0%, rgba(198,21,32,0.075), transparent 60%),
-            radial-gradient(ellipse 800px 480px at 85% 100%, rgba(198,21,32,0.055), transparent 60%);
+            radial-gradient(ellipse 900px 550px at 10% 50%, rgba(34,197,94,0.08), transparent 62%),
+            radial-gradient(ellipse 700px 450px at 90% 90%, rgba(34,197,94,0.04), transparent 55%);
+    }
+    section.tone-blue-a {
+        background:
+            radial-gradient(ellipse 950px 600px at 90% 50%, rgba(59,130,246,0.09), transparent 62%),
+            radial-gradient(ellipse 700px 450px at 10% 10%, rgba(59,130,246,0.04), transparent 55%);
+    }
+    section.tone-green-b {
+        background:
+            radial-gradient(ellipse 900px 600px at 50% 100%, rgba(34,197,94,0.08), transparent 62%),
+            radial-gradient(ellipse 700px 450px at 85% 0%, rgba(34,197,94,0.04), transparent 55%);
+    }
+    section.tone-purple-b {
+        background:
+            radial-gradient(ellipse 950px 550px at 88% 8%, rgba(168,85,247,0.08), transparent 60%),
+            radial-gradient(ellipse 700px 450px at 5% 92%, rgba(168,85,247,0.04), transparent 55%);
+    }
+    section.tone-pink-b {
+        background:
+            radial-gradient(ellipse 900px 550px at 12% 95%, rgba(236,72,153,0.08), transparent 60%),
+            radial-gradient(ellipse 700px 450px at 92% 8%, rgba(236,72,153,0.04), transparent 55%);
+    }
+    section.tone-red-b {
+        background:
+            radial-gradient(ellipse 950px 600px at 50% 15%, rgba(198,21,32,0.09), transparent 62%),
+            radial-gradient(ellipse 700px 450px at 15% 95%, rgba(198,21,32,0.04), transparent 55%);
+    }
+    section.tone-grey-a {
+        background:
+            radial-gradient(ellipse 950px 600px at 85% 90%, rgba(170,170,170,0.055), transparent 60%),
+            radial-gradient(ellipse 700px 450px at 15% 5%, rgba(170,170,170,0.03), transparent 55%);
+    }
+    section.tone-red-c {
+        background:
+            radial-gradient(ellipse 900px 550px at 25% 90%, rgba(198,21,32,0.08), transparent 60%),
+            radial-gradient(ellipse 750px 480px at 85% 10%, rgba(198,21,32,0.05), transparent 60%);
     }
 
     .problem.gradient-thermal {
@@ -376,24 +396,34 @@
         align-items: center;
         justify-content: center;
         text-align: center;
-        min-height: 150px;
+        min-height: 190px;
+        padding: 28px 24px;
         background:
             radial-gradient(ellipse 260px 180px at 30% 20%, rgba(198,21,32,0.14), transparent 65%),
             var(--card-bg);
     }
-    .info-card.card-centered p { margin: 0; }
+    .info-card.card-centered p {
+        margin: 0;
+        font-size: 21px;
+        font-weight: 700;
+        line-height: 1.4;
+        color: #ffffff;
+        font-family: 'Montserrat', sans-serif;
+    }
 
     .info-card h4 {
         font-family: 'Montserrat', sans-serif;
-        color: #ff8888;
-        font-size: 15px;
+        color: #ffffff;
+        font-size: 17px;
         text-transform: uppercase;
         letter-spacing: 1.2px;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
         font-weight: 800;
+        padding-left: 12px;
+        border-left: 3px solid var(--red);
     }
 
-    .info-card p { font-size: 16px; font-weight: 500; line-height: 1.65; color: #d6d6d6; }
+    .info-card p { font-size: 17.5px; font-weight: 500; line-height: 1.65; color: #e2e2e2; }
 
     .process {
         background:
@@ -520,13 +550,14 @@
     }
     .comp-card h3 {
         font-family: 'Montserrat', sans-serif;
-        color: #ff8888; font-size: 15px; margin-bottom: 14px;
+        color: #ffffff; font-size: 17px; margin-bottom: 14px;
         text-transform: uppercase; letter-spacing: 1.2px; font-weight: 800;
+        padding-left: 12px; border-left: 3px solid var(--red);
     }
     .comp-card h4 { color: #e8e8e8; margin-bottom: 14px; font-size: 17px; font-weight: 700; }
-    .comp-card ul { color: #d6d6d6; font-size: 16px; font-weight: 500; line-height: 1.85; padding-left: 20px; }
+    .comp-card ul { color: #e2e2e2; font-size: 17px; font-weight: 500; line-height: 1.85; padding-left: 20px; }
     .comp-card li { margin-bottom: 8px; }
-    .comp-card .tag { margin-top: 18px; font-weight: 800; font-size: 15px; }
+    .comp-card .tag { margin-top: 18px; font-weight: 800; font-size: 16px; }
 
     .metric-card {
         padding: 28px;
@@ -538,7 +569,7 @@
     .metric-card .label { color: #cfcfcf; margin-bottom: 14px; font-size: 16px; font-weight: 500; }
     .metric-row { padding: 10px 0; border-bottom: 1px solid rgba(198,21,32,0.2); }
     .metric-row:last-child { border-bottom: none; padding-bottom: 0; }
-    .metric-row .k { color: #c0c0c0; font-size: 15px; font-weight: 500; margin-bottom: 3px; }
+    .metric-row .k { color: #d0d0d0; font-size: 16px; font-weight: 500; margin-bottom: 3px; }
     .metric-row .v { color: #4db8ff; font-size: 19px; font-weight: 800; }
 
     .case-card {
@@ -549,8 +580,9 @@
     }
     .case-card h3 {
         font-family: 'Montserrat', sans-serif;
-        color: #ff8888; font-size: 15px; margin-bottom: 6px;
+        color: #ffffff; font-size: 17px; margin-bottom: 6px;
         text-transform: uppercase; font-weight: 800; letter-spacing: 1.2px;
+        padding-left: 12px; border-left: 3px solid var(--red);
     }
     .case-card .meta { color: #d0d0d0; font-size: 16px; font-weight: 500; margin-bottom: 18px; }
     .case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
@@ -642,12 +674,14 @@
     .contact-right { background: rgba(20,20,20,0.95); padding: 40px 32px; }
     .contact-right h4 {
         font-family: 'Montserrat', sans-serif;
-        font-size: 15px;
-        color: #ff8888;
+        font-size: 17px;
+        color: #ffffff;
         text-transform: uppercase;
         letter-spacing: 1.2px;
         font-weight: 800;
         margin-bottom: 20px;
+        padding-left: 12px;
+        border-left: 3px solid var(--red);
     }
     form { display: grid; gap: 14px; }
     input, textarea {
@@ -732,7 +766,7 @@
     <div class="hero-content">
         <div class="hero-logo-anim hero-logo-metal" role="img" aria-label="Legacy Technology Lab" style="height:340px;width:480px;max-width:90vw;margin:0 auto 8px;"></div>
         <h1 id="heroHeadline" style="margin-top:8px;">The Future of Commercial Roof <span class="gradient-text">Intelligence</span></h1>
-        <p id="heroSubtext">Non-destructive penetrative imaging that sees what others can't. Legacy detects hidden roof issues before they become costly failures.</p>
+        <p id="heroSubtext">Non-destructive penetrative imaging that sees what others can't. Legacy detects hidden roof issues before they become costly failures — then manages them for continuous roof health.</p>
         <button class="cta-button hero-cta-anim">Request a Demo</button>
     </div>
     <div style="position:absolute;bottom:20px;left:20px;z-index:20;display:flex;gap:8px;">
@@ -743,7 +777,7 @@
 </section>
 
 <!-- Meet Legacy -->
-<section id="about" class="problem tone-red fade-in">
+<section id="about" class="problem tone-red-a fade-in">
     <h2><span class="section-highlight">Legacy Technology Lab</span></h2>
     <p class="section-subtitle one-line">The future of commercial roofing is no longer finding leaks. It's preventing them.</p>
     <div class="grid-2">
@@ -759,7 +793,7 @@
 </section>
 
 <!-- Vision & Mission -->
-<section class="problem tone-red-orange fade-in">
+<section class="problem tone-pink-a fade-in">
     <h2><span class="section-highlight">Vision &amp; Mission</span></h2>
     <p class="section-subtitle one-line">Revolutionizing how commercial roofs are assessed, maintained, and preserved</p>
     <div class="grid-2">
@@ -786,7 +820,7 @@
 </section>
 
 <!-- Industry Challenge (real deck content) -->
-<section id="industry" class="problem tone-orange fade-in">
+<section id="industry" class="problem tone-orange-a fade-in">
     <h2><span class="section-highlight">The Industry Challenge</span></h2>
     <p class="section-subtitle one-line">Commercial roofing is facing unprecedented change</p>
     <div class="grid-4">
@@ -799,7 +833,7 @@
 </section>
 
 <!-- Traditional vs Legacy -->
-<section class="problem tone-yellow fade-in">
+<section class="problem tone-purple-a fade-in">
     <h2><span class="section-highlight">From Prehistoric to Innovative</span></h2>
     <p class="section-subtitle one-line">Legacy delivers objective, non-destructive verification of what others can't see</p>
     <div class="grid-2">
@@ -837,7 +871,7 @@
 </section>
 
 <!-- Top 3 culprits -->
-<section class="process tone-teal fade-in">
+<section class="process tone-green-a fade-in">
     <h2><span class="section-highlight">The Top 3 Culprits of Water Intrusion</span></h2>
     <p class="section-subtitle one-line">The majority of water intrusion on single-ply roof systems originates from just three locations</p>
     <div class="grid-3">
@@ -863,7 +897,7 @@
 </section>
 
 <!-- 3-Stage Service Model -->
-<section id="process" class="process tone-teal fade-in">
+<section id="process" class="process tone-blue-a fade-in">
     <h2><span class="section-highlight">The Legacy Platform</span>: One Source of Truth</h2>
     <p class="section-subtitle one-line">Legacy's proprietary technology powers every stage of the roof lifecycle</p>
     <div class="grid-3">
@@ -886,7 +920,7 @@
 </section>
 
 <!-- BVLOS -->
-<section class="problem tone-teal fade-in">
+<section class="problem tone-green-b fade-in">
     <h2><span class="section-highlight">Beyond Visual Line of Sight Operations</span></h2>
     <p class="section-subtitle one-line">From local drone flights to centrally supervised national inspection operations</p>
     <div class="grid-3">
@@ -912,7 +946,7 @@
 </section>
 
 <!-- Roof Intelligence & Construction Governance -->
-<section class="problem tone-teal fade-in">
+<section class="problem tone-purple-b fade-in">
     <h2><span class="section-highlight">Roof Intelligence &amp; Construction Governance</span></h2>
     <p class="section-subtitle">A technology-enabled fulfillment platform that improves roof replacement visibility, documentation, and quality assurance from mobilization through closeout</p>
     <div class="grid-2">
@@ -928,7 +962,7 @@
 </section>
 
 <!-- Deeper Seam Verification -->
-<section class="process tone-yellow fade-in">
+<section class="process tone-pink-b fade-in">
     <h2><span class="section-highlight">Deeper Seam Verification</span></h2>
     <p class="section-subtitle one-line">Non-destructive seam evaluation identifying subsurface inconsistencies not visible during surface review</p>
     <div class="grid-4">
@@ -940,7 +974,7 @@
 </section>
 
 <!-- The Legacy Advantage -->
-<section id="advantage" class="problem tone-orange fade-in">
+<section id="advantage" class="problem tone-red-b fade-in">
     <h2><span class="section-highlight">The Legacy Advantage</span></h2>
     <p class="section-subtitle one-line">Repair Precisely. Extend Roof Life. Preserve Capital.</p>
     <div class="grid-3">
@@ -990,7 +1024,7 @@
 </section>
 
 <!-- PROVE -->
-<section class="process tone-red-orange fade-in">
+<section class="process tone-grey-a fade-in">
     <h2><span class="section-highlight">PROVE</span>: A Controlled, Repeatable Process</h2>
     <p class="section-subtitle one-line">Prepare. Review. Observe. Verify. Evaluate. The field-to-underwriting path that keeps the score connected to evidence.</p>
     <div style="max-width: 1000px; margin: 40px auto;">
@@ -1044,7 +1078,7 @@
 </section>
 
 <!-- Case Studies -->
-<section id="case-studies" class="problem tone-red fade-in">
+<section id="case-studies" class="problem tone-red-c fade-in">
     <h2><span class="section-highlight">Results in Action</span></h2>
     <p class="section-subtitle one-line">Real outcomes from real buildings</p>
     <div class="grid-2">
@@ -1098,7 +1132,7 @@
 </section>
 
 <footer>
-    <p>&copy; 2026 Legacy Technology Lab. Better Data. Better Decisions. Better Outcomes.</p>
+    <p>&copy; 2026 Legacy Technology Lab.</p>
 </footer>
 
 <script>
