@@ -37,6 +37,10 @@
     }
 
     /* Navigation */
+    @keyframes navSlideDown {
+        from { transform: translateY(-100%); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
     nav {
         position: fixed;
         top: 0;
@@ -50,6 +54,7 @@
         justify-content: space-between;
         align-items: center;
         z-index: 1000;
+        animation: navSlideDown 0.7s cubic-bezier(0.16,1,0.3,1) both;
     }
 
     nav img.logo-img { height: 130px; width: auto; display: block; object-fit: contain; flex-shrink: 0; }
@@ -89,40 +94,70 @@
         z-index: 0;
     }
 
+    @keyframes heroVideoFadeIn {
+        from { opacity: 0; }
+        to { opacity: 0.32; }
+    }
     .hero video {
         position: absolute;
         top: 0; left: 0;
         width: 100%; height: 100%;
         object-fit: cover;
-        opacity: 0.28;
         z-index: 1;
+        animation: heroVideoFadeIn 2.4s ease-out 0.2s both;
     }
 
     .hero::before {
         content: '';
         position: absolute;
         top: 0; left: 0; right: 0; bottom: 0;
-        background: radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
+        background: radial-gradient(ellipse at center, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.78) 100%);
         z-index: 2;
     }
 
-    .hero-content { position: relative; z-index: 10; text-align: center; animation: fadeInUp 1s ease-out; }
+    .hero-content { position: relative; z-index: 10; text-align: center; }
+
+    @keyframes heroLogoFadeIn {
+        from { opacity: 0; transform: scale(0.85) translateY(-12px); }
+        to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .hero-logo-anim { opacity: 0; animation: heroLogoFadeIn 1s cubic-bezier(0.16,1,0.3,1) 0.45s both; }
+
+    @keyframes letterFadeIn {
+        from { opacity: 0; transform: translateY(16px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-letter { display: inline-block; opacity: 0; animation: letterFadeIn 0.5s ease-out forwards; }
+
+    @keyframes subtextSlideIn {
+        from { opacity: 0; transform: translateX(-44px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+    .hero-subtext-anim { opacity: 0; animation: subtextSlideIn 0.9s cubic-bezier(0.16,1,0.3,1) forwards; }
+
+    @keyframes ctaFadeIn {
+        from { opacity: 0; transform: translateY(12px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-cta-anim { opacity: 0; animation: ctaFadeIn 0.7s ease-out forwards; }
 
     .hero h1 {
         font-size: 44px;
         color: #ffffff;
         margin-bottom: 20px;
         line-height: 1.15;
+        text-shadow: 0 3px 18px rgba(0,0,0,0.85), 0 1px 4px rgba(0,0,0,0.9);
     }
 
     .hero p {
         font-family: 'Montserrat', sans-serif;
-        font-size: 17px;
-        color: #d0d0d0;
+        font-size: 18px;
+        color: #f0f0f0;
         max-width: 600px;
         margin: 0 auto 40px;
-        line-height: 1.6;
-        font-weight: 300;
+        line-height: 1.65;
+        font-weight: 600;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.85), 0 1px 3px rgba(0,0,0,0.9);
     }
 
     .cta-button {
@@ -559,7 +594,9 @@
 <body>
 
 <nav>
-    <img class="logo-img" src="./assets/logo-horizontal-white.png" alt="Legacy Technology Lab">
+    <a href="#top" aria-label="Back to top" style="display:block; line-height:0;">
+        <img class="logo-img" src="./assets/logo-horizontal-white.png" alt="Legacy Technology Lab">
+    </a>
     <div class="links">
         <a href="#about">About</a>
         <a href="#industry">Industry</a>
@@ -572,13 +609,13 @@
 </nav>
 
 <!-- Hero -->
-<section class="hero">
+<section id="top" class="hero">
     <video id="heroVideo" muted playsinline autoplay loop style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0.28;z-index:1;"></video>
     <div class="hero-content">
-        <img src="./assets/logo-stacked-white.png" alt="Legacy Technology Lab" style="height:340px;width:auto;display:block;margin:0 auto 8px;filter:drop-shadow(0 0 32px rgba(255,255,255,0.75)) drop-shadow(0 0 8px rgba(255,255,255,0.95)) drop-shadow(0 6px 20px rgba(0,0,0,0.5));">
-        <h1 style="margin-top:8px;">The Future of Commercial Roof <span class="gradient-text">Intelligence</span></h1>
-        <p>Non-destructive penetrative imaging that sees what others can't. Legacy detects hidden roof issues before they become costly failures.</p>
-        <button class="cta-button">Request a Demo</button>
+        <img class="hero-logo-anim" src="./assets/logo-stacked-white.png" alt="Legacy Technology Lab" style="height:340px;width:auto;display:block;margin:0 auto 8px;filter:drop-shadow(0 0 32px rgba(255,255,255,0.75)) drop-shadow(0 0 8px rgba(255,255,255,0.95)) drop-shadow(0 6px 20px rgba(0,0,0,0.5));">
+        <h1 id="heroHeadline" style="margin-top:8px;">The Future of Commercial Roof <span class="gradient-text">Intelligence</span></h1>
+        <p id="heroSubtext">Non-destructive penetrative imaging that sees what others can't. Legacy detects hidden roof issues before they become costly failures.</p>
+        <button class="cta-button hero-cta-anim">Request a Demo</button>
     </div>
     <div style="position:absolute;bottom:20px;left:20px;z-index:20;display:flex;gap:8px;">
         <button class="video-toggle active" data-src="./hero.mp4" onclick="switchHeroVideo(this)">Vid 1</button>
@@ -942,6 +979,68 @@
 </footer>
 
 <script>
+    (function() {
+        const h1 = document.getElementById('heroHeadline');
+        const subtext = document.getElementById('heroSubtext');
+        const cta = document.querySelector('.hero-cta-anim');
+        if (!h1) return;
+
+        const STAGGER = 0.032;
+        const BASE_DELAY = 0.9;
+        let idx = 0;
+
+        function nextDelay() {
+            const d = BASE_DELAY + idx * STAGGER;
+            idx++;
+            return d + 's';
+        }
+
+        function buildTextFragment(text) {
+            const frag = document.createDocumentFragment();
+            const words = text.split(' ');
+            words.forEach((word, wi) => {
+                if (wi > 0) frag.appendChild(document.createTextNode(' '));
+                if (!word) return;
+                const wordSpan = document.createElement('span');
+                wordSpan.style.display = 'inline-block';
+                for (const ch of word) {
+                    const letter = document.createElement('span');
+                    letter.className = 'hero-letter';
+                    letter.textContent = ch;
+                    letter.style.animationDelay = nextDelay();
+                    wordSpan.appendChild(letter);
+                }
+                frag.appendChild(wordSpan);
+            });
+            return frag;
+        }
+
+        const originalNodes = Array.from(h1.childNodes);
+        h1.innerHTML = '';
+        originalNodes.forEach(node => {
+            if (node.nodeType === Node.TEXT_NODE) {
+                h1.appendChild(buildTextFragment(node.textContent));
+            } else {
+                const wrapper = document.createElement('span');
+                wrapper.className = 'hero-letter';
+                wrapper.style.display = 'inline-block';
+                wrapper.style.animationDelay = nextDelay();
+                wrapper.appendChild(node);
+                idx += 4;
+                h1.appendChild(wrapper);
+            }
+        });
+
+        const totalTime = BASE_DELAY + idx * STAGGER + 0.4;
+        if (subtext) {
+            subtext.classList.add('hero-subtext-anim');
+            subtext.style.animationDelay = totalTime + 's';
+        }
+        if (cta) {
+            cta.style.animationDelay = (totalTime + 0.35) + 's';
+        }
+    })();
+
     const videoElement = document.getElementById('heroVideo');
     videoElement.src = './hero.mp4';
     videoElement.play().catch(() => {});
