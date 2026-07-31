@@ -211,8 +211,10 @@
         border: 1px solid rgba(198,21,32,0.3);
         border-radius: 12px;
         color: #d0d0d0;
+        text-align: center;
         transition: border-color .35s, transform .35s, box-shadow .35s;
     }
+    .info-card ul { text-align: left; }
     .info-card::before {
         content: '';
         position: absolute;
@@ -307,13 +309,14 @@
 
     .process-card-img {
         width: 100%;
-        height: 150px;
-        object-fit: cover;
+        height: 280px;
+        object-fit: contain;
+        background: rgba(0,0,0,0.18);
         border-radius: 8px;
         margin-bottom: 18px;
         display: block;
-        -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
-        mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to bottom, black 82%, transparent 100%);
+        mask-image: linear-gradient(to bottom, black 82%, transparent 100%);
     }
 
     .stats {
@@ -362,17 +365,20 @@
         background: var(--card-bg);
         border-radius: 12px;
         border: 1px solid rgba(198,21,32,0.3);
+        text-align: center;
     }
     .comp-card.legacy { background: rgba(198, 21, 32, 0.14); border: 2px solid rgba(198,21,32,0.5); }
+    .comp-card ul { text-align: left; }
     .comp-card-img {
         width: 100%;
-        height: 190px;
-        object-fit: cover;
+        height: 170px;
+        object-fit: contain;
+        background: rgba(0,0,0,0.18);
         border-radius: 10px;
         margin-bottom: 18px;
         display: block;
-        -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-        mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to bottom, black 78%, transparent 100%);
+        mask-image: linear-gradient(to bottom, black 78%, transparent 100%);
     }
     .comp-card h3 {
         font-family: 'Montserrat', sans-serif;
