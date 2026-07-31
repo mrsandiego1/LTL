@@ -213,6 +213,18 @@
     }
     .info-card:hover { border-color: rgba(198,21,32,0.6); transform: translateY(-3px); }
 
+    .info-card.card-centered {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        min-height: 150px;
+        background:
+            radial-gradient(ellipse 260px 180px at 30% 20%, rgba(198,21,32,0.14), transparent 65%),
+            var(--card-bg);
+    }
+    .info-card.card-centered p { margin: 0; }
+
     .info-card h4 {
         font-family: 'Montserrat', sans-serif;
         color: #ff8888;
@@ -555,10 +567,10 @@
     <h2>The Industry Challenge</h2>
     <p class="section-subtitle">Commercial roofing is facing unprecedented change</p>
     <div class="grid-4">
-        <div class="info-card"><p>Skilled labor shortages continue to grow.</p></div>
-        <div class="info-card"><p>Buildings and roofing systems are becoming more complex.</p></div>
-        <div class="info-card"><p>New technologies are evolving faster than the workforce can adopt them.</p></div>
-        <div class="info-card"><p>Property owners, insurers, and lenders expect greater quality, transparency, and accountability.</p></div>
+        <div class="info-card card-centered"><p>Skilled labor shortages continue to grow.</p></div>
+        <div class="info-card card-centered"><p>Buildings and roofing systems are becoming more complex.</p></div>
+        <div class="info-card card-centered"><p>New technologies are evolving faster than the workforce can adopt them.</p></div>
+        <div class="info-card card-centered"><p>Property owners, insurers, and lenders expect greater quality, transparency, and accountability.</p></div>
     </div>
     <div class="dark-banner">The result: <strong>higher risk, greater uncertainty, and increased costs.</strong></div>
 </section>
