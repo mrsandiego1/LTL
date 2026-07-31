@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Legacy Technology Lab — Commercial Roof Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --red: #C61520;
+        --red-light: #e8323d;
+        --graphite: #222021;
+        --gray-light: #F4F4F4;
+        --bg: #0a0a0a;
+        --card-bg: rgba(30,30,30,0.85);
+        --border: rgba(198,21,32,0.35);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    section[id] { scroll-margin-top: 150px; }
+
+    body {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 400;
+        color: #e8e8e8;
+        background: var(--bg);
+        overflow-x: hidden;
+    }
+
+    h1, h2, h3, .headline {
+        font-family: 'Bebas Neue', sans-serif;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+    }
+
+    /* Navigation */
+    nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(10, 10, 10, 0.97);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border);
+        padding: 2px 24px;
+        min-height: 136px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    nav img.logo-img { height: 130px; width: auto; display: block; object-fit: contain; flex-shrink: 0; }
+
+    nav .links {
+        display: none;
+        gap: 20px;
+        font-size: 14.5px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        white-space: nowrap;
+    }
+
+    nav a { text-decoration: none; color: #d0d0d0; transition: color 0.3s; }
+    nav a:hover { color: var(--red-light); }
+
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; }
+
+    /* Hero */
+    .hero {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 190px 20px 40px;
+        position: sticky;
+        top: 0;
+        overflow: hidden;
+        background: var(--bg);
+        z-index: 0;
+    }
+
+    .hero video {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        object-fit: cover;
+        opacity: 0.28;
+        z-index: 1;
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
+        z-index: 2;
+    }
+
+    .hero-content { position: relative; z-index: 10; text-align: center; animation: fadeInUp 1s ease-out; }
+
+    .hero h1 {
+        font-size: 44px;
+        color: #ffffff;
+        margin-bottom: 20px;
+        line-height: 1.15;
+    }
+
+    .hero p {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 17px;
+        color: #d0d0d0;
+        max-width: 600px;
+        margin: 0 auto 40px;
+        line-height: 1.6;
+        font-weight: 300;
+    }
+
+    .cta-button {
+        background: linear-gradient(135deg, var(--red-light) 0%, var(--red) 100%);
+        color: #fff;
+        padding: 16px 44px;
+        border: none;
+        border-radius: 50px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        transition: all 0.3s;
+        box-shadow: 0 8px 25px rgba(198, 21, 32, 0.5);
+    }
+
+    .cta-button:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(198, 21, 32, 0.7); }
+
+    .video-toggle {
+        background: rgba(20,20,20,0.7);
+        border: 1px solid rgba(255,255,255,0.25);
+        color: #d0d0d0;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        padding: 7px 16px;
+        border-radius: 20px;
+        cursor: pointer;
+        backdrop-filter: blur(6px);
+        transition: all 0.25s;
+    }
+    .video-toggle:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+    .video-toggle.active { background: var(--red); border-color: var(--red); color: #fff; }
+
+    section {
+        padding: 70px 20px;
+        position: relative;
+        z-index: 10;
+        background: var(--bg);
+    }
+
+    section h2 {
+        font-size: 34px;
+        margin-bottom: 12px;
+        text-align: center;
+        color: #ffffff;
+    }
+
+    .section-subtitle {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 17.5px;
+        color: #c4c4c4;
+        text-align: center;
+        margin-bottom: 40px;
+        font-weight: 500;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .problem { background: var(--bg); }
+    .problem:nth-of-type(even) {
+        background:
+            radial-gradient(ellipse 900px 500px at 15% 0%, rgba(198,21,32,0.08), transparent 60%),
+            radial-gradient(ellipse 900px 500px at 85% 100%, rgba(198,21,32,0.06), transparent 60%),
+            #0d0d0d;
+    }
+
+    .info-card {
+        padding: 24px;
+        background: var(--card-bg);
+        border: 1px solid rgba(198,21,32,0.3);
+        border-radius: 12px;
+        color: #d0d0d0;
+        transition: all .3s;
+    }
+    .info-card:hover { border-color: rgba(198,21,32,0.6); transform: translateY(-3px); }
+
+    .info-card h4 {
+        font-family: 'Montserrat', sans-serif;
+        color: #ff8888;
+        font-size: 15px;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        margin-bottom: 10px;
+        font-weight: 800;
+    }
+
+    .info-card p { font-size: 16px; font-weight: 500; line-height: 1.65; color: #d6d6d6; }
+
+    .process {
+        background:
+            radial-gradient(ellipse 1000px 600px at 50% 0%, rgba(198,21,32,0.10), transparent 65%),
+            #0a0a0a;
+    }
+
+    .process-card {
+        padding: 28px;
+        border-radius: 12px;
+        background: rgba(198, 21, 32, 0.1);
+        border: 1px solid var(--border);
+        text-align: center;
+        transition: all .3s;
+    }
+    .process-card:hover { transform: translateY(-5px); border-color: rgba(198,21,32,0.6); background: rgba(198,21,32,0.16); }
+
+    .process-number {
+        width: 52px; height: 52px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--red-light) 0%, var(--red) 100%);
+        color: #fff;
+        display: flex; align-items: center; justify-content: center;
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 22px;
+        margin: 0 auto 14px;
+        box-shadow: 0 8px 25px rgba(198,21,32,0.5);
+    }
+
+    .process-card h3 { font-size: 20px; margin-bottom: 10px; color: #ffffff; }
+    .process-card p { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 500; color: #d6d6d6; line-height: 1.6; }
+
+    .stats {
+        background: linear-gradient(135deg, var(--red) 0%, var(--red-light) 100%);
+        color: #ffffff;
+        text-align: center;
+    }
+    .stats h2 { color: #ffffff; }
+    .stats .big-stat {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 76px;
+        color: #ffffff;
+        margin-bottom: 12px;
+        letter-spacing: 1px;
+    }
+    .stats p { font-family: 'Montserrat', sans-serif; color: rgba(255,255,255,0.97); font-size: 17px; font-weight: 500; line-height: 1.8; }
+
+    .results {
+        background:
+            radial-gradient(ellipse 900px 500px at 50% 100%, rgba(198,21,32,0.09), transparent 60%),
+            #0d0d0d;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 1000px; margin: 32px auto; }
+    .grid-3 { display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 1200px; margin: 32px auto; }
+    .grid-4 { display: grid; grid-template-columns: 1fr; gap: 18px; max-width: 1200px; margin: 32px auto; }
+
+    .dark-banner {
+        background: var(--graphite);
+        color: #fff;
+        padding: 14px 24px;
+        font-size: 16.5px;
+        font-weight: 600;
+        text-align: center;
+        border-radius: 8px;
+        max-width: 900px;
+        margin: 0 auto 32px;
+    }
+    .dark-banner strong { color: #ff8888; }
+
+    .comp-card {
+        padding: 28px;
+        background: var(--card-bg);
+        border-radius: 12px;
+        border: 1px solid rgba(198,21,32,0.3);
+    }
+    .comp-card.legacy { background: rgba(198, 21, 32, 0.14); border: 2px solid rgba(198,21,32,0.5); }
+    .comp-card h3 {
+        font-family: 'Montserrat', sans-serif;
+        color: #ff8888; font-size: 15px; margin-bottom: 14px;
+        text-transform: uppercase; letter-spacing: 1.2px; font-weight: 800;
+    }
+    .comp-card h4 { color: #e8e8e8; margin-bottom: 14px; font-size: 17px; font-weight: 700; }
+    .comp-card ul { color: #d6d6d6; font-size: 16px; font-weight: 500; line-height: 1.85; padding-left: 20px; }
+    .comp-card li { margin-bottom: 8px; }
+    .comp-card .tag { margin-top: 18px; font-weight: 800; font-size: 15px; }
+
+    .metric-card {
+        padding: 28px;
+        background: var(--card-bg);
+        border-radius: 12px;
+        border: 1px solid var(--border);
+    }
+    .metric-card .big { font-family: 'Bebas Neue', sans-serif; font-size: 38px; color: #ff6b6b; margin-bottom: 8px; }
+    .metric-card .label { color: #cfcfcf; margin-bottom: 14px; font-size: 16px; font-weight: 500; }
+    .metric-row { padding: 10px 0; border-bottom: 1px solid rgba(198,21,32,0.2); }
+    .metric-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .metric-row .k { color: #c0c0c0; font-size: 15px; font-weight: 500; margin-bottom: 3px; }
+    .metric-row .v { color: #4db8ff; font-size: 19px; font-weight: 800; }
+
+    .case-card {
+        padding: 28px;
+        background: var(--card-bg);
+        border-radius: 12px;
+        border: 1px solid var(--border);
+    }
+    .case-card h3 {
+        font-family: 'Montserrat', sans-serif;
+        color: #ff8888; font-size: 15px; margin-bottom: 6px;
+        text-transform: uppercase; font-weight: 800; letter-spacing: 1.2px;
+    }
+    .case-card .meta { color: #d0d0d0; font-size: 16px; font-weight: 500; margin-bottom: 18px; }
+    .case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .case-grid .metric-row { padding: 10px 14px 10px 0; }
+
+    .pill-row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 28px auto 0; max-width: 1000px; }
+    .pill {
+        background: rgba(198,21,32,0.12);
+        border: 1px solid rgba(198,21,32,0.35);
+        color: #f0c4c4;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+    /* Contact */
+    .contact { background: var(--bg); }
+    .contact-wrap {
+        max-width: 1100px;
+        margin: 40px auto 0;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0;
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+    }
+    .contact-left {
+        background: linear-gradient(160deg, var(--red) 0%, #8f0f18 100%);
+        padding: 40px 32px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .contact-left img { height: 44px; width: auto; max-width: 220px; object-fit: contain; align-self: flex-start; margin-bottom: 24px; }
+    .contact-left h3 {
+        font-size: 28px;
+        color: #fff;
+        margin-bottom: 16px;
+        line-height: 1.2;
+    }
+    .contact-left p {
+        font-family: 'Montserrat', sans-serif;
+        color: rgba(255,255,255,0.95);
+        font-size: 16.5px;
+        font-weight: 500;
+        line-height: 1.7;
+        margin-bottom: 28px;
+    }
+    .contact-detail {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        color: #fff;
+    }
+    .contact-detail .icon {
+        width: 38px; height: 38px;
+        background: rgba(255,255,255,0.16);
+        border: 1px solid rgba(255,255,255,0.3);
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+    }
+    .contact-detail .icon svg { width: 17px; height: 17px; fill: #fff; }
+    .contact-right { background: rgba(20,20,20,0.95); padding: 40px 32px; }
+    .contact-right h4 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 15px;
+        color: #ff8888;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        font-weight: 800;
+        margin-bottom: 20px;
+    }
+    form { display: grid; gap: 14px; }
+    input, textarea {
+        padding: 14px;
+        border: 1px solid rgba(198,21,32,0.3);
+        border-radius: 8px;
+        font-size: 15px;
+        font-family: 'Montserrat', sans-serif;
+        background: rgba(10, 10, 10, 0.9);
+        color: #e8e8e8;
+        transition: all 0.3s;
+    }
+    input::placeholder, textarea::placeholder { color: #666; }
+    input:focus, textarea:focus {
+        outline: none;
+        border-color: rgba(198,21,32,0.6);
+        background: rgba(40, 20, 20, 0.9);
+    }
+    .contact-right button {
+        background: linear-gradient(135deg, var(--red-light) 0%, var(--red) 100%);
+        color: #fff;
+        padding: 15px;
+        border: none;
+        border-radius: 8px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        transition: all 0.3s;
+    }
+    .contact-right button:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(198,21,32,0.5); }
+
+    footer {
+        background: var(--bg);
+        border-top: 1px solid rgba(198,21,32,0.2);
+        padding: 28px 20px;
+        text-align: center;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 15px;
+        font-weight: 500;
+        color: #a0a0a0;
+    }
+
+    @media (min-width: 768px) {
+        nav { padding: 6px 60px; }
+        nav .links { display: flex; }
+        section { padding: 100px 40px; }
+        section h2 { font-size: 46px; }
+        .hero h1 { font-size: 60px; }
+        .hero p { font-size: 19px; max-width: 700px; }
+        .grid-2 { grid-template-columns: 1fr 1fr; }
+        .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-4 { grid-template-columns: repeat(4, 1fr); }
+        .contact-wrap { grid-template-columns: 1fr 1.1fr; }
+    }
+</style>
+</head>
+<body>
+
+<nav>
+    <img class="logo-img" src="./assets/logo-horizontal-white.png" alt="Legacy Technology Lab">
+    <div class="links">
+        <a href="#about">About</a>
+        <a href="#process">Process</a>
+        <a href="#advantage">Advantage</a>
+        <a href="#truscore">TruScore</a>
+        <a href="#results">Results</a>
+        <a href="#case-studies">Case Studies</a>
+        <a href="#contact">Contact</a>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+    <video id="heroVideo" muted playsinline autoplay loop style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0.28;z-index:1;"></video>
+    <div class="hero-content">
+        <img src="./assets/logo-stacked-white.png" alt="Legacy Technology Lab" style="height:340px;width:auto;display:block;margin:0 auto 8px;filter:drop-shadow(0 0 32px rgba(255,255,255,0.75)) drop-shadow(0 0 8px rgba(255,255,255,0.95)) drop-shadow(0 6px 20px rgba(0,0,0,0.5));">
+        <h1 style="margin-top:8px;">The Future of Commercial Roof Intelligence</h1>
+        <p>Non-destructive penetrative imaging that sees what others can't. Legacy detects hidden roof issues before they become costly failures.</p>
+        <button class="cta-button">Request a Demo</button>
+    </div>
+    <div style="position:absolute;bottom:20px;left:20px;z-index:20;display:flex;gap:8px;">
+        <button class="video-toggle active" data-src="./hero.mp4" onclick="switchHeroVideo(this)">Vid 1</button>
+        <button class="video-toggle" data-src="./assets/hero-2.mp4" onclick="switchHeroVideo(this)">Vid 2</button>
+    </div>
+</section>
+
+<!-- Meet Legacy -->
+<section id="about" class="problem fade-in">
+    <h2>Meet Legacy Technology Lab</h2>
+    <p class="section-subtitle">The future of commercial roofing is no longer finding leaks. It's preventing them.</p>
+    <div class="grid-2">
+        <div class="info-card">
+            <h4>Who We Are</h4>
+            <p>An innovative, technology-driven intelligence and management ecosystem revolutionizing how commercial roofs are assessed. Legacy is the only company offering exclusive access to proprietary penetrative imaging that non-destructively scans up to 8 inches below the roof surface.</p>
+        </div>
+        <div class="info-card">
+            <h4>Why It Matters</h4>
+            <p>Traditional roof inspections rely on surface-level assessments and destructive testing prone to human error, often leaving critical issues hidden. Legacy provides MRI-like visibility beneath the roof membrane to detect moisture, air pockets, delamination, installation defects, and material deterioration before they become costly problems.</p>
+        </div>
+    </div>
+</section>
+
+<!-- 80% stat -->
+<section class="stats fade-in">
+    <h2>The Central Problem</h2>
+    <div class="big-stat">80%</div>
+    <p style="font-size: 21px; margin-bottom: 28px; max-width: 800px; margin-left: auto; margin-right: auto; font-family: 'Montserrat', sans-serif; font-weight: 500;">of commercial roofs that are replaced do not need to be</p>
+    <p style="max-width: 900px; margin: 0 auto;">Legacy exists to change this fundamental market inefficiency. Every roof receives a TRU Score, giving underwriters, owners, and asset managers a clear, verifiable view of condition to price risk and plan capital — so roofs receive micro repairs versus macro replacements. Legacy collaborates with insurance carriers to help clients qualify for premium reductions.</p>
+</section>
+
+<!-- Industry Challenge (real deck content) -->
+<section class="problem fade-in">
+    <h2>The Industry Challenge</h2>
+    <p class="section-subtitle">Commercial roofing is facing unprecedented change</p>
+    <div class="grid-4">
+        <div class="info-card"><p>Skilled labor shortages continue to grow.</p></div>
+        <div class="info-card"><p>Buildings and roofing systems are becoming more complex.</p></div>
+        <div class="info-card"><p>New technologies are evolving faster than the workforce can adopt them.</p></div>
+        <div class="info-card"><p>Property owners, insurers, and lenders expect greater quality, transparency, and accountability.</p></div>
+    </div>
+    <div class="dark-banner">The result: <strong>higher risk, greater uncertainty, and increased costs.</strong></div>
+</section>
+
+<!-- Traditional vs Legacy -->
+<section class="problem fade-in">
+    <h2>From Prehistoric to Innovative</h2>
+    <p class="section-subtitle">Legacy delivers objective, non-destructive verification of what others can't see</p>
+    <div class="grid-2">
+        <div class="comp-card">
+            <h3>Traditional Method</h3>
+            <h4>Seam Tester Probe</h4>
+            <ul>
+                <li>Manual probe is run along the seam edge</li>
+                <li>Only detects visible openings</li>
+                <li>Cannot see beneath the membrane</li>
+                <li>Misses voids, cold welds, poor fusion, and trapped moisture</li>
+                <li>Subjective and inconsistent results</li>
+            </ul>
+            <p class="tag" style="color:#ff6b6b;">Limited. Subjective. Outdated.</p>
+        </div>
+        <div class="comp-card legacy">
+            <h3>Legacy Technology</h3>
+            <h4>Penetrative Imaging — MRI Vision for Roofs</h4>
+            <ul>
+                <li>Verifies the full 3&quot; weld width</li>
+                <li>Detects hidden voids and incomplete fusion</li>
+                <li>Identifies trapped moisture and air pockets</li>
+                <li>Confirms proper insulation and cover board adhesion</li>
+                <li>Creates a permanent digital record for owners and insurers</li>
+            </ul>
+            <p class="tag" style="color:#4db8ff;">Objective. Non-Destructive. Forensic.</p>
+        </div>
+    </div>
+    <p style="text-align:center; max-width:800px; margin:8px auto 0; color:#c0c0c0; font-size:16px; font-weight:500; font-family:'Montserrat',sans-serif;">This simple hook has been the industry standard for decades, checking only the edge of a 3" weld while hidden defects go undetected. Legacy sees up to 8" beneath the surface to ensure every weld is built to perform, before leaks ever occur.</p>
+</section>
+
+<!-- Top 3 culprits -->
+<section class="process fade-in">
+    <h2>The Top 3 Culprits of Water Intrusion</h2>
+    <p class="section-subtitle">The majority of water intrusion on single-ply roof systems originates from just three locations</p>
+    <div class="grid-3">
+        <div class="process-card">
+            <div class="process-number">1</div>
+            <h3>Overlap Seams</h3>
+            <p>Heat-welded seams. Seam failures are the #1 cause of roof leaks — incomplete welds, voids, or contaminants allow water to travel under the membrane.</p>
+        </div>
+        <div class="process-card">
+            <div class="process-number">2</div>
+            <h3>Penetration Flashings</h3>
+            <p>Movement, poor installation, and deterioration around pipe penetrations cause leaks as sealant breaks down and moisture travels under the membrane.</p>
+        </div>
+        <div class="process-card">
+            <div class="process-number">3</div>
+            <h3>Perimeter &amp; Terminations</h3>
+            <p>Water enters at the edges, termination bars, and counterflashings as sealant deteriorates or termination height is improper.</p>
+        </div>
+    </div>
+</section>
+
+<!-- 3-Stage Service Model -->
+<section id="process" class="process fade-in">
+    <h2>The Legacy Platform: One Source of Truth</h2>
+    <p class="section-subtitle">Legacy's proprietary technology powers every stage of the roof lifecycle</p>
+    <div class="grid-3">
+        <div class="process-card">
+            <div class="process-number">1</div>
+            <h3>Initial Physical Assessment</h3>
+            <p>Thermal imaging, RTK positioning, and RGB drone imaging, followed by penetrative scanning of specific hotspots.</p>
+        </div>
+        <div class="process-card">
+            <div class="process-number">2</div>
+            <h3>Preventive Maintenance</h3>
+            <p>Customized monitoring via geo-mapping of exact hotspots to track roof conditions over time.</p>
+        </div>
+        <div class="process-card">
+            <div class="process-number">3</div>
+            <h3>Fulfillment</h3>
+            <p>Management of all repairs and replacements if needed, plus seam weld verification, reporting, documentation, transparency, and historical recordkeeping via the portal.</p>
+        </div>
+    </div>
+</section>
+
+<!-- BVLOS -->
+<section class="problem fade-in">
+    <h2>Beyond Visual Line of Sight Operations</h2>
+    <p class="section-subtitle">From local drone flights to centrally supervised national inspection operations</p>
+    <div class="grid-3">
+        <div class="info-card">
+            <h4>20 Strategic UAV Nests</h4>
+            <p>Positioned nationwide to cover approximately 80% of client assets.</p>
+        </div>
+        <div class="info-card">
+            <h4>Dallas Central Operations Center</h4>
+            <p>Top-tier pilots, fleet-level supervision, exception handling, and mission quality control for every flight.</p>
+        </div>
+        <div class="info-card">
+            <h4>BVLOS Long-Range Missions</h4>
+            <p>Extended flight time, long-distance coverage, faster deployment, and heavier, better sensor payloads.</p>
+        </div>
+    </div>
+    <div class="pill-row">
+        <span class="pill">Quicker response</span>
+        <span class="pill">Higher quality data</span>
+        <span class="pill">Consistent execution</span>
+        <span class="pill">Scalable national coverage</span>
+    </div>
+</section>
+
+<!-- Roof Intelligence & Construction Governance -->
+<section id="advantage" class="problem fade-in">
+    <h2>Roof Intelligence &amp; Construction Governance</h2>
+    <p class="section-subtitle">A technology-enabled fulfillment platform that improves roof replacement visibility, documentation, and quality assurance from mobilization through closeout</p>
+    <div class="grid-2">
+        <div class="info-card">
+            <h4>Drone / Missions</h4>
+            <p>Scheduled, repeatable missions along predefined routes for consistent progress comparisons. Whole-roof coverage beyond the fixed camera view with high-resolution RGB, thermal, mapping, and 3D data. Milestone, post-weather, and issue-specific verification without a full field mobilization.</p>
+        </div>
+        <div class="info-card">
+            <h4>PTZ Camera</h4>
+            <p>Live and recorded visibility of active roof work areas with pan, tilt, and optical zoom. Time-stamped documentation of sequencing, milestones, deliveries, and changed conditions — a searchable visual record for owners, contractors, consultants, and insurers.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Deeper Seam Verification -->
+<section class="process fade-in">
+    <h2>Deeper Seam Verification</h2>
+    <p class="section-subtitle">Non-destructive seam evaluation identifying subsurface inconsistencies not visible during surface review</p>
+    <div class="grid-4">
+        <div class="info-card"><h4>Fishmouths</h4><p>Detected automatically across the entire roof.</p></div>
+        <div class="info-card"><h4>Seam Defects</h4><p>Location-linked mapping of seam continuity and anomalies.</p></div>
+        <div class="info-card"><h4>Flashing Concerns</h4><p>Flagged with AI-powered analysis for faster, more accurate review.</p></div>
+        <div class="info-card"><h4>Installation Sequence Deviations</h4><p>Scan records support QA/QC and project closeout.</p></div>
+    </div>
+</section>
+
+<!-- The Legacy Advantage -->
+<section class="problem fade-in">
+    <h2>The Legacy Advantage</h2>
+    <p class="section-subtitle">Repair Precisely. Extend Roof Life. Preserve Capital.</p>
+    <div class="grid-3">
+        <div class="info-card"><h4>Advanced Drone Inspection</h4><p>Comprehensive thermal and visual imaging captures the entire roof surface safely and efficiently.</p></div>
+        <div class="info-card"><h4>Data-Driven Analysis</h4><p>Identifies surface wear, membrane breaches, ponding, and parapet wall issues.</p></div>
+        <div class="info-card"><h4>Condition Assessment</h4><p>Detailed assessment of roof condition and remaining service life using proprietary evaluation criteria.</p></div>
+        <div class="info-card"><h4>Financial Impact Modeling</h4><p>Modeling of cost, savings, and ROI to quantify the long-term value of the recommended solution.</p></div>
+        <div class="info-card"><h4>Fulfillment, Repairs &amp; Reroofs</h4><p>Full-scope management of repairs and new installation, with drone flights before, during, and after work to confirm no water intrusion.</p></div>
+        <div class="info-card"><h4>Penetrative Scanning</h4><p>Legacy's proprietary technology sees up to 8 inches into the roof layers, with no destructive core sampling.</p></div>
+    </div>
+</section>
+
+<!-- TRU Score -->
+<section id="truscore" class="problem fade-in">
+    <h2>Legacy TruScore: Risk-Based Underwriting</h2>
+    <p class="section-subtitle">A controlled, evidence-linked 0–850 standardized reference that insurers and owners can trust</p>
+    <p style="max-width: 800px; margin: 0 auto 40px; text-align:center; font-family:'Montserrat',sans-serif; font-size:17px; font-weight:500; line-height:1.8; color:#d6d6d6;">TruScore turns verified roof condition, management practices, and risk-control evidence into one standardized score — so building owners and insurers can see, track, and act on roof risk before it becomes a claim.</p>
+
+    <div style="max-width:700px;margin:0 auto 40px;">
+        <div style="display:flex;justify-content:space-between;font-family:'Montserrat',sans-serif;font-size:14px;font-weight:600;color:#b0b0b0;margin-bottom:6px;">
+            <span>0</span><span>850</span>
+        </div>
+        <div style="height:14px;border-radius:8px;background:linear-gradient(90deg, rgba(198,21,32,0.25), rgba(198,21,32,0.6) 45%, #ff6b6b 100%);position:relative;">
+        </div>
+    </div>
+
+    <div class="grid-4">
+        <div class="info-card">
+            <h4>Roof Condition</h4>
+            <p>A physical condition score built from Legacy's PROVE inspection across eight roof domains.</p>
+        </div>
+        <div class="info-card">
+            <h4>Governance &amp; Continuity</h4>
+            <p>Whether inspections happen on a cadence, get escalated and closed out, and build a repeatable history over time.</p>
+        </div>
+        <div class="info-card">
+            <h4>Maintenance &amp; Oversight</h4>
+            <p>Whether scheduled maintenance was actually completed, documented, and reviewed by Legacy through construction and closeout.</p>
+        </div>
+        <div class="info-card">
+            <h4>Certifications &amp; Scanning</h4>
+            <p>Bonus credit for verified installation records, certified contractors, and Legacy's penetrative scanning — with a modifier for concealed structural risk.</p>
+        </div>
+    </div>
+
+    <p style="max-width: 800px; margin: 32px auto 0; text-align:center; font-family:'Montserrat',sans-serif; font-size:15.5px; font-weight:500; line-height:1.7; color:#b0b0b0;">Every score stays tied to its source evidence, assessment date, and methodology — TruScore doesn't guess. It reflects verified conditions and control practices, not a promised discount or predicted claim.</p>
+</section>
+
+<!-- PROVE -->
+<section class="process fade-in">
+    <h2>PROVE: A Controlled, Repeatable Process</h2>
+    <p class="section-subtitle">Prepare. Review. Observe. Verify. Evaluate. The field-to-underwriting path that keeps the score connected to evidence.</p>
+    <div style="max-width: 1000px; margin: 40px auto;">
+        <div class="grid-2">
+            <div>
+                <div style="display:grid;grid-template-columns:50px 1fr;gap:16px;margin-bottom:24px;">
+                    <div style="width:50px;height:50px;background:linear-gradient(135deg,#e8323d,#C61520);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:20px;">P</div>
+                    <div><h4 style="color:#e8e8e8;font-size:17px;font-weight:800;margin-bottom:6px;font-family:'Montserrat',sans-serif;">Prepare</h4><p style="color:#d6d6d6;font-size:16px;font-weight:500;line-height:1.6;font-family:'Montserrat',sans-serif;">Define the building, roof system, scope, timing, known history, and evidence plan.</p></div>
+                </div>
+                <div style="display:grid;grid-template-columns:50px 1fr;gap:16px;margin-bottom:24px;">
+                    <div style="width:50px;height:50px;background:linear-gradient(135deg,#e8323d,#C61520);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:20px;">R</div>
+                    <div><h4 style="color:#e8e8e8;font-size:17px;font-weight:800;margin-bottom:6px;font-family:'Montserrat',sans-serif;">Review</h4><p style="color:#d6d6d6;font-size:16px;font-weight:500;line-height:1.6;font-family:'Montserrat',sans-serif;">Review installation, inspection, maintenance, repair, construction, warranty, weather, and prior assessment records.</p></div>
+                </div>
+                <div style="display:grid;grid-template-columns:50px 1fr;gap:16px;">
+                    <div style="width:50px;height:50px;background:linear-gradient(135deg,#e8323d,#C61520);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:20px;">O</div>
+                    <div><h4 style="color:#e8e8e8;font-size:17px;font-weight:800;margin-bottom:6px;font-family:'Montserrat',sans-serif;">Observe</h4><p style="color:#d6d6d6;font-size:16px;font-weight:500;line-height:1.6;font-family:'Montserrat',sans-serif;">Inspect current conditions and document the eight physical-condition domains.</p></div>
+                </div>
+            </div>
+            <div>
+                <div style="display:grid;grid-template-columns:50px 1fr;gap:16px;margin-bottom:24px;">
+                    <div style="width:50px;height:50px;background:linear-gradient(135deg,#e8323d,#C61520);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:20px;">V</div>
+                    <div><h4 style="color:#e8e8e8;font-size:17px;font-weight:800;margin-bottom:6px;font-family:'Montserrat',sans-serif;">Verify</h4><p style="color:#d6d6d6;font-size:16px;font-weight:500;line-height:1.6;font-family:'Montserrat',sans-serif;">Confirm identities, dates, locations, completion, qualifications, photographs, and evidence links.</p></div>
+                </div>
+                <div style="display:grid;grid-template-columns:50px 1fr;gap:16px;">
+                    <div style="width:50px;height:50px;background:linear-gradient(135deg,#e8323d,#C61520);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:20px;">E</div>
+                    <div><h4 style="color:#e8e8e8;font-size:17px;font-weight:800;margin-bottom:6px;font-family:'Montserrat',sans-serif;">Evaluate</h4><p style="color:#d6d6d6;font-size:16px;font-weight:500;line-height:1.6;font-family:'Montserrat',sans-serif;">Apply severity, extent, rules, and version control to produce a standardized, date-specific result.</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Results & ROI -->
+<section id="results" class="results fade-in">
+    <h2>Proven Results</h2>
+    <p class="section-subtitle">41-property portfolio analysis shows measurable financial impact</p>
+    <div class="grid-2">
+        <div class="metric-card">
+            <p class="big">$16.1M</p>
+            <p class="label">Total Economic Benefit</p>
+            <div class="metric-row"><p class="k">Capital Expenditures Deferred</p><p class="v">$3.96M</p></div>
+            <div class="metric-row"><p class="k">Portfolio Value Increase</p><p class="v">$12.18M</p></div>
+        </div>
+        <div class="metric-card">
+            <p class="big">13.2%</p>
+            <p class="label">NOI Improvement</p>
+            <div class="metric-row"><p class="k">Return on $1 CapEx Deferred</p><p class="v">$4.08</p></div>
+            <div class="metric-row"><p class="k">Annual CapEx Savings</p><p class="v">$792,000</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- Case Studies -->
+<section id="case-studies" class="problem fade-in">
+    <h2>Results in Action</h2>
+    <p class="section-subtitle">Real outcomes from real buildings</p>
+    <div class="grid-2">
+        <div class="case-card">
+            <h3>Sarasota, FL</h3>
+            <p class="meta">Office building. TPO roof. Approx. 200,000 SF.</p>
+            <div class="case-grid">
+                <div class="metric-row"><p class="k">TRU Score</p><p class="v" style="color:#ff6b6b;">402</p></div>
+                <div class="metric-row"><p class="k">Extended Life</p><p class="v">17 Years</p></div>
+                <div class="metric-row"><p class="k">Capital Savings Deferred</p><p class="v">$217,000</p></div>
+                <div class="metric-row"><p class="k">Annual CapEx Savings</p><p class="v">$12,765</p></div>
+            </div>
+        </div>
+        <div class="case-card">
+            <h3>Twinsburg, OH</h3>
+            <p class="meta">Office building. Modified bitumen / built-up. Property age 2000.</p>
+            <div class="case-grid">
+                <div class="metric-row"><p class="k">TRU Score</p><p class="v" style="color:#ff6b6b;">438</p></div>
+                <div class="metric-row"><p class="k">Extended Life</p><p class="v">10 Years</p></div>
+                <div class="metric-row"><p class="k">Capital Savings Deferred</p><p class="v">$287,000</p></div>
+                <div class="metric-row"><p class="k">Annual CapEx Savings</p><p class="v">$28,700</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Vision & Mission -->
+<section class="problem fade-in">
+    <h2>Our Vision &amp; Mission</h2>
+    <p class="section-subtitle">Building the next generation of commercial roofing professionals</p>
+    <div class="grid-2">
+        <div class="info-card">
+            <h4>The Challenge</h4>
+            <p>Commercial roofing faces skilled labor shortages, increasingly complex systems, rapid technology evolution, and demand for greater accountability from owners, insurers, and lenders — higher risk, greater uncertainty, and increased cost.</p>
+        </div>
+        <div class="info-card">
+            <h4>Our Mission</h4>
+            <p>To create a standardized learning pathway that develops professionals capable of inspecting, repairing, replacing, documenting, validating, and continuously improving commercial roofing systems — through education, technology, and industry collaboration.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="contact fade-in">
+    <h2>Ready to See the Difference?</h2>
+    <p class="section-subtitle">Better data. Better decisions. Better outcomes.</p>
+    <div class="contact-wrap">
+        <div class="contact-left">
+            <h3>Let's talk about your portfolio.</h3>
+            <p>Legacy becomes your centralized solution to detect hidden roof issues before they become costly failures — enabling smarter repairs, longer roof life, lower capital costs, and data-driven decisions.</p>
+            <div class="contact-detail"><span class="icon"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></span><span>405-442-2120</span></div>
+            <div class="contact-detail"><span class="icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg></span><span>Info@LegacyTechnologyLab.com</span></div>
+        </div>
+        <div class="contact-right">
+            <h4>Request a Demo</h4>
+            <form>
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Company Email" required>
+                <input type="tel" placeholder="Phone Number" required>
+                <input type="text" placeholder="Company Name" required>
+                <textarea placeholder="Tell us about your portfolio" rows="4"></textarea>
+                <button type="submit">Request a Demo</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2026 Legacy Technology Lab. Better Data. Better Decisions. Better Outcomes.</p>
+</footer>
+
+<script>
+    const videoElement = document.getElementById('heroVideo');
+    videoElement.src = './hero.mp4';
+    videoElement.play().catch(() => {});
+
+    function switchHeroVideo(btn) {
+        const src = btn.getAttribute('data-src');
+        if (videoElement.getAttribute('src') === src) return;
+        videoElement.src = src;
+        videoElement.play().catch(() => {});
+        document.querySelectorAll('.video-toggle').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const delay = Array.from(entry.target.parentElement.children).indexOf(entry.target) * 0.1;
+                setTimeout(() => {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                }, delay * 100);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
