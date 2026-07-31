@@ -204,14 +204,51 @@
     }
 
     .info-card {
+        position: relative;
+        overflow: hidden;
         padding: 24px;
         background: var(--card-bg);
         border: 1px solid rgba(198,21,32,0.3);
         border-radius: 12px;
         color: #d0d0d0;
-        transition: all .3s;
+        transition: border-color .35s, transform .35s, box-shadow .35s;
     }
-    .info-card:hover { border-color: rgba(198,21,32,0.6); transform: translateY(-3px); }
+    .info-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('./assets/legacy.png');
+        background-size: cover;
+        background-position: center;
+        filter: brightness(0.55) saturate(1.3);
+        opacity: 0;
+        transition: opacity .4s;
+        z-index: 0;
+    }
+    .info-card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.88) 100%);
+        opacity: 0;
+        transition: opacity .4s;
+        z-index: 0;
+    }
+    .info-card > * { position: relative; z-index: 1; }
+    .info-card:hover {
+        border-color: rgba(198,21,32,0.75);
+        transform: translateY(-3px) scale(1.03);
+        box-shadow: 0 14px 34px rgba(198,21,32,0.3);
+    }
+    .info-card:hover::before { opacity: 0.4; }
+    .info-card:hover::after { opacity: 1; }
+
+    .gradient-text {
+        background: linear-gradient(90deg, #2dd4bf 0%, #fbbf24 45%, #f97316 72%, #ef4444 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
 
     .info-card.card-centered {
         display: flex;
@@ -268,6 +305,17 @@
     .process-card h3 { font-size: 20px; margin-bottom: 10px; color: #ffffff; }
     .process-card p { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 500; color: #d6d6d6; line-height: 1.6; }
 
+    .process-card-img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 18px;
+        display: block;
+        -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+        mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+    }
+
     .stats {
         background:
             radial-gradient(ellipse 750px 550px at 0% 0%, rgba(0,0,0,0.55), transparent 55%),
@@ -316,6 +364,16 @@
         border: 1px solid rgba(198,21,32,0.3);
     }
     .comp-card.legacy { background: rgba(198, 21, 32, 0.14); border: 2px solid rgba(198,21,32,0.5); }
+    .comp-card-img {
+        width: 100%;
+        height: 190px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 18px;
+        display: block;
+        -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+        mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    }
     .comp-card h3 {
         font-family: 'Montserrat', sans-serif;
         color: #ff8888; font-size: 15px; margin-bottom: 14px;
@@ -512,7 +570,7 @@
     <video id="heroVideo" muted playsinline autoplay loop style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0.28;z-index:1;"></video>
     <div class="hero-content">
         <img src="./assets/logo-stacked-white.png" alt="Legacy Technology Lab" style="height:340px;width:auto;display:block;margin:0 auto 8px;filter:drop-shadow(0 0 32px rgba(255,255,255,0.75)) drop-shadow(0 0 8px rgba(255,255,255,0.95)) drop-shadow(0 6px 20px rgba(0,0,0,0.5));">
-        <h1 style="margin-top:8px;">The Future of Commercial Roof Intelligence</h1>
+        <h1 style="margin-top:8px;">The Future of Commercial Roof <span class="gradient-text">Intelligence</span></h1>
         <p>Non-destructive penetrative imaging that sees what others can't. Legacy detects hidden roof issues before they become costly failures.</p>
         <button class="cta-button">Request a Demo</button>
     </div>
@@ -577,10 +635,11 @@
 
 <!-- Traditional vs Legacy -->
 <section class="problem fade-in">
-    <h2>From Prehistoric to Innovative</h2>
+    <h2>From Prehistoric to <span class="gradient-text">Innovative</span></h2>
     <p class="section-subtitle">Legacy delivers objective, non-destructive verification of what others can't see</p>
     <div class="grid-2">
         <div class="comp-card">
+            <img class="comp-card-img" src="./assets/traditional.png" alt="Seam tester probe tool">
             <h3>Traditional Method</h3>
             <h4>Seam Tester Probe</h4>
             <ul>
@@ -593,8 +652,9 @@
             <p class="tag" style="color:#ff6b6b;">Limited. Subjective. Outdated.</p>
         </div>
         <div class="comp-card legacy">
+            <img class="comp-card-img" src="./assets/legacy.png" alt="Thermal penetrative scan of a roof weld">
             <h3>Legacy Technology</h3>
-            <h4>Penetrative Imaging — MRI Vision for Roofs</h4>
+            <h4>Penetrative Imaging — <span class="gradient-text">MRI Vision for Roofs</span></h4>
             <ul>
                 <li>Verifies the full 3&quot; weld width</li>
                 <li>Detects hidden voids and incomplete fusion</li>
@@ -605,7 +665,10 @@
             <p class="tag" style="color:#4db8ff;">Objective. Non-Destructive. Forensic.</p>
         </div>
     </div>
-    <p style="text-align:center; max-width:800px; margin:8px auto 0; color:#c0c0c0; font-size:16px; font-weight:500; font-family:'Montserrat',sans-serif;">This simple hook has been the industry standard for decades, checking only the edge of a 3" weld while hidden defects go undetected. Legacy sees up to 8" beneath the surface to ensure every weld is built to perform, before leaks ever occur.</p>
+    <div class="grid-2" style="margin-top:8px;">
+        <p style="text-align:center; margin:0; color:#c0c0c0; font-size:16px; font-weight:500; font-family:'Montserrat',sans-serif;">This simple hook has been the industry standard for decades, checking only the edge of a 3" weld while hidden defects go undetected.</p>
+        <p style="text-align:center; margin:0; color:#c0c0c0; font-size:16px; font-weight:500; font-family:'Montserrat',sans-serif;">Legacy sees up to 8" beneath the surface to ensure every weld is built to perform, before leaks ever occur.</p>
+    </div>
 </section>
 
 <!-- Top 3 culprits -->
@@ -614,16 +677,19 @@
     <p class="section-subtitle">The majority of water intrusion on single-ply roof systems originates from just three locations</p>
     <div class="grid-3">
         <div class="process-card">
+            <img class="process-card-img" src="./assets/culprit-overlap-seams.png" alt="Overlap seam thermal diagram">
             <div class="process-number">1</div>
             <h3>Overlap Seams</h3>
             <p>Heat-welded seams. Seam failures are the #1 cause of roof leaks — incomplete welds, voids, or contaminants allow water to travel under the membrane.</p>
         </div>
         <div class="process-card">
+            <img class="process-card-img" src="./assets/culprit-penetration-flashings.png" alt="Penetration flashing thermal diagram">
             <div class="process-number">2</div>
             <h3>Penetration Flashings</h3>
             <p>Movement, poor installation, and deterioration around pipe penetrations cause leaks as sealant breaks down and moisture travels under the membrane.</p>
         </div>
         <div class="process-card">
+            <img class="process-card-img" src="./assets/culprit-perimeter-termination.png" alt="Perimeter and termination thermal diagram">
             <div class="process-number">3</div>
             <h3>Perimeter &amp; Terminations</h3>
             <p>Water enters at the edges, termination bars, and counterflashings as sealant deteriorates or termination height is improper.</p>
