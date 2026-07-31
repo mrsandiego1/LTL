@@ -238,6 +238,14 @@
             #0d0d0d;
     }
 
+    .problem.gradient-thermal {
+        background:
+            radial-gradient(ellipse 750px 480px at 12% 0%, rgba(76,201,240,0.16), transparent 60%),
+            radial-gradient(ellipse 700px 500px at 50% 55%, rgba(168,85,247,0.10), transparent 62%),
+            radial-gradient(ellipse 800px 520px at 92% 100%, rgba(255,140,0,0.16), transparent 60%),
+            #0d0d0d;
+    }
+
     .info-card {
         position: relative;
         overflow: hidden;
@@ -250,35 +258,12 @@
         transition: border-color .35s, transform .35s, box-shadow .35s;
     }
     .info-card ul { text-align: left; }
-    .info-card::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background-image: url('./assets/legacy.png');
-        background-size: cover;
-        background-position: center;
-        filter: brightness(0.55) saturate(1.3);
-        opacity: 0;
-        transition: opacity .4s;
-        z-index: 0;
-    }
-    .info-card::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.88) 100%);
-        opacity: 0;
-        transition: opacity .4s;
-        z-index: 0;
-    }
-    .info-card > * { position: relative; z-index: 1; }
     .info-card:hover {
         border-color: rgba(198,21,32,0.75);
         transform: translateY(-3px) scale(1.03);
         box-shadow: 0 14px 34px rgba(198,21,32,0.3);
+        background: rgba(198,21,32,0.1);
     }
-    .info-card:hover::before { opacity: 0.4; }
-    .info-card:hover::after { opacity: 1; }
 
     .gradient-text {
         background: linear-gradient(90deg, #2dd4bf 0%, #fbbf24 45%, #f97316 72%, #ef4444 100%);
@@ -832,7 +817,7 @@
 </section>
 
 <!-- TRU Score -->
-<section id="truscore" class="problem gradient-a fade-in">
+<section id="truscore" class="problem gradient-thermal fade-in">
     <h2>Legacy TruScore: Risk-Based Underwriting</h2>
     <p class="section-subtitle">A controlled, evidence-linked 0–850 standardized reference that insurers and owners can trust</p>
     <p style="max-width: 800px; margin: 0 auto 40px; text-align:center; font-family:'Montserrat',sans-serif; font-size:17px; font-weight:500; line-height:1.8; color:#d6d6d6;">TruScore turns verified roof condition, management practices, and risk-control evidence into one standardized score — so building owners and insurers can see, track, and act on roof risk before it becomes a claim.</p>
