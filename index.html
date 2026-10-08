@@ -89,8 +89,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: flex-start;
-        padding: 70vh 20px 40px;
+        justify-content: center;
+        padding: 120px 20px 60px;
         position: relative;
         overflow: hidden;
         background: var(--bg);
@@ -204,23 +204,6 @@
 
     .cta-button:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(198, 21, 32, 0.7); }
 
-    .video-toggle {
-        background: rgba(20,20,20,0.7);
-        border: 1px solid rgba(255,255,255,0.25);
-        color: #d0d0d0;
-        font-family: 'Montserrat', sans-serif;
-        font-size: 13px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.8px;
-        padding: 7px 16px;
-        border-radius: 20px;
-        cursor: pointer;
-        backdrop-filter: blur(6px);
-        transition: all 0.25s;
-    }
-    .video-toggle:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
-    .video-toggle.active { background: var(--red); border-color: var(--red); color: #fff; }
 
     section {
         padding: 70px 20px;
@@ -819,12 +802,6 @@
         <p id="heroSubtext">Non-destructive penetrative imaging that sees what others can't. Legacy detects hidden roof issues before they become costly failures — then manages them for continuous roof health.</p>
         <button class="cta-button hero-cta-anim">Request a Demo</button>
     </div>
-    <div style="position:absolute;bottom:20px;left:20px;z-index:20;display:flex;gap:8px;">
-        <button class="video-toggle active" data-src="./assets/hero-aerial.mp4" onclick="switchHeroVideo(this)">Vid 1</button>
-        <button class="video-toggle" data-src="./assets/hero-3.mp4" onclick="switchHeroVideo(this)">Vid 2</button>
-        <button class="video-toggle" data-src="./assets/hero-2.mp4" onclick="switchHeroVideo(this)">Vid 3</button>
-        <button class="video-toggle" data-src="./hero.mp4" onclick="switchHeroVideo(this)">Vid 4</button>
-    </div>
 </section>
 
 <!-- Meet Legacy -->
@@ -1247,18 +1224,9 @@
     })();
 
     const videoElement = document.getElementById('heroVideo');
-    const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
-    videoElement.src = isSmallScreen ? './assets/hero-aerial-mobile.mp4' : './assets/hero-aerial.mp4';
+    videoElement.src = './assets/hero-aerial.mp4';
     videoElement.play().catch(() => {});
 
-    function switchHeroVideo(btn) {
-        const src = btn.getAttribute('data-src');
-        if (videoElement.getAttribute('src') === src) return;
-        videoElement.src = src;
-        videoElement.play().catch(() => {});
-        document.querySelectorAll('.video-toggle').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-    }
 
     const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
     const observer = new IntersectionObserver((entries) => {
