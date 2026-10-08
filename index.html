@@ -1224,7 +1224,8 @@
     })();
 
     const videoElement = document.getElementById('heroVideo');
-    videoElement.src = './assets/hero-aerial.mp4';
+    const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
+    videoElement.src = isSmallScreen ? './assets/hero-aerial-mobile.mp4' : './assets/hero-aerial.mp4';
     videoElement.play().catch(() => {});
 
 
