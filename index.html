@@ -813,16 +813,17 @@
 
 <!-- Hero -->
 <section id="top" class="hero">
-    <video id="heroVideo" muted playsinline autoplay loop style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.28;z-index:1;"></video>
+    <video id="heroVideo" muted playsinline autoplay loop preload="auto" poster="./assets/hero-aerial-poster.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.28;z-index:1;"></video>
     <div class="hero-content">
         <h1 id="heroHeadline">The Future of Commercial Roof <span class="gradient-text">Intelligence</span></h1>
         <p id="heroSubtext">Non-destructive penetrative imaging that sees what others can't. Legacy detects hidden roof issues before they become costly failures — then manages them for continuous roof health.</p>
         <button class="cta-button hero-cta-anim">Request a Demo</button>
     </div>
     <div style="position:absolute;bottom:20px;left:20px;z-index:20;display:flex;gap:8px;">
-        <button class="video-toggle active" data-src="./assets/hero-3.mp4" onclick="switchHeroVideo(this)">Vid 1</button>
-        <button class="video-toggle" data-src="./assets/hero-2.mp4" onclick="switchHeroVideo(this)">Vid 2</button>
-        <button class="video-toggle" data-src="./hero.mp4" onclick="switchHeroVideo(this)">Vid 3</button>
+        <button class="video-toggle active" data-src="./assets/hero-aerial.mp4" onclick="switchHeroVideo(this)">Vid 1</button>
+        <button class="video-toggle" data-src="./assets/hero-3.mp4" onclick="switchHeroVideo(this)">Vid 2</button>
+        <button class="video-toggle" data-src="./assets/hero-2.mp4" onclick="switchHeroVideo(this)">Vid 3</button>
+        <button class="video-toggle" data-src="./hero.mp4" onclick="switchHeroVideo(this)">Vid 4</button>
     </div>
 </section>
 
@@ -1246,7 +1247,8 @@
     })();
 
     const videoElement = document.getElementById('heroVideo');
-    videoElement.src = './assets/hero-3.mp4';
+    const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
+    videoElement.src = isSmallScreen ? './assets/hero-aerial-mobile.mp4' : './assets/hero-aerial.mp4';
     videoElement.play().catch(() => {});
 
     function switchHeroVideo(btn) {
