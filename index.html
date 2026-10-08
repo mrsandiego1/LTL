@@ -10,6 +10,12 @@
 <link rel="icon" type="image/svg+xml" href="./assets/logos/LTL_IconSimplified_Dark_RGB.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="./assets/logos/LTL_Favicon_32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="./assets/logos/LTL_AppleTouchIcon_180.png">
+<script>
+    (function () {
+        var v = new URLSearchParams(location.search).get('v');
+        if (v !== '2') document.documentElement.classList.add('creative');
+    })();
+</script>
 <style>
     /* Brand tokens: Legacy Technology Lab Brand Guidelines v1.2 (Sept 2026), pp. 12-13 */
     :root {
@@ -305,12 +311,12 @@
     .process-card p { font-size: 17px; line-height: 1.6; }
 
     .process-card-img {
-        width: 100%;
-        height: 280px;
-        object-fit: contain;
-        border-radius: 16px;
-        margin-bottom: 18px;
         display: block;
+        width: 100%;
+        max-width: 320px;
+        height: auto;
+        border-radius: 16px;
+        margin: 0 auto 18px;
     }
 
     /* Stat band: white on Legacy Red over video (p. 14) */
@@ -374,12 +380,11 @@
     .comp-card.legacy { border: 2px solid var(--red); }
     .comp-card ul { text-align: left; }
     .comp-card-img {
-        width: 100%;
-        height: 170px;
-        object-fit: contain;
-        border-radius: 10px;
-        margin-bottom: 18px;
         display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+        margin-bottom: 18px;
     }
     .comp-card h3 { margin-top: 0; }
     .comp-card h4 { font-family: 'Montserrat', Arial, sans-serif; font-weight: 600; font-size: 17px; margin-bottom: 14px; }
@@ -512,9 +517,12 @@
         line-height: 1.5;
     }
 
+    @media (min-width: 1100px) {
+        nav .links { display: flex; }
+    }
+
     @media (min-width: 768px) {
         nav { padding: 16px 60px; }
-        nav .links { display: flex; }
         section[id] { scroll-margin-top: 88px; }
         section { padding: 100px 40px; }
         section h2 { font-size: 48px; }
@@ -525,6 +533,164 @@
         .contact-wrap { grid-template-columns: 1fr 1.1fr; }
         .section-subtitle { font-size: 22px; }
     }
+    /* Version switch (bottom-left of hero) */
+    .version-switch { position: absolute; bottom: 20px; left: 20px; z-index: 20; display: flex; gap: 8px; }
+    .version-switch button {
+        background: rgba(34,32,33,0.6);
+        border: 1px solid rgba(255,255,255,0.3);
+        color: var(--white);
+        font-family: 'Montserrat', Arial, sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        padding: 8px 14px;
+        border-radius: 20px;
+        cursor: pointer;
+        backdrop-filter: blur(6px);
+        transition: background 0.2s, border-color 0.2s;
+    }
+    .version-switch button:hover { border-color: var(--white); }
+    .version-switch button.active { background: var(--red); border-color: var(--red); }
+
+    /* ===== Version 1: Creative layer =====
+       Brand fonts, palette and official logos stay the same; this adds depth:
+       red glows, gradient buttons, metallic hero type, glass nav and cards.
+       Logos are never glowed or recolored (guide p. 9). */
+    html.creative nav {
+        background: rgba(34,32,33,0.88);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom-color: rgba(198,21,32,0.4);
+    }
+
+    html.creative .hero-letter {
+        background: linear-gradient(180deg, #FFFFFF 0%, #DFDFDF 42%, #FFFFFF 55%, #C0BFBF 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+    }
+    html.creative .hero h1 { text-shadow: none; filter: drop-shadow(0 3px 14px rgba(0,0,0,0.8)); }
+    /* Thermal accent echoing the scan footage */
+    html.creative .hero h1 .thermal {
+        background: linear-gradient(90deg, #5eead4 0%, #ffd23f 42%, #ff8a3d 70%, #C61520 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    html.creative .cta-button,
+    html.creative .contact-right button {
+        background: linear-gradient(135deg, #C61520 0%, #8B0F14 100%);
+        box-shadow: 0 8px 25px rgba(198,21,32,0.5);
+        transition: transform 0.3s, box-shadow 0.3s, filter 0.3s;
+    }
+    html.creative .cta-button:hover,
+    html.creative .contact-right button:hover {
+        background: linear-gradient(135deg, #C61520 0%, #8B0F14 100%);
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(198,21,32,0.75);
+        filter: brightness(1.08);
+    }
+
+    /* Section glows alternate corners so each seam meets a matching glow */
+    html.creative section:not(.hero):not(.stats):nth-of-type(odd) {
+        background:
+            radial-gradient(ellipse 700px 420px at 50% 35%, rgba(198,21,32,0.10), transparent 60%),
+            radial-gradient(ellipse 600px 260px at 82% 100%, rgba(198,21,32,0.22), transparent 58%),
+            radial-gradient(ellipse 600px 260px at 18% 0%, rgba(198,21,32,0.16), transparent 58%),
+            var(--graphite);
+    }
+    html.creative section:not(.hero):not(.stats):nth-of-type(even) {
+        background:
+            radial-gradient(ellipse 600px 260px at 82% 0%, rgba(198,21,32,0.22), transparent 58%),
+            radial-gradient(ellipse 600px 260px at 18% 100%, rgba(198,21,32,0.16), transparent 58%),
+            var(--graphite);
+    }
+    html.creative section h2 { text-shadow: 0 0 28px rgba(198,21,32,0.35); }
+    html.creative section:not(.hero) h2::after { box-shadow: 0 0 12px rgba(198,21,32,0.8); }
+
+    html.creative .info-card,
+    html.creative .comp-card,
+    html.creative .case-card,
+    html.creative .metric-card {
+        background: linear-gradient(160deg, rgba(87,85,86,0.22) 0%, rgba(34,32,33,0.9) 60%);
+        border-color: rgba(198,21,32,0.35);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+        transition: border-color .35s, transform .35s, box-shadow .35s, background .35s;
+    }
+    html.creative .info-card:hover,
+    html.creative .case-card:hover,
+    html.creative .metric-card:hover {
+        border-color: rgba(198,21,32,0.8);
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 14px 34px rgba(198,21,32,0.3);
+        background: linear-gradient(160deg, rgba(198,21,32,0.18) 0%, rgba(34,32,33,0.9) 70%);
+    }
+    html.creative .info-card.card-centered {
+        background:
+            radial-gradient(ellipse 260px 180px at 30% 20%, rgba(198,21,32,0.18), transparent 65%),
+            linear-gradient(160deg, rgba(87,85,86,0.22) 0%, rgba(34,32,33,0.9) 60%);
+    }
+    html.creative .info-card h4,
+    html.creative .comp-card h3,
+    html.creative .case-card h3,
+    html.creative .contact-right h4 {
+        background: linear-gradient(90deg, rgba(198,21,32,0.18) 0%, rgba(255,255,255,0.04) 100%);
+        border-bottom-color: var(--red);
+        box-shadow: 0 2px 12px rgba(198,21,32,0.35);
+    }
+    html.creative .comp-card.legacy {
+        background: linear-gradient(160deg, rgba(198,21,32,0.22) 0%, rgba(34,32,33,0.9) 70%);
+        border-color: var(--red);
+        box-shadow: 0 0 30px rgba(198,21,32,0.35);
+    }
+
+    html.creative .process-card {
+        background: linear-gradient(160deg, rgba(198,21,32,0.14) 0%, rgba(34,32,33,0.9) 70%);
+        border-color: rgba(198,21,32,0.35);
+    }
+    html.creative .process-card:hover { border-color: rgba(198,21,32,0.8); box-shadow: 0 14px 34px rgba(198,21,32,0.3); }
+
+    html.creative .process-number,
+    html.creative .step-badge {
+        background: linear-gradient(135deg, #C61520 0%, #8B0F14 100%);
+        box-shadow: 0 8px 25px rgba(198,21,32,0.5);
+    }
+
+    html.creative .comp-card-img,
+    html.creative .process-card-img { box-shadow: 0 10px 28px rgba(0,0,0,0.45); }
+
+    html.creative .metric-card { border-top: 3px solid var(--red); }
+    html.creative .metric-card .big { text-shadow: 0 0 24px rgba(198,21,32,0.5); }
+
+    html.creative .stats::before {
+        background:
+            radial-gradient(ellipse 750px 550px at 0% 0%, rgba(0,0,0,0.5), transparent 55%),
+            radial-gradient(ellipse 750px 550px at 100% 100%, rgba(0,0,0,0.45), transparent 55%),
+            radial-gradient(ellipse 950px 700px at 50% 42%, #C61520 0%, #A81218 60%, #8B0F14 100%);
+        opacity: 0.78;
+    }
+    html.creative .stats .big-stat { text-shadow: 0 3px 18px rgba(0,0,0,0.6); }
+
+    html.creative .pill {
+        background: rgba(198,21,32,0.14);
+        box-shadow: 0 0 14px rgba(198,21,32,0.25);
+    }
+    html.creative .dark-banner { box-shadow: 0 0 24px rgba(198,21,32,0.25); }
+
+    /* Thermal scale for the score bar */
+    html.creative .score-scale .bar {
+        background: linear-gradient(90deg, #2dd4bf 0%, #5eead4 16%, #a3e635 32%, #ffd23f 50%, #ff8a3d 68%, #f97316 84%, #C61520 100%);
+        box-shadow: 0 0 18px rgba(255,138,61,0.35);
+    }
+
+    html.creative .contact-wrap { border-color: rgba(198,21,32,0.4); box-shadow: 0 20px 60px rgba(198,21,32,0.2); }
+    html.creative .contact-left { background: linear-gradient(160deg, #C61520 0%, #8B0F14 100%); }
+    html.creative .contact-right { background: rgba(34,32,33,0.92); }
+    html.creative input:focus,
+    html.creative textarea:focus { background: rgba(198,21,32,0.08); box-shadow: 0 0 0 3px rgba(198,21,32,0.2); }
 </style>
 </head>
 <body>
@@ -548,9 +714,13 @@
 <section id="top" class="hero">
     <video id="heroVideo" muted playsinline autoplay loop preload="auto" poster="./assets/hero-aerial-poster.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.28;z-index:1;"></video>
     <div class="hero-content">
-        <h1 id="heroHeadline">The Future of Commercial Roof <span>Intelligence</span></h1>
+        <h1 id="heroHeadline">The Future of Commercial Roof <span class="thermal">Intelligence</span></h1>
         <p id="heroSubtext">Non-destructive penetrative imaging that sees what others can't. Legacy detects hidden roof issues before they become costly failures — then manages them for continuous roof health.</p>
         <button class="cta-button hero-cta-anim">Request a Demo</button>
+    </div>
+    <div class="version-switch">
+        <button type="button" data-v="1" onclick="setVersion(1)">V1 Creative</button>
+        <button type="button" data-v="2" onclick="setVersion(2)">V2 Brand Strict</button>
     </div>
 </section>
 
@@ -969,6 +1139,15 @@
             cta.style.animationDelay = (totalTime + 0.35) + 's';
         }
     })();
+
+    function setVersion(v) {
+        document.documentElement.classList.toggle('creative', v !== 2);
+        document.querySelectorAll('.version-switch button').forEach(b => b.classList.toggle('active', Number(b.dataset.v) === v));
+        const url = new URL(location.href);
+        if (v === 2) url.searchParams.set('v', '2'); else url.searchParams.delete('v');
+        history.replaceState(null, '', url);
+    }
+    setVersion(document.documentElement.classList.contains('creative') ? 1 : 2);
 
     const videoElement = document.getElementById('heroVideo');
     const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
