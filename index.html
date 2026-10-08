@@ -5,16 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Legacy Technology Lab — Commercial Roof Intelligence</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700&family=Poppins:wght@600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="./assets/logos/LTL_IconSimplified_Dark_RGB.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="./assets/logos/LTL_Favicon_32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="./assets/logos/LTL_AppleTouchIcon_180.png">
 <style>
+    /* Brand tokens: Legacy Technology Lab Brand Guidelines v1.2 (Sept 2026), pp. 12-13 */
     :root {
-        --red: #C61520;
-        --red-light: #e8323d;
-        --graphite: #222021;
+        --red: #C61520;          /* Red 600: buttons, links, accents */
+        --red-hover: #A81218;    /* Red 700 */
+        --red-active: #8B0F14;   /* Red 800 */
+        --graphite: #222021;     /* Graphite 900: dark surfaces */
+        --graphite-700: #575556; /* borders on dark, dividers */
+        --graphite-500: #8B8A8B; /* placeholders, inactive icons */
         --gray-light: #F4F4F4;
-        --bg: #0a0a0a;
-        --card-bg: rgba(30,30,30,0.85);
-        --border: rgba(198,21,32,0.35);
+        --white: #FFFFFF;
+        --bg: var(--graphite);
+        --border: var(--graphite-700);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -22,19 +30,19 @@
 
     section[id] { scroll-margin-top: 90px; }
 
+    /* Body: Montserrat Regular 17px / 1.6. Type on dark is always white (p. 14). */
     body {
-        font-family: 'Montserrat', sans-serif;
+        font-family: 'Montserrat', Arial, sans-serif;
         font-weight: 400;
-        color: #e8e8e8;
+        font-size: 17px;
+        line-height: 1.6;
+        color: var(--white);
         background: var(--bg);
         overflow-x: hidden;
     }
 
-    h1, h2, h3, .headline {
-        font-family: 'Bebas Neue', sans-serif;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-    }
+    /* Bebas Neue exists at weight 400 only; never let the browser synthesize bold. */
+    h1, h2, h3, h4 { font-weight: 400; }
 
     /* Navigation */
     @keyframes navSlideDown {
@@ -45,11 +53,9 @@
         position: fixed;
         top: 0;
         width: 100%;
-        background: rgba(10, 10, 10, 0.97);
-        backdrop-filter: blur(10px);
+        background: var(--graphite);
         border-bottom: 1px solid var(--border);
-        padding: 2px 24px;
-        min-height: 136px;
+        padding: 16px 24px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -57,20 +63,21 @@
         animation: navSlideDown 0.7s cubic-bezier(0.16,1,0.3,1) both;
     }
 
-    nav img.logo-img { height: 130px; width: auto; display: block; object-fit: contain; flex-shrink: 0; }
+    /* Horizontal Logo, all white on Graphite Black. Screen minimum 144px wide (p. 7). */
+    nav img.logo-img { height: 56px; width: auto; display: block; flex-shrink: 0; }
 
     nav .links {
         display: none;
-        gap: 20px;
-        font-size: 14.5px;
-        font-weight: 700;
+        gap: 24px;
+        font-size: 14px;
+        font-weight: 600;
         text-transform: uppercase;
-        letter-spacing: 0.6px;
+        letter-spacing: 0.04em;
         white-space: nowrap;
     }
 
-    nav a { text-decoration: none; color: #d0d0d0; transition: color 0.3s; }
-    nav a:hover { color: var(--red-light); }
+    nav a { text-decoration: none; color: var(--white); padding-bottom: 4px; border-bottom: 2px solid transparent; transition: border-color 0.3s; }
+    nav a:hover { border-bottom-color: var(--red); }
 
     @keyframes fadeInUp {
         from { opacity: 0; transform: translateY(40px); }
@@ -79,8 +86,6 @@
 
     .fade-in { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; }
 
-    /* Close subpixel gaps between adjacent sections so their background
-       colors butt seamlessly with no hairline showing the body color. */
     section + section { margin-top: -1px; }
 
     /* Hero */
@@ -114,31 +119,11 @@
         content: '';
         position: absolute;
         top: 0; left: 0; right: 0; bottom: 0;
-        background: radial-gradient(ellipse at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.72) 100%);
+        background: radial-gradient(ellipse at center, rgba(34,32,33,0.2) 0%, rgba(34,32,33,0.75) 100%);
         z-index: 2;
     }
 
-    .hero-content { position: relative; z-index: 10; text-align: center; }
-
-    @keyframes heroLogoFadeIn {
-        from { opacity: 0; transform: scale(0.85) translateY(-12px); }
-        to { opacity: 1; transform: scale(1) translateY(0); }
-    }
-    .hero-logo-anim { opacity: 0; animation: heroLogoFadeIn 1s cubic-bezier(0.16,1,0.3,1) 0.45s both; }
-
-    .hero-logo-metal {
-        display: block;
-        background: linear-gradient(180deg, #ffffff 0%, #d4d4d4 42%, #ffffff 55%, #a8a8a8 100%);
-        -webkit-mask-image: url('./assets/logo-stacked-white.png');
-        mask-image: url('./assets/logo-stacked-white.png');
-        -webkit-mask-size: contain;
-        mask-size: contain;
-        -webkit-mask-repeat: no-repeat;
-        mask-repeat: no-repeat;
-        -webkit-mask-position: center;
-        mask-position: center;
-        filter: drop-shadow(0 0 32px rgba(255,255,255,0.55)) drop-shadow(0 0 8px rgba(255,255,255,0.75)) drop-shadow(0 6px 20px rgba(0,0,0,0.5));
-    }
+    .hero-content { position: relative; z-index: 10; text-align: center; max-width: 1100px; }
 
     @keyframes letterFadeIn {
         from { opacity: 0; transform: translateY(16px); }
@@ -148,11 +133,6 @@
         display: inline-block;
         opacity: 0;
         animation: letterFadeIn 0.5s ease-out forwards;
-        background: linear-gradient(180deg, #ffffff 0%, #d4d4d4 42%, #ffffff 55%, #a8a8a8 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        color: transparent;
     }
 
     @keyframes subtextSlideIn {
@@ -167,335 +147,174 @@
     }
     .hero-cta-anim { opacity: 0; animation: ctaFadeIn 0.7s ease-out forwards; }
 
+    /* Display: Bebas Neue 400, all caps, 56-72px, line-height 1.0, +0.025em (p. 17) */
     .hero h1 {
-        font-size: 44px;
-        color: #ffffff;
-        margin-bottom: 20px;
-        line-height: 1.15;
-        filter: drop-shadow(0 3px 14px rgba(0,0,0,0.85)) drop-shadow(0 1px 4px rgba(0,0,0,0.9));
+        font-family: 'Bebas Neue', Arial, sans-serif;
+        font-weight: 400;
+        text-transform: uppercase;
+        font-size: 56px;
+        line-height: 1.0;
+        letter-spacing: 0.025em;
+        color: var(--white);
+        margin-bottom: 24px;
+        text-shadow: 0 2px 14px rgba(0,0,0,0.6);
     }
 
     .hero p {
-        font-family: 'Montserrat', sans-serif;
-        font-size: 18px;
-        color: #f0f0f0;
-        max-width: 600px;
-        margin: 0 auto 26px;
-        line-height: 1.65;
-        font-weight: 600;
-        text-shadow: 0 2px 10px rgba(0,0,0,0.85), 0 1px 3px rgba(0,0,0,0.9);
+        font-size: 17px;
+        line-height: 1.6;
+        color: var(--white);
+        max-width: 62ch;
+        margin: 0 auto 32px;
+        text-shadow: 0 1px 8px rgba(0,0,0,0.7);
     }
 
-    .cta-button {
-        background: linear-gradient(135deg, var(--red-light) 0%, var(--red) 100%);
-        color: #fff;
-        padding: 16px 44px;
+    /* Button: Montserrat SemiBold 15px, all caps, +0.04em, line-height 1.0 (p. 17) */
+    .cta-button, .contact-right button {
+        background: var(--red);
+        color: var(--white);
+        padding: 18px 44px;
         border: none;
         border-radius: 50px;
-        font-family: 'Montserrat', sans-serif;
+        font-family: 'Montserrat', Arial, sans-serif;
         font-size: 15px;
-        font-weight: 700;
-        cursor: pointer;
+        font-weight: 600;
+        line-height: 1.0;
         text-transform: uppercase;
-        letter-spacing: 1.5px;
-        transition: all 0.3s;
-        box-shadow: 0 8px 25px rgba(198, 21, 32, 0.5);
+        letter-spacing: 0.04em;
+        cursor: pointer;
+        transition: background 0.2s, transform 0.2s;
     }
-
-    .cta-button:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(198, 21, 32, 0.7); }
-
+    .cta-button:hover, .contact-right button:hover { background: var(--red-hover); transform: translateY(-2px); }
+    .cta-button:active, .contact-right button:active { background: var(--red-active); transform: translateY(0); }
 
     section {
-        padding: 70px 20px;
+        padding: 72px 20px;
         position: relative;
         z-index: 10;
         background: var(--bg);
     }
 
+    /* Section titles: Poppins SemiBold, website titles only (pp. 15, 17) */
     section h2 {
-        font-size: 40px;
-        margin-bottom: 12px;
+        font-family: 'Poppins', Arial, sans-serif;
+        font-weight: 600;
+        font-size: 36px;
+        line-height: 1.1;
+        margin-bottom: 16px;
         text-align: center;
-        color: #ffffff;
+        color: var(--white);
+        text-wrap: balance;
     }
 
-    /* Subtle scroll-triggered title reveal: fade/rise plus a thin
-       underline that draws in, independent of the section's own fade. */
+    /* Scroll reveal: fade/rise plus a red rule that draws in (red on dark = rule, p. 14) */
     section:not(.hero) h2 {
         opacity: 0;
         transform: translateY(16px);
         transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1), transform 0.85s cubic-bezier(0.16,1,0.3,1);
     }
-    section:not(.hero) h2.title-in {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    section:not(.hero) h2.title-in { opacity: 1; transform: translateY(0); }
     section:not(.hero) h2::after {
         content: '';
         display: block;
         width: 0;
-        height: 2px;
+        height: 3px;
         background: var(--red);
-        margin: 14px auto 0;
+        margin: 16px auto 0;
         transition: width 0.6s ease-out 0.3s;
     }
-    section:not(.hero) h2.title-in::after {
-        width: 56px;
-    }
+    section:not(.hero) h2.title-in::after { width: 56px; }
 
+    /* Subhead: Montserrat SemiBold 22px / 1.3 */
     .section-subtitle {
-        font-family: 'Montserrat', sans-serif;
-        font-size: 17.5px;
-        color: #c4c4c4;
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 1.3;
+        color: var(--white);
         text-align: center;
-        margin-bottom: 40px;
-        font-weight: 500;
-        max-width: 700px;
-        margin-left: auto;
-        margin-right: auto;
+        margin: 0 auto 40px;
+        max-width: 900px;
     }
 
-    .problem { background: var(--bg); }
-
-    /* Prevent single-word orphan lines in card copy and subtitles. */
     .info-card p, .comp-card ul, .comp-card li, .case-card .meta, .section-subtitle,
     .contact-left p, .stats p {
         text-wrap: balance;
-    }
-
-    /* Per-section tone system: every section gets the SAME kind of accent —
-       a tight, small corner glow, not a big center wash — and the corner
-       facing a neighboring tone-section matches that neighbor's facing
-       corner exactly (same color + same side + same tight size) so the
-       seam blends with no visible line. No two accents are "different
-       kinds"; only their color/corner varies. */
-    body { background: #0a0a0a; }
-
-    section.tone-red-a {
-        background:
-            radial-gradient(ellipse 700px 420px at 50% 40%, rgba(198,21,32,0.12), transparent 60%),
-            radial-gradient(ellipse 560px 240px at 80% 100%, rgba(236,72,153,0.22), transparent 55%);
-    }
-    section.tone-pink-a {
-        background:
-            radial-gradient(ellipse 560px 240px at 80% 0%, rgba(236,72,153,0.22), transparent 55%),
-            radial-gradient(ellipse 560px 240px at 20% 100%, rgba(198,21,32,0.18), transparent 55%);
-    }
-    section.tone-orange-a {
-        background:
-            radial-gradient(ellipse 560px 240px at 50% 0%, rgba(198,21,32,0.18), transparent 55%),
-            radial-gradient(ellipse 560px 240px at 85% 100%, rgba(168,85,247,0.18), transparent 55%);
-    }
-    section.tone-purple-a {
-        background:
-            radial-gradient(ellipse 560px 240px at 85% 0%, rgba(168,85,247,0.2), transparent 55%),
-            radial-gradient(ellipse 560px 240px at 15% 100%, rgba(34,197,94,0.18), transparent 55%);
-    }
-    section.tone-green-a {
-        background:
-            radial-gradient(ellipse 560px 240px at 15% 0%, rgba(34,197,94,0.2), transparent 55%),
-            radial-gradient(ellipse 560px 240px at 90% 100%, rgba(59,130,246,0.18), transparent 55%);
-    }
-    section.tone-blue-a {
-        background:
-            radial-gradient(ellipse 560px 240px at 90% 0%, rgba(59,130,246,0.2), transparent 55%),
-            radial-gradient(ellipse 560px 240px at 50% 100%, rgba(34,197,94,0.18), transparent 55%);
-    }
-    section.tone-green-b {
-        background:
-            radial-gradient(ellipse 560px 240px at 50% 0%, rgba(34,197,94,0.2), transparent 55%),
-            radial-gradient(ellipse 560px 240px at 88% 100%, rgba(168,85,247,0.18), transparent 55%);
-    }
-    section.tone-purple-b {
-        background:
-            radial-gradient(ellipse 560px 240px at 88% 0%, rgba(168,85,247,0.2), transparent 55%),
-            radial-gradient(ellipse 560px 240px at 12% 100%, rgba(236,72,153,0.18), transparent 55%);
-    }
-    section.tone-pink-b {
-        background:
-            radial-gradient(ellipse 560px 240px at 12% 0%, rgba(236,72,153,0.2), transparent 55%),
-            radial-gradient(ellipse 560px 240px at 50% 100%, rgba(198,21,32,0.18), transparent 55%);
-    }
-    section.tone-red-b {
-        background:
-            radial-gradient(ellipse 560px 240px at 50% 0%, rgba(198,21,32,0.2), transparent 55%),
-            radial-gradient(ellipse 500px 220px at 12% 100%, rgba(139,92,246,0.18), transparent 55%),
-            radial-gradient(ellipse 500px 220px at 82% 100%, rgba(250,204,21,0.16), transparent 55%);
-    }
-    section.tone-grey-a {
-        background:
-            radial-gradient(ellipse 500px 220px at 15% 0%, rgba(139,92,246,0.16), transparent 55%),
-            radial-gradient(ellipse 500px 220px at 85% 0%, rgba(239,68,68,0.16), transparent 55%),
-            radial-gradient(ellipse 700px 320px at 50% 100%, rgba(170,170,170,0.22), transparent 58%);
-    }
-    section.tone-red-c {
-        background:
-            radial-gradient(ellipse 560px 240px at 50% 0%, rgba(198,21,32,0.16), transparent 55%),
-            radial-gradient(ellipse 700px 460px at 85% 100%, rgba(198,21,32,0.24), transparent 58%);
-    }
-
-    .problem.gradient-thermal {
-        background:
-            radial-gradient(ellipse 950px 650px at 0% 0%, rgba(139,92,246,0.26), transparent 58%),
-            radial-gradient(ellipse 900px 650px at 30% 100%, rgba(59,130,246,0.22), transparent 55%),
-            radial-gradient(ellipse 900px 650px at 68% 0%, rgba(250,204,21,0.20), transparent 55%),
-            radial-gradient(ellipse 950px 650px at 100% 100%, rgba(239,68,68,0.26), transparent 58%),
-            #0d0d0d;
     }
 
     .info-card {
         position: relative;
         overflow: hidden;
         padding: 24px;
-        background: var(--card-bg);
-        border: 1px solid rgba(198,21,32,0.3);
+        background: var(--graphite);
+        border: 1px solid var(--border);
         border-radius: 12px;
-        color: #d0d0d0;
         text-align: center;
-        transition: border-color .35s, transform .35s, box-shadow .35s;
+        transition: border-color .35s, transform .35s;
     }
     .info-card ul { text-align: left; }
-    .info-card:hover {
-        border-color: rgba(198,21,32,0.75);
-        transform: translateY(-3px) scale(1.03);
-        box-shadow: 0 14px 34px rgba(198,21,32,0.3);
-        background: rgba(198,21,32,0.1);
-    }
-
-    .gradient-text {
-        background: linear-gradient(90deg, #5eead4 0%, #ffd23f 42%, #ff8a3d 70%, #ff5252 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        color: transparent;
-        text-shadow: none;
-    }
-
-    .metal-text {
-        background: linear-gradient(180deg, #ffffff 0%, #d4d4d4 42%, #ffffff 55%, #a8a8a8 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        color: transparent;
-        text-shadow: none;
-    }
-
-    @keyframes gradientWordFadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-    .hero-letter.gradient-text {
-        animation: gradientWordFadeIn 0.6s ease-out forwards;
-    }
-
-    /* Section-title highlight: brand red, not the full rainbow used in the hero.
-       A faint light stroke keeps the glyphs defined, and a soft blurred glow
-       sits behind the word so it reads as a highlight, not a flat block. */
-    .section-highlight {
-        position: relative;
-        display: inline-block;
-        background: linear-gradient(90deg, #ff8a8a 0%, var(--red-light) 40%, var(--red) 70%, #8f0f18 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        color: transparent;
-        text-shadow: none;
-    }
-    .section-highlight::before {
-        content: '';
-        position: absolute;
-        inset: -10px -18px;
-        background: rgba(255,255,255,0.055);
-        border-radius: 14px;
-        filter: blur(16px);
-        z-index: -1;
-        pointer-events: none;
-    }
+    .info-card:hover { border-color: var(--red); transform: translateY(-3px); }
 
     .info-card.card-centered {
         display: flex;
         align-items: center;
         justify-content: center;
-        text-align: center;
         min-height: 190px;
         padding: 28px 24px;
-        background:
-            radial-gradient(ellipse 260px 180px at 30% 20%, rgba(198,21,32,0.14), transparent 65%),
-            var(--card-bg);
     }
-    .info-card.card-centered p {
-        margin: 0;
-        font-size: 21px;
-        font-weight: 700;
-        line-height: 1.4;
-        color: #ffffff;
-        font-family: 'Montserrat', sans-serif;
-    }
+    .info-card.card-centered p { margin: 0; font-size: 20px; font-weight: 600; line-height: 1.3; }
 
-    .info-card h4 {
-        font-family: 'Montserrat', sans-serif;
-        color: #ffffff;
-        font-size: 17px;
-        text-transform: uppercase;
-        letter-spacing: 1.2px;
-        font-weight: 800;
+    /* Card titles: Subhead, Montserrat SemiBold, with a red rule beneath */
+    .info-card h4, .comp-card h3, .case-card h3, .contact-right h4 {
+        font-family: 'Montserrat', Arial, sans-serif;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 1.3;
+        color: var(--white);
         margin: -24px -24px 16px -24px;
-        padding: 14px 24px;
-        background: rgba(255,255,255,0.04);
-        border-bottom: 2px solid var(--red);
+        padding: 16px 24px;
+        border-bottom: 3px solid var(--red);
     }
 
-    .info-card p { font-size: 17.5px; font-weight: 500; line-height: 1.65; color: #e2e2e2; }
-
-    .process {
-        background:
-            radial-gradient(ellipse 1000px 600px at 50% 0%, rgba(198,21,32,0.10), transparent 65%),
-            #0a0a0a;
-    }
+    .info-card p { font-size: 17px; line-height: 1.6; }
 
     .process-card {
         padding: 28px;
         border-radius: 12px;
-        background: rgba(198, 21, 32, 0.1);
+        background: var(--graphite);
         border: 1px solid var(--border);
         text-align: center;
-        transition: all .3s;
+        transition: border-color .3s, transform .3s;
     }
-    .process-card:hover { transform: translateY(-5px); border-color: rgba(198,21,32,0.6); background: rgba(198,21,32,0.16); }
+    .process-card:hover { transform: translateY(-4px); border-color: var(--red); }
 
-    .process-number {
+    .step-badge, .process-number {
         width: 52px; height: 52px;
         border-radius: 50%;
-        background: linear-gradient(135deg, var(--red-light) 0%, var(--red) 100%);
-        color: #fff;
+        background: var(--red);
+        color: var(--white);
         display: flex; align-items: center; justify-content: center;
-        font-family: 'Bebas Neue', sans-serif;
-        font-size: 22px;
-        margin: 0 auto 14px;
-        box-shadow: 0 8px 25px rgba(198,21,32,0.5);
+        font-family: 'Montserrat', Arial, sans-serif;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 1;
+        flex-shrink: 0;
     }
+    .process-number { margin: 0 auto 16px; }
 
-    .process-card h3 { font-size: 20px; margin-bottom: 10px; color: #ffffff; }
-    .process-card p { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 500; color: #d6d6d6; line-height: 1.6; }
+    .process-card h3 { font-family: 'Montserrat', Arial, sans-serif; font-weight: 600; font-size: 22px; line-height: 1.3; margin-bottom: 10px; color: var(--white); }
+    .process-card p { font-size: 17px; line-height: 1.6; }
 
     .process-card-img {
         width: 100%;
         height: 280px;
         object-fit: contain;
-        background: rgba(0,0,0,0.18);
         border-radius: 16px;
         margin-bottom: 18px;
         display: block;
-        -webkit-mask-image: linear-gradient(to bottom, black 96%, transparent 100%);
-        mask-image: linear-gradient(to bottom, black 96%, transparent 100%);
     }
 
-    .stats {
-        position: relative;
-        overflow: hidden;
-        color: #ffffff;
-        text-align: center;
-    }
+    /* Stat band: white on Legacy Red over video (p. 14) */
+    .stats { position: relative; overflow: hidden; text-align: center; }
     .stats video {
         position: absolute;
         top: 0; left: 0;
@@ -508,31 +327,22 @@
         content: '';
         position: absolute;
         inset: 0;
-        background:
-            radial-gradient(ellipse 750px 550px at 0% 0%, rgba(0,0,0,0.55), transparent 55%),
-            radial-gradient(ellipse 750px 550px at 100% 100%, rgba(0,0,0,0.5), transparent 55%),
-            radial-gradient(ellipse 950px 700px at 50% 42%, var(--red-light) 0%, var(--red) 60%, #7a0d13 100%);
-        opacity: 0.74;
+        background: radial-gradient(ellipse 950px 700px at 50% 42%, var(--red) 0%, var(--red-active) 100%);
+        opacity: 0.85;
         z-index: 1;
     }
     .stats > * { position: relative; z-index: 2; }
-    .stats h2 { color: #ffffff; text-shadow: 0 2px 12px rgba(0,0,0,0.7); }
+    /* Stat: Montserrat Bold, tight tracking (p. 16) */
     .stats .big-stat {
-        font-family: 'Bebas Neue', sans-serif;
-        font-size: 76px;
-        color: #ffffff;
-        margin-bottom: 12px;
-        letter-spacing: 1px;
-        text-shadow: 0 3px 16px rgba(0,0,0,0.75);
+        font-family: 'Montserrat', Arial, sans-serif;
+        font-weight: 700;
+        font-size: 88px;
+        line-height: 1.0;
+        letter-spacing: -0.01em;
+        margin-bottom: 16px;
     }
-    .stats p { font-family: 'Montserrat', sans-serif; color: rgba(255,255,255,0.97); font-size: 17px; font-weight: 500; line-height: 1.8; text-shadow: 0 1px 6px rgba(0,0,0,0.7); }
-
-    .results {
-        background:
-            radial-gradient(ellipse 700px 420px at 50% 0%, rgba(170,170,170,0.07), transparent 55%),
-            radial-gradient(ellipse 900px 550px at 50% 100%, rgba(198,21,32,0.16), transparent 60%),
-            #0d0d0d;
-    }
+    .stats p { max-width: 62ch; margin: 0 auto; }
+    .stats .stat-label { font-size: 22px; font-weight: 600; line-height: 1.3; margin-bottom: 28px; }
 
     .grid-2 { display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 1000px; margin: 32px auto; }
     .grid-3 { display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 1200px; margin: 32px auto; }
@@ -540,105 +350,96 @@
 
     .dark-banner {
         background: var(--graphite);
-        color: #fff;
-        padding: 14px 24px;
-        font-size: 16.5px;
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--red);
+        padding: 16px 24px;
+        font-size: 17px;
         font-weight: 600;
         text-align: center;
         border-radius: 8px;
         max-width: 900px;
         margin: 0 auto 32px;
     }
-    .dark-banner strong { color: #ff8888; }
+    .dark-banner strong { font-weight: 700; }
 
     .comp-card {
         position: relative;
         overflow: hidden;
-        padding: 28px;
-        background: var(--card-bg);
+        padding: 24px;
+        background: var(--graphite);
         border-radius: 12px;
-        border: 1px solid rgba(198,21,32,0.3);
+        border: 1px solid var(--border);
         text-align: center;
     }
-    .comp-card.legacy { background: rgba(198, 21, 32, 0.14); border: 2px solid rgba(198,21,32,0.5); }
+    .comp-card.legacy { border: 2px solid var(--red); }
     .comp-card ul { text-align: left; }
     .comp-card-img {
         width: 100%;
         height: 170px;
         object-fit: contain;
-        background: rgba(0,0,0,0.18);
         border-radius: 10px;
         margin-bottom: 18px;
         display: block;
-        -webkit-mask-image: linear-gradient(to bottom, black 78%, transparent 100%);
-        mask-image: linear-gradient(to bottom, black 78%, transparent 100%);
     }
-    .comp-card h3 {
-        font-family: 'Montserrat', sans-serif;
-        color: #ffffff; font-size: 17px;
-        text-transform: uppercase; letter-spacing: 1.2px; font-weight: 800;
-        margin: -28px -28px 16px -28px;
-        padding: 14px 28px;
-        background: rgba(255,255,255,0.04);
-        border-bottom: 2px solid var(--red);
-    }
-    .comp-card h4 { color: #e8e8e8; margin-bottom: 14px; font-size: 17px; font-weight: 700; }
-    .comp-card ul { color: #e2e2e2; font-size: 17px; font-weight: 500; line-height: 1.85; padding-left: 20px; }
+    .comp-card h3 { margin-top: 0; }
+    .comp-card h4 { font-family: 'Montserrat', Arial, sans-serif; font-weight: 600; font-size: 17px; margin-bottom: 14px; }
+    .comp-card ul { font-size: 17px; line-height: 1.8; padding-left: 20px; }
     .comp-card li { margin-bottom: 8px; }
-    .comp-card .tag { margin-top: 18px; font-weight: 800; font-size: 16px; }
+    .comp-card .tag { margin-top: 18px; font-weight: 700; font-size: 17px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+    .caption-row p { text-align: center; margin: 0; font-size: 14px; line-height: 1.5; }
 
     .metric-card {
         padding: 28px;
-        background: var(--card-bg);
+        background: var(--graphite);
         border-radius: 12px;
         border: 1px solid var(--border);
+        border-top: 3px solid var(--red);
     }
-    .metric-card .big { font-family: 'Bebas Neue', sans-serif; font-size: 38px; color: #ff6b6b; margin-bottom: 8px; }
-    .metric-card .label { color: #cfcfcf; margin-bottom: 14px; font-size: 16px; font-weight: 500; }
-    .metric-row { padding: 10px 0; border-bottom: 1px solid rgba(198,21,32,0.2); }
+    .metric-card .big { font-weight: 700; font-size: 48px; line-height: 1.0; letter-spacing: -0.01em; margin-bottom: 8px; }
+    .metric-card .label { font-size: 17px; font-weight: 600; margin-bottom: 14px; }
+    .metric-row { padding: 10px 0; border-bottom: 1px solid var(--border); }
     .metric-row:last-child { border-bottom: none; padding-bottom: 0; }
-    .metric-row .k { color: #d0d0d0; font-size: 16px; font-weight: 500; margin-bottom: 3px; }
-    .metric-row .v { color: #4db8ff; font-size: 19px; font-weight: 800; }
+    .metric-row .k { font-size: 14px; line-height: 1.5; margin-bottom: 3px; }
+    .metric-row .v { font-size: 22px; font-weight: 700; line-height: 1.2; }
 
     .case-card {
         position: relative;
         overflow: hidden;
-        padding: 28px;
-        background: var(--card-bg);
+        padding: 24px;
+        background: var(--graphite);
         border-radius: 12px;
         border: 1px solid var(--border);
     }
-    .case-card h3 {
-        font-family: 'Montserrat', sans-serif;
-        color: #ffffff; font-size: 17px;
-        text-transform: uppercase; font-weight: 800; letter-spacing: 1.2px;
-        margin: -28px -28px 14px -28px;
-        padding: 14px 28px;
-        background: rgba(255,255,255,0.04);
-        border-bottom: 2px solid var(--red);
-    }
-    .case-card .meta { color: #d0d0d0; font-size: 16px; font-weight: 500; margin-bottom: 18px; }
+    .case-card .meta { font-size: 17px; margin-bottom: 18px; }
     .case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
     .case-grid .metric-row { padding: 10px 14px 10px 0; }
 
     .pill-row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 28px auto 0; max-width: 1000px; }
     .pill {
-        background: rgba(198,21,32,0.12);
-        border: 1px solid rgba(198,21,32,0.35);
-        color: #f0c4c4;
+        border: 1px solid var(--red);
+        color: var(--white);
         padding: 8px 16px;
         border-radius: 20px;
-        font-size: 15px;
-        font-weight: 700;
+        font-size: 14px;
+        font-weight: 600;
     }
 
+    /* TruScore scale: neutral-to-red ramp from the brand palette */
+    .score-scale { max-width: 700px; margin: 0 auto 40px; }
+    .score-scale .ends { display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+    .score-scale .bar { height: 14px; border-radius: 8px; background: linear-gradient(90deg, var(--graphite-700) 0%, var(--red) 100%); }
+
+    .body-copy { max-width: 62ch; margin: 0 auto 40px; text-align: center; }
+    .small-copy { max-width: 70ch; margin: 32px auto 0; text-align: center; font-size: 14px; line-height: 1.5; }
+
+    /* PROVE steps */
+    .prove-step { display: grid; grid-template-columns: 52px 1fr; gap: 16px; margin-bottom: 24px; }
+    .prove-step:last-child { margin-bottom: 0; }
+    .prove-step h4 { font-family: 'Montserrat', Arial, sans-serif; font-weight: 600; font-size: 22px; line-height: 1.3; margin-bottom: 6px; }
+    .prove-step p { font-size: 17px; line-height: 1.6; }
+
     /* Contact */
-    .contact {
-        background:
-            radial-gradient(ellipse 700px 460px at 85% 0%, rgba(198,21,32,0.22), transparent 58%),
-            radial-gradient(ellipse 950px 550px at 12% 100%, rgba(198,21,32,0.11), transparent 55%),
-            var(--bg);
-    }
     .contact-wrap {
         max-width: 1100px;
         margin: 40px auto 0;
@@ -649,8 +450,9 @@
         overflow: hidden;
         border: 1px solid var(--border);
     }
+    /* Legacy Red panel: logo all white only (p. 8) */
     .contact-left {
-        background: linear-gradient(160deg, var(--red) 0%, #8f0f18 100%);
+        background: var(--red);
         padding: 40px 32px;
         display: flex;
         flex-direction: column;
@@ -658,122 +460,70 @@
         align-items: center;
         text-align: center;
     }
-    .logo-badge {
-        background: #ffffff;
-        border-radius: 14px;
-        padding: 10px;
-        margin-bottom: 24px;
-        box-shadow: 0 12px 34px rgba(0,0,0,0.35);
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .contact-left img { height: 170px; width: auto; max-width: 100%; object-fit: contain; display: block; }
+    .contact-left img { width: 150px; height: auto; display: block; margin-bottom: 32px; }
     .contact-left h3 {
+        font-family: 'Montserrat', Arial, sans-serif;
+        font-weight: 600;
         font-size: 28px;
-        color: #fff;
-        margin-bottom: 16px;
         line-height: 1.2;
+        margin-bottom: 16px;
     }
-    .contact-left p {
-        font-family: 'Montserrat', sans-serif;
-        color: rgba(255,255,255,0.95);
-        font-size: 16.5px;
-        font-weight: 500;
-        line-height: 1.7;
-        margin-bottom: 28px;
-        max-width: 460px;
-    }
+    .contact-left p { font-size: 17px; line-height: 1.6; margin-bottom: 28px; max-width: 460px; }
     .contact-detail {
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 12px;
         margin-bottom: 16px;
-        font-family: 'Montserrat', sans-serif;
-        font-size: 16px;
+        font-size: 17px;
         font-weight: 600;
-        color: #fff;
     }
     .contact-detail .icon {
         width: 38px; height: 38px;
-        background: rgba(255,255,255,0.16);
-        border: 1px solid rgba(255,255,255,0.3);
+        border: 1px solid var(--white);
         border-radius: 50%;
         display: flex; align-items: center; justify-content: center;
         flex-shrink: 0;
     }
-    .contact-detail .icon svg { width: 17px; height: 17px; fill: #fff; }
-    .contact-right { background: rgba(20,20,20,0.95); padding: 40px 32px; }
-    .contact-right h4 {
-        font-family: 'Montserrat', sans-serif;
-        font-size: 17px;
-        color: #ffffff;
-        text-transform: uppercase;
-        letter-spacing: 1.2px;
-        font-weight: 800;
-        margin: -40px -32px 24px -32px;
-        padding: 16px 32px;
-        background: rgba(255,255,255,0.04);
-        border-bottom: 2px solid var(--red);
-    }
+    .contact-detail .icon svg { width: 17px; height: 17px; fill: var(--white); }
+    .contact-right { background: var(--graphite); padding: 40px 32px; }
+    .contact-right h4 { margin: -40px -32px 24px -32px; padding: 16px 32px; }
     form { display: grid; gap: 14px; }
     input, textarea {
         padding: 14px;
-        border: 1px solid rgba(198,21,32,0.3);
+        border: 1px solid var(--graphite-700);
         border-radius: 8px;
-        font-size: 15px;
-        font-family: 'Montserrat', sans-serif;
-        background: rgba(10, 10, 10, 0.9);
-        color: #e8e8e8;
-        transition: all 0.3s;
+        font-size: 17px;
+        font-family: 'Montserrat', Arial, sans-serif;
+        background: var(--graphite);
+        color: var(--white);
+        transition: border-color 0.3s;
     }
-    input::placeholder, textarea::placeholder { color: #666; }
-    input:focus, textarea:focus {
-        outline: none;
-        border-color: rgba(198,21,32,0.6);
-        background: rgba(40, 20, 20, 0.9);
-    }
-    .contact-right button {
-        background: linear-gradient(135deg, var(--red-light) 0%, var(--red) 100%);
-        color: #fff;
-        padding: 15px;
-        border: none;
-        border-radius: 8px;
-        font-family: 'Montserrat', sans-serif;
-        font-size: 15px;
-        font-weight: 700;
-        cursor: pointer;
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        transition: all 0.3s;
-    }
-    .contact-right button:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(198,21,32,0.5); }
+    input::placeholder, textarea::placeholder { color: var(--graphite-500); }
+    input:focus, textarea:focus { outline: none; border-color: var(--red); }
+    .contact-right button { border-radius: 8px; padding: 18px; }
 
     footer {
         background: var(--bg);
-        border-top: 1px solid rgba(198,21,32,0.2);
+        border-top: 1px solid var(--border);
         padding: 28px 20px;
         text-align: center;
-        font-family: 'Montserrat', sans-serif;
-        font-size: 15px;
-        font-weight: 500;
-        color: #a0a0a0;
+        font-size: 14px;
+        line-height: 1.5;
     }
 
     @media (min-width: 768px) {
-        nav { padding: 6px 60px; }
+        nav { padding: 16px 60px; }
         nav .links { display: flex; }
-        section[id] { scroll-margin-top: 60px; }
+        section[id] { scroll-margin-top: 88px; }
         section { padding: 100px 40px; }
-        section h2 { font-size: 54px; }
-        .hero h1 { font-size: 60px; }
-        .hero p { font-size: 19px; max-width: 700px; }
+        section h2 { font-size: 48px; }
+        .hero h1 { font-size: 72px; }
         .grid-2 { grid-template-columns: 1fr 1fr; }
         .grid-3 { grid-template-columns: repeat(3, 1fr); }
         .grid-4 { grid-template-columns: repeat(4, 1fr); }
         .contact-wrap { grid-template-columns: 1fr 1.1fr; }
-        .section-subtitle.one-line { max-width: 1150px; white-space: nowrap; }
+        .section-subtitle { font-size: 22px; }
     }
 </style>
 </head>
@@ -781,7 +531,7 @@
 
 <nav>
     <a href="#top" aria-label="Back to top" style="display:block; line-height:0;" onclick="event.preventDefault(); window.scrollTo({top:0, behavior:'smooth'});">
-        <img class="logo-img" src="./assets/logo-horizontal-white.png" alt="Legacy Technology Lab">
+        <img class="logo-img" src="./assets/logos/LTL_Horizontal_White_RGB.svg" alt="Legacy Technology Lab">
     </a>
     <div class="links">
         <a href="#about">About</a>
@@ -798,15 +548,15 @@
 <section id="top" class="hero">
     <video id="heroVideo" muted playsinline autoplay loop preload="auto" poster="./assets/hero-aerial-poster.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.28;z-index:1;"></video>
     <div class="hero-content">
-        <h1 id="heroHeadline">The Future of Commercial Roof <span class="gradient-text">Intelligence</span></h1>
+        <h1 id="heroHeadline">The Future of Commercial Roof <span>Intelligence</span></h1>
         <p id="heroSubtext">Non-destructive penetrative imaging that sees what others can't. Legacy detects hidden roof issues before they become costly failures — then manages them for continuous roof health.</p>
         <button class="cta-button hero-cta-anim">Request a Demo</button>
     </div>
 </section>
 
 <!-- Meet Legacy -->
-<section id="about" class="problem tone-red-a fade-in">
-    <h2><span class="section-highlight">Legacy Technology Lab</span></h2>
+<section id="about" class="problem fade-in">
+    <h2>Legacy Technology Lab</h2>
     <p class="section-subtitle one-line">The future of commercial roofing is no longer finding leaks. It's preventing them.</p>
     <div class="grid-2">
         <div class="info-card">
@@ -821,8 +571,8 @@
 </section>
 
 <!-- Vision & Mission -->
-<section class="problem tone-pink-a fade-in">
-    <h2><span class="section-highlight">Vision &amp; Mission</span></h2>
+<section class="problem fade-in">
+    <h2>Vision &amp; Mission</h2>
     <p class="section-subtitle one-line">Revolutionizing how commercial roofs are assessed, maintained, and preserved</p>
     <div class="grid-2">
         <div class="info-card">
@@ -843,13 +593,13 @@
     </video>
     <h2>The Central Problem</h2>
     <div class="big-stat">80%</div>
-    <p style="font-size: 21px; margin-bottom: 28px; max-width: 800px; margin-left: auto; margin-right: auto; font-family: 'Montserrat', sans-serif; font-weight: 500;">of commercial roofs that are replaced do not need to be</p>
-    <p style="max-width: 900px; margin: 0 auto;">Legacy exists to change this fundamental market inefficiency. Every roof receives a TRU Score, giving underwriters, owners, and asset managers a clear, verifiable view of condition to price risk and plan capital — so roofs receive micro repairs versus macro replacements. Legacy collaborates with insurance carriers to help clients qualify for premium reductions.</p>
+    <p class="stat-label">of commercial roofs that are replaced do not need to be</p>
+    <p>Legacy exists to change this fundamental market inefficiency. Every roof receives a TRU Score, giving underwriters, owners, and asset managers a clear, verifiable view of condition to price risk and plan capital — so roofs receive micro repairs versus macro replacements. Legacy collaborates with insurance carriers to help clients qualify for premium reductions.</p>
 </section>
 
 <!-- Industry Challenge (real deck content) -->
-<section id="industry" class="problem tone-orange-a fade-in">
-    <h2><span class="section-highlight">The Industry Challenge</span></h2>
+<section id="industry" class="problem fade-in">
+    <h2>The Industry Challenge</h2>
     <p class="section-subtitle one-line">Commercial roofing is facing unprecedented change</p>
     <div class="grid-4">
         <div class="info-card card-centered"><p>Skilled labor shortages continue to grow.</p></div>
@@ -861,8 +611,8 @@
 </section>
 
 <!-- Traditional vs Legacy -->
-<section class="problem tone-purple-a fade-in">
-    <h2><span class="section-highlight">From Prehistoric to Innovative</span></h2>
+<section class="problem fade-in">
+    <h2>From Prehistoric to Innovative</h2>
     <p class="section-subtitle one-line">Legacy delivers objective, non-destructive verification of what others can't see</p>
     <div class="grid-2">
         <div class="comp-card">
@@ -876,12 +626,12 @@
                 <li>Misses voids, cold welds, poor fusion, and trapped moisture</li>
                 <li>Subjective and inconsistent results</li>
             </ul>
-            <p class="tag" style="color:#ff6b6b;">Limited. Subjective. Outdated.</p>
+            <p class="tag">Limited. Subjective. Outdated.</p>
         </div>
         <div class="comp-card legacy">
             <img class="comp-card-img" src="./assets/legacy.png" alt="Thermal penetrative scan of a roof weld">
             <h3>Legacy Technology</h3>
-            <h4>Penetrative Imaging — <span class="section-highlight">MRI Vision for Roofs</span></h4>
+            <h4>Penetrative Imaging — MRI Vision for Roofs</h4>
             <ul>
                 <li>Verifies the full 3&quot; weld width</li>
                 <li>Detects hidden voids and incomplete fusion</li>
@@ -889,18 +639,18 @@
                 <li>Confirms proper insulation and cover board adhesion</li>
                 <li>Creates a permanent digital record for owners and insurers</li>
             </ul>
-            <p class="tag" style="color:#4db8ff;">Objective. Non-Destructive. Forensic.</p>
+            <p class="tag">Objective. Non-Destructive. Forensic.</p>
         </div>
     </div>
-    <div class="grid-2" style="margin-top:8px;">
-        <p style="text-align:center; margin:0; color:#c0c0c0; font-size:16px; font-weight:500; font-family:'Montserrat',sans-serif;">This simple hook has been the industry standard for decades, checking only the edge of a 3" weld while hidden defects go undetected.</p>
-        <p style="text-align:center; margin:0; color:#c0c0c0; font-size:16px; font-weight:500; font-family:'Montserrat',sans-serif;">Legacy sees up to 8" beneath the surface to ensure every weld is built to perform, before leaks ever occur.</p>
+    <div class="grid-2 caption-row" style="margin-top:8px;">
+        <p>This simple hook has been the industry standard for decades, checking only the edge of a 3" weld while hidden defects go undetected.</p>
+        <p>Legacy sees up to 8" beneath the surface to ensure every weld is built to perform, before leaks ever occur.</p>
     </div>
 </section>
 
 <!-- Top 3 culprits -->
-<section class="process tone-green-a fade-in">
-    <h2><span class="section-highlight">The Top 3 Culprits of Water Intrusion</span></h2>
+<section class="process fade-in">
+    <h2>The Top 3 Culprits of Water Intrusion</h2>
     <p class="section-subtitle one-line">The majority of water intrusion on single-ply roof systems originates from just three locations</p>
     <div class="grid-3">
         <div class="process-card">
@@ -925,8 +675,8 @@
 </section>
 
 <!-- 3-Stage Service Model -->
-<section id="process" class="process tone-blue-a fade-in">
-    <h2><span class="section-highlight">The Legacy Platform</span>: One Source of Truth</h2>
+<section id="process" class="process fade-in">
+    <h2>The Legacy Platform: One Source of Truth</h2>
     <p class="section-subtitle one-line">Legacy's proprietary technology powers every stage of the roof lifecycle</p>
     <div class="grid-3">
         <div class="process-card">
@@ -948,8 +698,8 @@
 </section>
 
 <!-- BVLOS -->
-<section class="problem tone-green-b fade-in">
-    <h2><span class="section-highlight">Beyond Visual Line of Sight Operations</span></h2>
+<section class="problem fade-in">
+    <h2>Beyond Visual Line of Sight Operations</h2>
     <p class="section-subtitle one-line">From local drone flights to centrally supervised national inspection operations</p>
     <div class="grid-3">
         <div class="info-card">
@@ -974,8 +724,8 @@
 </section>
 
 <!-- Roof Intelligence & Construction Governance -->
-<section class="problem tone-purple-b fade-in">
-    <h2><span class="section-highlight">Roof Intelligence &amp; Construction Governance</span></h2>
+<section class="problem fade-in">
+    <h2>Roof Intelligence &amp; Construction Governance</h2>
     <p class="section-subtitle">A technology-enabled fulfillment platform that improves roof replacement visibility, documentation, and quality assurance from mobilization through closeout</p>
     <div class="grid-2">
         <div class="info-card">
@@ -990,8 +740,8 @@
 </section>
 
 <!-- Deeper Seam Verification -->
-<section class="process tone-pink-b fade-in">
-    <h2><span class="section-highlight">Deeper Seam Verification</span></h2>
+<section class="process fade-in">
+    <h2>Deeper Seam Verification</h2>
     <p class="section-subtitle one-line">Non-destructive seam evaluation identifying subsurface inconsistencies not visible during surface review</p>
     <div class="grid-4">
         <div class="info-card"><h4>Fishmouths</h4><p>Detected automatically across the entire roof.</p></div>
@@ -1002,8 +752,8 @@
 </section>
 
 <!-- The Legacy Advantage -->
-<section id="advantage" class="problem tone-red-b fade-in">
-    <h2><span class="section-highlight">The Legacy Advantage</span></h2>
+<section id="advantage" class="problem fade-in">
+    <h2>The Legacy Advantage</h2>
     <p class="section-subtitle one-line">Repair Precisely. Extend Roof Life. Preserve Capital.</p>
     <div class="grid-3">
         <div class="info-card"><h4>Advanced Drone Inspection</h4><p>Comprehensive thermal and visual imaging captures the entire roof surface safely and efficiently.</p></div>
@@ -1016,17 +766,14 @@
 </section>
 
 <!-- TRU Score -->
-<section id="truscore" class="problem gradient-thermal fade-in">
-    <h2><span class="section-highlight">Legacy TruScore</span>: Risk-Based Underwriting</h2>
+<section id="truscore" class="problem fade-in">
+    <h2>Legacy TruScore: Risk-Based Underwriting</h2>
     <p class="section-subtitle one-line">A controlled, evidence-linked 0–850 standardized reference that insurers and owners can trust</p>
-    <p style="max-width: 800px; margin: 0 auto 40px; text-align:center; font-family:'Montserrat',sans-serif; font-size:17px; font-weight:500; line-height:1.8; color:#d6d6d6;">TruScore turns verified roof condition, management practices, and risk-control evidence into one standardized score — so building owners and insurers can see, track, and act on roof risk before it becomes a claim.</p>
+    <p class="body-copy">TruScore turns verified roof condition, management practices, and risk-control evidence into one standardized score — so building owners and insurers can see, track, and act on roof risk before it becomes a claim.</p>
 
-    <div style="max-width:700px;margin:0 auto 40px;">
-        <div style="display:flex;justify-content:space-between;font-family:'Montserrat',sans-serif;font-size:14px;font-weight:600;color:#b0b0b0;margin-bottom:6px;">
-            <span>0</span><span>850</span>
-        </div>
-        <div style="height:14px;border-radius:8px;background:linear-gradient(90deg, #2dd4bf 0%, #5eead4 16%, #a3e635 32%, #ffd23f 50%, #ff8a3d 68%, #f97316 84%, #ef4444 100%);position:relative;">
-        </div>
+    <div class="score-scale">
+        <div class="ends"><span>0</span><span>850</span></div>
+        <div class="bar"></div>
     </div>
 
     <div class="grid-4">
@@ -1048,37 +795,37 @@
         </div>
     </div>
 
-    <p style="max-width: 800px; margin: 32px auto 0; text-align:center; font-family:'Montserrat',sans-serif; font-size:15.5px; font-weight:500; line-height:1.7; color:#b0b0b0;">Every score stays tied to its source evidence, assessment date, and methodology — TruScore doesn't guess. It reflects verified conditions and control practices, not a promised discount or predicted claim.</p>
+    <p class="small-copy">Every score stays tied to its source evidence, assessment date, and methodology — TruScore doesn't guess. It reflects verified conditions and control practices, not a promised discount or predicted claim.</p>
 </section>
 
 <!-- PROVE -->
-<section class="process tone-grey-a fade-in">
-    <h2><span class="section-highlight">PROVE</span>: A Controlled, Repeatable Process</h2>
+<section class="process fade-in">
+    <h2>PROVE: A Controlled, Repeatable Process</h2>
     <p class="section-subtitle one-line">Prepare. Review. Observe. Verify. Evaluate. The field-to-underwriting path that keeps the score connected to evidence.</p>
     <div style="max-width: 1000px; margin: 40px auto;">
         <div class="grid-2">
             <div>
-                <div style="display:grid;grid-template-columns:50px 1fr;gap:16px;margin-bottom:24px;">
-                    <div style="width:50px;height:50px;background:linear-gradient(135deg,#e8323d,#C61520);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:20px;">P</div>
-                    <div><h4 style="color:#e8e8e8;font-size:17px;font-weight:800;margin-bottom:6px;font-family:'Montserrat',sans-serif;">Prepare</h4><p style="color:#d6d6d6;font-size:16px;font-weight:500;line-height:1.6;font-family:'Montserrat',sans-serif;">Define the building, roof system, scope, timing, known history, and evidence plan.</p></div>
+                <div class="prove-step">
+                    <div class="step-badge">P</div>
+                    <div><h4>Prepare</h4><p>Define the building, roof system, scope, timing, known history, and evidence plan.</p></div>
                 </div>
-                <div style="display:grid;grid-template-columns:50px 1fr;gap:16px;margin-bottom:24px;">
-                    <div style="width:50px;height:50px;background:linear-gradient(135deg,#e8323d,#C61520);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:20px;">R</div>
-                    <div><h4 style="color:#e8e8e8;font-size:17px;font-weight:800;margin-bottom:6px;font-family:'Montserrat',sans-serif;">Review</h4><p style="color:#d6d6d6;font-size:16px;font-weight:500;line-height:1.6;font-family:'Montserrat',sans-serif;">Review installation, inspection, maintenance, repair, construction, warranty, weather, and prior assessment records.</p></div>
+                <div class="prove-step">
+                    <div class="step-badge">R</div>
+                    <div><h4>Review</h4><p>Review installation, inspection, maintenance, repair, construction, warranty, weather, and prior assessment records.</p></div>
                 </div>
-                <div style="display:grid;grid-template-columns:50px 1fr;gap:16px;">
-                    <div style="width:50px;height:50px;background:linear-gradient(135deg,#e8323d,#C61520);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:20px;">O</div>
-                    <div><h4 style="color:#e8e8e8;font-size:17px;font-weight:800;margin-bottom:6px;font-family:'Montserrat',sans-serif;">Observe</h4><p style="color:#d6d6d6;font-size:16px;font-weight:500;line-height:1.6;font-family:'Montserrat',sans-serif;">Inspect current conditions and document the eight physical-condition domains.</p></div>
+                <div class="prove-step">
+                    <div class="step-badge">O</div>
+                    <div><h4>Observe</h4><p>Inspect current conditions and document the eight physical-condition domains.</p></div>
                 </div>
             </div>
             <div>
-                <div style="display:grid;grid-template-columns:50px 1fr;gap:16px;margin-bottom:24px;">
-                    <div style="width:50px;height:50px;background:linear-gradient(135deg,#e8323d,#C61520);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:20px;">V</div>
-                    <div><h4 style="color:#e8e8e8;font-size:17px;font-weight:800;margin-bottom:6px;font-family:'Montserrat',sans-serif;">Verify</h4><p style="color:#d6d6d6;font-size:16px;font-weight:500;line-height:1.6;font-family:'Montserrat',sans-serif;">Confirm identities, dates, locations, completion, qualifications, photographs, and evidence links.</p></div>
+                <div class="prove-step">
+                    <div class="step-badge">V</div>
+                    <div><h4>Verify</h4><p>Confirm identities, dates, locations, completion, qualifications, photographs, and evidence links.</p></div>
                 </div>
-                <div style="display:grid;grid-template-columns:50px 1fr;gap:16px;">
-                    <div style="width:50px;height:50px;background:linear-gradient(135deg,#e8323d,#C61520);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:20px;">E</div>
-                    <div><h4 style="color:#e8e8e8;font-size:17px;font-weight:800;margin-bottom:6px;font-family:'Montserrat',sans-serif;">Evaluate</h4><p style="color:#d6d6d6;font-size:16px;font-weight:500;line-height:1.6;font-family:'Montserrat',sans-serif;">Apply severity, extent, rules, and version control to produce a standardized, date-specific result.</p></div>
+                <div class="prove-step">
+                    <div class="step-badge">E</div>
+                    <div><h4>Evaluate</h4><p>Apply severity, extent, rules, and version control to produce a standardized, date-specific result.</p></div>
                 </div>
             </div>
         </div>
@@ -1087,7 +834,7 @@
 
 <!-- Results & ROI -->
 <section id="results" class="results fade-in">
-    <h2><span class="section-highlight">Proven Results</span></h2>
+    <h2>Proven Results</h2>
     <p class="section-subtitle one-line">41-property portfolio analysis shows measurable financial impact</p>
     <div class="grid-2">
         <div class="metric-card">
@@ -1106,15 +853,15 @@
 </section>
 
 <!-- Case Studies -->
-<section id="case-studies" class="problem tone-red-c fade-in">
-    <h2><span class="section-highlight">Results in Action</span></h2>
+<section id="case-studies" class="problem fade-in">
+    <h2>Results in Action</h2>
     <p class="section-subtitle one-line">Real outcomes from real buildings</p>
     <div class="grid-2">
         <div class="case-card">
             <h3>Sarasota, FL</h3>
             <p class="meta">Office building. TPO roof. Approx. 200,000 SF.</p>
             <div class="case-grid">
-                <div class="metric-row"><p class="k">TRU Score</p><p class="v" style="color:#ff6b6b;">402</p></div>
+                <div class="metric-row"><p class="k">TRU Score</p><p class="v">402</p></div>
                 <div class="metric-row"><p class="k">Extended Life</p><p class="v">17 Years</p></div>
                 <div class="metric-row"><p class="k">Capital Savings Deferred</p><p class="v">$217,000</p></div>
                 <div class="metric-row"><p class="k">Annual CapEx Savings</p><p class="v">$12,765</p></div>
@@ -1124,7 +871,7 @@
             <h3>Twinsburg, OH</h3>
             <p class="meta">Office building. Modified bitumen / built-up. Property age 2000.</p>
             <div class="case-grid">
-                <div class="metric-row"><p class="k">TRU Score</p><p class="v" style="color:#ff6b6b;">438</p></div>
+                <div class="metric-row"><p class="k">TRU Score</p><p class="v">438</p></div>
                 <div class="metric-row"><p class="k">Extended Life</p><p class="v">10 Years</p></div>
                 <div class="metric-row"><p class="k">Capital Savings Deferred</p><p class="v">$287,000</p></div>
                 <div class="metric-row"><p class="k">Annual CapEx Savings</p><p class="v">$28,700</p></div>
@@ -1135,11 +882,11 @@
 
 <!-- Contact -->
 <section id="contact" class="contact fade-in">
-    <h2><span class="gradient-text">Ready to See the Difference?</span></h2>
+    <h2>Ready to See the Difference?</h2>
     <p class="section-subtitle one-line">Better data. Better decisions. Better outcomes.</p>
     <div class="contact-wrap">
         <div class="contact-left">
-            <div class="logo-badge"><img src="./assets/color-logo-cropped.png" alt="Legacy Technology Lab"></div>
+            <img src="./assets/logos/LTL_Vertical_White_RGB.svg" alt="Legacy Technology Lab">
             <h3>Let's talk about your portfolio.</h3>
             <p>Legacy becomes your centralized solution to detect hidden roof issues before they become costly failures — enabling smarter repairs, longer roof life, lower capital costs, and data-driven decisions.</p>
             <div class="contact-detail"><span class="icon"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></span><span>405-442-2120</span></div>
