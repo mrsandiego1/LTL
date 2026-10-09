@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Legacy Technology Lab — Drone Roof Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="./assets/logos/LTL_IconSimplified_Dark_RGB.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="./assets/logos/LTL_Favicon_32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="./assets/logos/LTL_AppleTouchIcon_180.png">
+<style>
+    /* V3: layout from the boss's Claude Design artifact (Oct 2026). Brand palette from guide v1.2. */
+    :root {
+        --charcoal: #222021;
+        --charcoal-deep: #1B191A;
+        --charcoal-hover: #2B292A;
+        --red: #C61520;
+        --red-hover: #A81218;
+        --red-press: #8B0F14;
+        --gray-dark: #575556;
+        --gray: #8B8A8B;
+        --gray-light: #C0BFBF;
+        --off-white: #F4F4F4;
+        --white: #FFFFFF;
+        --display: 'Bebas Neue', Arial, sans-serif;
+        --body: 'Montserrat', Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+        margin: 0;
+        background: var(--charcoal);
+        color: var(--white);
+        font-family: var(--body);
+        font-size: 17px;
+        line-height: 1.6;
+        overflow-x: hidden;
+    }
+    img, video { max-width: 100%; }
+    a { color: var(--white); }
+
+    .wrap { max-width: 1296px; margin: 0 auto; }
+    .eyebrow {
+        display: flex; align-items: center; gap: 14px;
+        font-weight: 600; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; display: inline-block; width: 40px; height: 3px; background: var(--red); flex-shrink: 0; }
+    .display {
+        margin: 0; font-family: var(--display); font-weight: 400;
+        line-height: 1; letter-spacing: 0.025em; text-transform: uppercase;
+    }
+
+    /* Buttons */
+    .btn {
+        display: inline-flex; align-items: center; gap: 12px;
+        min-height: 56px; padding: 0 30px;
+        font-family: var(--body); font-weight: 600; font-size: 15px; letter-spacing: 0.04em; line-height: 1;
+        text-transform: uppercase; text-decoration: none; color: var(--white);
+        border-radius: 4px; border: 0; cursor: pointer;
+        transition: background-color .2s, border-color .2s;
+    }
+    .btn svg { width: 18px; height: 18px; }
+    .btn-red { background: var(--red); }
+    .btn-red:hover { background: var(--red-hover); }
+    .btn-red:active { background: var(--red-press); }
+    .btn-ghost { border: 1px solid rgba(255,255,255,.45); background: rgba(34,32,33,.25); }
+    .btn-ghost:hover { border-color: var(--white); background: rgba(255,255,255,.08); }
+
+    /* ===== Hero ===== */
+    .hero {
+        position: relative; min-height: 820px; display: flex; flex-direction: column;
+        overflow: hidden; background: var(--charcoal);
+    }
+    .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+    .hero-shade { position: absolute; inset: 0; z-index: 1; background: rgba(34,32,33,.5); }
+    .hero-shade-top { position: absolute; left: 0; right: 0; top: 0; height: 200px; z-index: 1; background: linear-gradient(180deg, rgba(34,32,33,.85), rgba(34,32,33,0)); }
+    .hero-shade-bottom { position: absolute; left: 0; right: 0; bottom: 0; height: 320px; z-index: 1; background: linear-gradient(180deg, rgba(34,32,33,0), var(--charcoal)); }
+    .scanline { position: absolute; left: 0; right: 0; top: 0; height: 1px; z-index: 2; background: var(--red); animation: scan 6s linear infinite; }
+    @keyframes scan { 0% { top: 0%; opacity: 0 } 8% { opacity: .9 } 92% { opacity: .9 } 100% { top: 100%; opacity: 0 } }
+
+    .site-header {
+        position: relative; z-index: 5; width: 100%; max-width: 1360px; margin: 0 auto;
+        padding: 20px 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    }
+    .site-header .logo { display: block; padding: 14px; line-height: 0; }
+    .site-header .logo img { height: 56px; width: auto; display: block; }
+    .site-nav { display: flex; align-items: center; gap: 36px; font-weight: 600; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .site-nav a { text-decoration: none; opacity: .78; transition: opacity .2s; }
+    .site-nav a:hover { opacity: 1; }
+    .site-header .btn { min-height: 48px; padding: 0 24px; }
+
+    .hero-content {
+        position: relative; z-index: 5; flex-grow: 1; width: 100%; max-width: 1360px; margin: 0 auto;
+        padding: 40px 32px 56px; display: flex; flex-direction: column; justify-content: flex-end; gap: 28px;
+    }
+    .hero-tag { flex-wrap: wrap; }
+    .pill {
+        display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px;
+        border: 1px solid rgba(255,255,255,.35); border-radius: 999px; font-size: 11px;
+    }
+    .blink { width: 7px; height: 7px; border-radius: 50%; background: var(--red); display: inline-block; animation: blink 1.6s steps(2, start) infinite; }
+    @keyframes blink { to { visibility: hidden } }
+    .hero h1 { font-size: clamp(64px, 9.5vw, 148px); line-height: .95; max-width: 1000px; }
+    .hero-sub { margin: 0; max-width: 600px; font-size: 19px; color: rgba(255,255,255,.86); }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 4px; }
+    .hud {
+        margin-top: 36px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        border-top: 1px solid rgba(255,255,255,.22);
+    }
+    .hud div { padding: 18px 20px 0 0; display: flex; flex-direction: column; gap: 4px; }
+    .hud small { font-weight: 600; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,.62); }
+    .hud span { font-weight: 600; font-size: 15px; }
+
+    /* ===== Marquee ===== */
+    .marquee { border-top: 1px solid var(--gray-dark); border-bottom: 1px solid var(--gray-dark); overflow: hidden; padding: 22px 0; }
+    .marquee-track {
+        display: flex; width: max-content; animation: marquee 38s linear infinite;
+        font-family: var(--display); font-size: 34px; letter-spacing: 0.025em; line-height: 1; white-space: nowrap; text-transform: uppercase;
+    }
+    .marquee-track span { padding-right: 56px; }
+    .marquee-track .slash { color: var(--red); }
+    @keyframes marquee { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+
+    /* ===== What we deliver ===== */
+    .section { padding: 128px 32px; }
+    .deliver-head { display: flex; flex-direction: column; gap: 20px; }
+    .deliver h2 { font-size: clamp(44px, 5vw, 64px); }
+    .deliver-intro { margin: 44px 0 64px; max-width: 900px; color: rgba(255,255,255,.78); }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 20px; }
+    .card {
+        position: relative; display: flex; flex-direction: column; gap: 20px; padding: 36px 30px 40px;
+        border: 1px solid var(--gray-dark); border-radius: 6px; background: var(--charcoal); overflow: hidden;
+        transition: border-color .25s, transform .25s, background-color .25s;
+    }
+    .card::before { content: ""; position: absolute; left: 0; top: 0; height: 3px; width: 48px; background: var(--red); transition: width .35s ease; }
+    .card:hover { border-color: var(--gray); transform: translateY(-4px); background: var(--charcoal-hover); }
+    .card:hover::before { width: 100%; }
+    .card svg { width: 44px; height: 44px; }
+    .card h3 { margin: 0; font-weight: 600; font-size: 22px; line-height: 1.3; }
+    .card p { margin: 0; font-size: 15px; color: rgba(255,255,255,.76); }
+
+    /* ===== Showcase ===== */
+    .showcase { padding: 0 32px 128px; }
+    .showcase .wrap { display: flex; flex-wrap: wrap; gap: 56px; align-items: center; }
+    .scan-frame { flex: 1 1 560px; min-width: 0; position: relative; border-radius: 6px; overflow: hidden; border: 1px solid var(--gray-dark); }
+    .scan-frame img { display: block; width: 100%; height: 460px; object-fit: cover; }
+    .corners { position: absolute; inset: 16px; pointer-events: none; }
+    .corners span { position: absolute; width: 28px; height: 28px; border: 0 solid var(--white); }
+    .corners span:nth-child(1) { left: 0; top: 0; border-left-width: 2px; border-top-width: 2px; }
+    .corners span:nth-child(2) { right: 0; top: 0; border-right-width: 2px; border-top-width: 2px; }
+    .corners span:nth-child(3) { left: 0; bottom: 0; border-left-width: 2px; border-bottom-width: 2px; }
+    .corners span:nth-child(4) { right: 0; bottom: 0; border-right-width: 2px; border-bottom-width: 2px; }
+    .anomaly {
+        position: absolute; left: 32px; bottom: 32px; display: inline-flex; align-items: center; gap: 10px;
+        padding: 10px 14px; background: rgba(34,32,33,.86); border-radius: 4px;
+        font-weight: 600; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .anomaly::before { content: ""; width: 8px; height: 8px; background: var(--red); }
+    .showcase-copy { flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 28px; }
+    .showcase-copy h2 { font-size: clamp(44px, 4.5vw, 62px); }
+    .checks { margin: 0; padding: 0; list-style: none; }
+    .checks li { display: flex; gap: 16px; align-items: flex-start; padding: 18px 0; border-top: 1px solid var(--gray-dark); font-weight: 600; }
+    .checks li:last-child { border-bottom: 1px solid var(--gray-dark); }
+    .checks svg { width: 22px; height: 22px; flex-shrink: 0; margin-top: 3px; }
+
+    /* ===== Process (light) ===== */
+    .process { background: var(--off-white); color: var(--charcoal); }
+    .process .eyebrow { color: var(--red); }
+    .process-head { display: flex; flex-direction: column; gap: 20px; max-width: 720px; margin-bottom: 64px; }
+    .process h2 { font-size: clamp(52px, 6vw, 84px); }
+    .process-lede { margin: 0; color: var(--gray-dark); max-width: 560px; font-weight: 700; text-transform: uppercase; }
+    .steps {
+        margin: 0; padding: 0; list-style: none; display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); border-top: 2px solid var(--charcoal);
+    }
+    .steps li { padding: 32px 28px 8px 0; display: flex; flex-direction: column; gap: 14px; }
+    .step-num { font-weight: 700; font-size: 48px; line-height: 1; letter-spacing: -0.01em; color: var(--red); }
+    .steps h3 { margin: 0; font-weight: 600; font-size: 22px; line-height: 1.3; }
+    .steps p { margin: 0; font-size: 15px; color: var(--gray-dark); max-width: 360px; }
+    .step-video { margin-top: auto; padding-top: 14px; }
+
+    /* Video slot: placeholder until a Vimeo ID (data-vimeo) or file (data-src) is set */
+    .video-slot {
+        position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 6px; overflow: hidden;
+        background: var(--charcoal) center / cover no-repeat; border: 1px solid var(--gray-light);
+    }
+    .video-slot iframe, .video-slot video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: cover; background: var(--charcoal); }
+    .video-slot .play {
+        position: absolute; inset: 0; width: 100%; height: 100%; border: 0; padding: 0; margin: 0;
+        background: rgba(34,32,33,.28); cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    .video-slot .play span {
+        width: 68px; height: 68px; border-radius: 50%; background: var(--red);
+        display: flex; align-items: center; justify-content: center; transition: transform .2s;
+    }
+    .video-slot .play:hover span { transform: scale(1.08); }
+    .video-slot .play svg { width: 26px; height: 26px; }
+    .video-slot.pending .play { cursor: default; }
+    .video-slot.pending .play span { background: var(--gray-dark); }
+    .video-slot .soon {
+        position: absolute; left: 14px; bottom: 12px; font-size: 11px; font-weight: 600;
+        letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,.7);
+    }
+
+    /* ===== Stats ===== */
+    .stats { padding: 96px 32px; background: var(--white); color: var(--charcoal); border-bottom: 1px solid #DFDFDF; }
+    .stats .wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px; }
+    .stat { display: flex; flex-direction: column; gap: 10px; padding-left: 24px; border-left: 3px solid var(--red); }
+    .stat strong { font-weight: 700; font-size: 56px; line-height: 1; letter-spacing: -0.01em; }
+    .stat span { font-size: 15px; color: var(--gray-dark); }
+
+    /* ===== Water intrusion ===== */
+    .intrusion .wrap { display: flex; flex-wrap: wrap; gap: 48px; }
+    .intrusion-copy { flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 20px; align-self: center; }
+    .intrusion h2 { font-size: clamp(56px, 6vw, 74px); }
+    .intrusion-copy p { margin: 0; max-width: 440px; color: rgba(255,255,255,.78); }
+    .culprits { flex: 3 1 640px; min-width: 0; align-self: center; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .culprit { position: relative; margin: 0; padding-top: 22px; }
+    .culprit figcaption {
+        position: relative; background: var(--red); color: var(--white); text-align: center;
+        font-weight: 600; font-size: 17px; line-height: 1.2; padding: 26px 10px 16px;
+    }
+    .culprit .num {
+        position: absolute; left: 50%; top: -22px; transform: translateX(-50%);
+        width: 44px; height: 44px; border-radius: 50%; background: var(--white); border: 3px solid var(--red);
+        color: var(--red); font-family: var(--display); font-size: 30px; line-height: 40px; text-align: center;
+    }
+    .culprit img { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; background: var(--white); }
+
+    /* ===== Contact ===== */
+    .contact { padding: 0 32px 128px; }
+    .contact-box { position: relative; border: 1px solid var(--gray-dark); border-radius: 8px; overflow: hidden; background: var(--charcoal-deep); }
+    .contact-box::before { content: ""; position: absolute; left: 0; top: 0; right: 0; height: 3px; background: var(--red); }
+    .contact-inner { display: flex; flex-wrap: wrap; gap: 56px; padding: 72px clamp(24px, 5vw, 72px); }
+    .contact-copy { flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 22px; }
+    .contact h2 { font-size: clamp(52px, 5.5vw, 76px); }
+    .contact-lines { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; font-size: 15px; }
+    .contact-lines a { text-decoration: none; display: inline-flex; gap: 12px; align-items: center; }
+    .contact-lines svg { width: 20px; height: 20px; flex-shrink: 0; }
+    .contact form { flex: 1 1 460px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+    .field { display: flex; flex-direction: column; gap: 8px; }
+    .field.full, .form-actions { grid-column: 1 / -1; }
+    .field label { font-weight: 600; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .input {
+        min-height: 52px; padding: 0 16px; background: var(--charcoal); border: 1px solid var(--gray-dark);
+        border-radius: 4px; color: var(--white); font-family: var(--body); font-size: 15px; transition: border-color .2s;
+    }
+    textarea.input { padding: 14px 16px; line-height: 1.5; resize: vertical; }
+    .input:focus { outline: none; border-color: var(--white); }
+    .input::placeholder { color: var(--gray); }
+    .form-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; }
+    .form-actions .btn { padding: 0 32px; }
+    .sent { font-size: 14px; display: none; align-items: center; gap: 8px; }
+    .sent.show { display: inline-flex; }
+
+    /* ===== Footer ===== */
+    .site-footer { padding: 72px 32px 40px; background: var(--charcoal-deep); border-top: 1px solid var(--gray-dark); }
+    .footer-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 48px; margin-bottom: 56px; }
+    .footer-brand { display: flex; flex-direction: column; gap: 20px; padding: 20px; }
+    .footer-brand img { width: 300px; max-width: 100%; height: auto; display: block; }
+    .footer-brand p { margin: 0; font-size: 16px; line-height: 1.3; }
+    .footer-cols { display: flex; flex-wrap: wrap; gap: 64px; padding-top: 20px; }
+    .footer-cols div { display: flex; flex-direction: column; gap: 14px; font-size: 15px; }
+    .footer-cols strong { font-weight: 600; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .footer-cols a, .footer-cols span { text-decoration: none; opacity: .72; }
+    .footer-cols a:hover { opacity: 1; }
+    .footer-bottom {
+        display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; padding-top: 24px;
+        border-top: 1px solid var(--gray-dark); font-size: 14px; line-height: 1.5; color: rgba(255,255,255,.66);
+    }
+
+    /* Version switch (bottom-left of hero), shared with index.html */
+    .version-switch { position: absolute; bottom: 20px; left: 20px; z-index: 20; display: flex; gap: 8px; }
+    .version-switch a {
+        background: rgba(34,32,33,0.6); border: 1px solid rgba(255,255,255,0.3); color: var(--white);
+        font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none;
+        padding: 8px 14px; border-radius: 20px; backdrop-filter: blur(6px); transition: background .2s, border-color .2s;
+    }
+    .version-switch a:hover { border-color: var(--white); }
+    .version-switch a.active { background: var(--red); border-color: var(--red); }
+
+    @media (max-width: 900px) {
+        .site-nav { display: none; }
+        .section { padding: 88px 24px; }
+        .showcase, .contact { padding-left: 24px; padding-right: 24px; }
+        .scan-frame img { height: 300px; }
+    }
+    @media (max-width: 600px) {
+        .site-header { padding: 16px; }
+        .site-header .logo { padding: 0; }
+        .site-header .logo img { height: 40px; }
+        .site-header .btn { min-height: 42px; padding: 0 16px; font-size: 13px; }
+        .hero { min-height: 760px; }
+        .hero-content { padding: 24px 16px 72px; }
+        .hero-sub { font-size: 17px; }
+        .marquee-track { font-size: 28px; }
+        .section, .stats { padding: 72px 16px; }
+        .showcase, .contact { padding: 0 16px 72px; }
+        .culprits { grid-template-columns: 1fr; gap: 40px; }
+        .site-footer { padding: 56px 16px 32px; }
+        .version-switch { left: 12px; bottom: 12px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .scanline, .marquee-track, .blink { animation: none; }
+    }
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<section id="top" class="hero">
+    <video id="heroVideo" class="hero-video" muted playsinline autoplay loop preload="auto" poster="./assets/hero-aerial-poster.jpg" aria-hidden="true"></video>
+    <div class="hero-shade"></div>
+    <div class="hero-shade-bottom"></div>
+    <div class="hero-shade-top"></div>
+    <div class="scanline"></div>
+
+    <header class="site-header">
+        <a class="logo" href="#top" aria-label="Legacy Technology Lab home">
+            <img src="./assets/logos/LTL_Horizontal_White_RGB.svg" alt="Legacy Technology Lab">
+        </a>
+        <nav class="site-nav" aria-label="Primary">
+            <a href="#services">Services</a>
+            <a href="#process">Process</a>
+            <a href="#industries">Industries</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <a href="#contact" class="btn btn-red">Request a scan</a>
+    </header>
+
+    <div class="hero-content">
+        <div class="eyebrow hero-tag">
+            <span>Proprietary penetrative imaging</span>
+            <span class="pill"><span class="blink"></span>Thermal scan</span>
+        </div>
+        <h1 class="display">Every roof.<br>Every portfolio.</h1>
+        <p class="hero-sub">Thermal drone scans and 3D digital twins that reveal moisture, heat loss and membrane wear across your whole portfolio — before a soft spot becomes a leak.</p>
+        <div class="hero-ctas">
+            <a href="#contact" class="btn btn-red">
+                <span>Request a meeting</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+            </a>
+            <a href="#process" class="btn btn-ghost">See how it works</a>
+        </div>
+        <div class="hud">
+            <div><small>TruScore</small><span>ORGANIZED EVIDENCE</span></div>
+            <div><small>MicroShield</small><span>Extending Roof Life</span></div>
+            <div><small>Ascend</small><span>Better Roof Replacements</span></div>
+            <div><small>Collaboration</small><span>We're Building an Ecosystem</span></div>
+        </div>
+    </div>
+
+    <div class="version-switch">
+        <a href="./">V1 Creative</a>
+        <a href="./?v=2">V2 Brand Strict</a>
+        <a href="./v3.html" class="active">V3</a>
+    </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" aria-hidden="true">
+    <div class="marquee-track" id="marqueeTrack">
+        <span>Penetrative scanning</span><span class="slash">/</span>
+        <span>Data driven</span><span class="slash">/</span>
+        <span>Rapid deployment</span><span class="slash">/</span>
+        <span>Non destructive</span><span class="slash">/</span>
+        <span>Early detection</span><span class="slash">/</span>
+        <span>Thermal imaging</span><span class="slash">/</span>
+        <span>Moisture mapping</span><span class="slash">/</span>
+        <span>Digital twins</span><span class="slash">/</span>
+        <span>Portfolio reporting</span><span class="slash">/</span>
+        <span>Capital planning</span><span class="slash">/</span>
+    </div>
+</div>
+
+<!-- ============ WHAT WE DELIVER ============ -->
+<section id="services" class="section deliver">
+    <div class="wrap">
+        <div class="deliver-head">
+            <div class="eyebrow">What we deliver</div>
+            <h2 class="display">Micro repairs vs macro replacements</h2>
+        </div>
+        <p class="deliver-intro">Legacy becomes clients' centralized solution to detect hidden roof issues before they become costly failures, enabling smarter repairs, longer roof life, lower capital costs, and data-driven decisions.</p>
+        <div class="cards">
+            <article class="card">
+                <svg viewBox="0 0 48 48" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 8a4 4 0 0 1 8 0v20a8 8 0 1 1-8 0z"/><circle cx="24" cy="34" r="3" fill="#C61520" stroke="#C61520"/><path d="M24 31V18" stroke="#C61520"/><path d="M34 12h6M34 18h4M34 24h6"/></svg>
+                <h3>Data Driven<br>Analysis</h3>
+                <p>Legacy Technology Lab identifies areas of concern including surface wear, membrane breaches, ponding, and parapet wall issues.</p>
+            </article>
+            <article class="card">
+                <svg viewBox="0 0 48 48" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 6c7 9 12 15 12 22a12 12 0 0 1-24 0c0-7 5-13 12-22z"/><path d="M18 30a6 6 0 0 0 6 6" stroke="#C61520"/><path d="M6 42h36"/></svg>
+                <h3>Proactive<br>Maintenance</h3>
+                <p>Legacy provides ongoing monitoring and maintenance to prevent issues, extend roof life, and protect asset value.</p>
+            </article>
+            <article class="card">
+                <svg viewBox="0 0 48 48" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 6l16 9v18l-16 9-16-9V15z"/><path d="M8 15l16 9 16-9"/><path d="M24 24v18" stroke="#C61520"/></svg>
+                <h3>Custom Solution<br>Plan</h3>
+                <p>Legacy develops a tailored maintenance and restoration plan to extend roof life and optimize performance.</p>
+            </article>
+            <article class="card">
+                <svg viewBox="0 0 48 48" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6h18l8 8v28H12z"/><path d="M30 6v8h8"/><path d="M18 36v-6M24 36V24M30 36v-9" stroke="#C61520"/></svg>
+                <h3>Measurable<br>Results</h3>
+                <p>Legacy delivers immediate savings, improved NOI, asset value increase, and a strong return on investment.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- ============ SHOWCASE ============ -->
+<section class="showcase">
+    <div class="wrap">
+        <div class="scan-frame">
+            <img src="./assets/hero-aerial-poster.jpg" alt="Thermal heat map overlaid on a commercial roof, captured by drone">
+            <div class="corners"><span></span><span></span><span></span><span></span></div>
+            <div class="anomaly">Anomaly flagged · [Zone ID]</div>
+        </div>
+        <div class="showcase-copy">
+            <div class="eyebrow">The Legacy advantage</div>
+            <h2 class="display">Real data - proven results</h2>
+            <ul class="checks">
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="#C61520" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L19 7"/></svg><span>Identifies trapped moisture and air pockets.</span></li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="#C61520" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L19 7"/></svg><span>Detects hidden voids and incomplete fusion</span></li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="#C61520" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L19 7"/></svg><span>Confirms proper insulation &amp; cover board adhesion</span></li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="#C61520" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L19 7"/></svg><span>Creates a permanent digital record for owners and insurers.</span></li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section id="process" class="section process">
+    <div class="wrap">
+        <div class="process-head">
+            <div class="eyebrow">How it works</div>
+            <h2 class="display">3 - Stage service model</h2>
+            <p class="process-lede">The future of commercial roofing is no longer finding leaks. It's preventing them.</p>
+        </div>
+        <!--
+            Step videos: set data-vimeo="123456789" (Vimeo video ID) or data-src="./assets/step-1.mp4"
+            on a .video-slot, plus optional data-poster="./assets/step-1.jpg". Empty = "coming soon" placeholder.
+        -->
+        <ol class="steps">
+            <li>
+                <span class="step-num">01</span>
+                <h3>Initial Physical Assessment</h3>
+                <p>Thermal imaging, RTK positioning, and RGB drone imaging, followed by penetrative scanning of specific hotspots</p>
+                <div class="step-video"><div class="video-slot" data-title="Initial Physical Assessment" data-vimeo="" data-src="" data-poster=""></div></div>
+            </li>
+            <li>
+                <span class="step-num">02</span>
+                <h3>Preventative Maintenance</h3>
+                <p>Customized monitoring via geo-mapping of those exact hotspots to track roof conditions over time</p>
+                <div class="step-video"><div class="video-slot" data-title="Preventative Maintenance" data-vimeo="" data-src="" data-poster=""></div></div>
+            </li>
+            <li>
+                <span class="step-num">03</span>
+                <h3>Fulfillment</h3>
+                <p>Management of all repairs and replacements if needed, plus seam weld verification, reporting, documentation, transparency, and historical recordkeeping via the portal</p>
+                <div class="step-video"><div class="video-slot" data-title="Fulfillment" data-vimeo="" data-src="" data-poster=""></div></div>
+            </li>
+        </ol>
+    </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<section class="stats">
+    <div class="wrap">
+        <div class="stat"><strong>3"</strong><span>Full Weld Width Verification</span></div>
+        <div class="stat"><strong>3B+</strong><span>Square feet managed</span></div>
+        <div class="stat"><strong>80%</strong><span>Of roofs don't need replacement</span></div>
+        <div class="stat"><strong>8"</strong><span>Visibility beneath surface</span></div>
+    </div>
+</section>
+
+<!-- ============ WATER INTRUSION ============ -->
+<section id="industries" class="section intrusion">
+    <div class="wrap">
+        <div class="intrusion-copy">
+            <div class="eyebrow">The top 3</div>
+            <h2 class="display">Water intrusion points</h2>
+            <p>The majority of water intrusion originates from just 3 locations.</p>
+        </div>
+        <div class="culprits">
+            <figure class="culprit">
+                <figcaption><span class="num">1</span>Overlap Seams (Heat Welds)</figcaption>
+                <img src="./assets/culprit-overlap-seams.png" alt="Cutaway showing counterflashing, termination bar, fasteners, sealant and TPO membrane">
+            </figure>
+            <figure class="culprit">
+                <figcaption><span class="num">2</span>Penetration Flashings</figcaption>
+                <img src="./assets/culprit-penetration-flashings.png" alt="Cutaway of a pipe penetration with flashing boot, sealant and TPO membrane">
+            </figure>
+            <figure class="culprit">
+                <figcaption><span class="num">3</span>Perimeter &amp; Termination</figcaption>
+                <img src="./assets/culprit-perimeter-termination.png" alt="Cutaway of an overlapping TPO membrane, heat-welded seam and an incomplete weld void">
+            </figure>
+        </div>
+    </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="contact">
+    <div class="wrap contact-box">
+        <div class="contact-inner">
+            <div class="contact-copy">
+                <div class="eyebrow">The Legacy advantage</div>
+                <h2 class="display">Your end to end<br>trusted partner</h2>
+                <div class="contact-lines">
+                    <a href="mailto:Info@LegacyTechnologyLab.com">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#C61520" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+                        Info@LegacyTechnologyLab.com
+                    </a>
+                    <a href="tel:+14054422120">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#C61520" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+                        405-442-2120
+                    </a>
+                </div>
+            </div>
+            <form id="contactForm">
+                <div class="field">
+                    <label for="ltl-name">Name</label>
+                    <input id="ltl-name" class="input" type="text" placeholder="Full name" required>
+                </div>
+                <div class="field">
+                    <label for="ltl-email">Work email</label>
+                    <input id="ltl-email" class="input" type="email" placeholder="you@company.com" required>
+                </div>
+                <div class="field">
+                    <label for="ltl-company">Company</label>
+                    <input id="ltl-company" class="input" type="text" placeholder="Organization">
+                </div>
+                <div class="field">
+                    <label for="ltl-count">Number of properties</label>
+                    <select id="ltl-count" class="input">
+                        <option>1–5</option>
+                        <option>6–25</option>
+                        <option>26–100</option>
+                        <option>100+</option>
+                    </select>
+                </div>
+                <div class="field full">
+                    <label for="ltl-notes">What are you seeing?</label>
+                    <textarea id="ltl-notes" class="input" rows="4" placeholder="Leaks, pooling, insurance claim, inspection…"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-red">
+                        <span>Request meeting</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+                    </button>
+                    <span class="sent" id="sentMsg" role="status">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L19 7"/></svg>
+                        Thanks — we'll be in touch shortly.
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+    <div class="wrap">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <img src="./assets/logos/LTL_Horizontal_WhiteRed_RGB.svg" alt="Legacy Technology Lab">
+                <p>Repair Precisely. Extend Roof Life. Preserve Capital.</p>
+            </div>
+            <div class="footer-cols">
+                <nav aria-label="Footer">
+                    <div>
+                        <strong>Explore</strong>
+                        <a href="#services">Services</a>
+                        <a href="#process">Process</a>
+                        <a href="#industries">Industries</a>
+                        <a href="#contact">Contact</a>
+                    </div>
+                </nav>
+                <div>
+                    <strong>Contact</strong>
+                    <a href="tel:+14054422120">405-442-2120</a>
+                    <a href="mailto:Info@LegacyTechnologyLab.com">Info@LegacyTechnologyLab.com</a>
+                    <span>[City, State]</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 Legacy Technology Lab. All rights reserved.</span>
+            <span>Privacy Policy - Terms</span>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Hero video: smaller file on phones
+    const heroVideo = document.getElementById('heroVideo');
+    heroVideo.src = matchMedia('(max-width: 768px)').matches ? './assets/hero-aerial-mobile.mp4' : './assets/hero-aerial.mp4';
+    heroVideo.play().catch(() => {});
+
+    // Marquee: duplicate the items so the -50% loop is seamless
+    const track = document.getElementById('marqueeTrack');
+    track.innerHTML += track.innerHTML;
+
+    // Step videos: Vimeo embed, local file, or "coming soon" placeholder
+    const playIcon = '<span><svg viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span>';
+    const slots = document.querySelectorAll('.video-slot');
+    function pauseOthers(current) {
+        slots.forEach(s => {
+            if (s === current) return;
+            const v = s.querySelector('video');
+            if (v) v.pause();
+            const f = s.querySelector('iframe');
+            if (f) f.contentWindow.postMessage('{"method":"pause"}', '*');
+        });
+    }
+    slots.forEach(slot => {
+        const { title, vimeo, src, poster } = slot.dataset;
+        if (poster) slot.style.backgroundImage = `url("${poster}")`;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'play';
+        btn.innerHTML = playIcon;
+
+        if (!vimeo && !src) {
+            slot.classList.add('pending');
+            btn.disabled = true;
+            btn.setAttribute('aria-label', `Video coming soon: ${title}`);
+            slot.append(btn);
+            slot.insertAdjacentHTML('beforeend', '<span class="soon">Video coming soon</span>');
+            return;
+        }
+
+        btn.setAttribute('aria-label', `Play video: ${title}`);
+        btn.addEventListener('click', () => {
+            pauseOthers(slot);
+            if (vimeo) {
+                const f = document.createElement('iframe');
+                f.src = `https://player.vimeo.com/video/${vimeo}?autoplay=1&title=0&byline=0&portrait=0`;
+                f.allow = 'autoplay; fullscreen; picture-in-picture';
+                f.allowFullscreen = true;
+                f.title = title;
+                slot.append(f);
+                btn.remove();
+            } else {
+                let v = slot.querySelector('video');
+                if (!v) {
+                    v = document.createElement('video');
+                    v.src = src;
+                    if (poster) v.poster = poster;
+                    v.controls = true;
+                    v.playsInline = true;
+                    v.setAttribute('aria-label', `Video: ${title}`);
+                    v.addEventListener('play', () => { pauseOthers(slot); btn.hidden = true; });
+                    v.addEventListener('pause', () => { btn.hidden = false; });
+                    slot.prepend(v);
+                }
+                v.play().catch(() => {});
+            }
+        });
+        slot.append(btn);
+    });
+
+    // Contact form: no backend yet, show confirmation
+    document.getElementById('contactForm').addEventListener('submit', e => {
+        e.preventDefault();
+        document.getElementById('sentMsg').classList.add('show');
+    });
+</script>
+</body>
+</html>
